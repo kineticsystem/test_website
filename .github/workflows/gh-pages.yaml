@@ -17,8 +17,6 @@ jobs:
     # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages.
     permissions:
       contents: write
-      pages: write
-      id-token: write
 
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
