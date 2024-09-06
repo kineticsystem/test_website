@@ -1,4 +1,4 @@
-# Contact Rich Manipulation  <!-- omit from toc -->
+# itHub pages example  <!-- omit from toc -->
 
 ## Table of Contents   <!-- omit from toc -->
 - [Introduction](#introduction)
@@ -14,7 +14,7 @@
 
 ## Introduction
 
-This is a dynamic website to host the research paper and all datasets related to the project Contact Rich Manipulation.
+This is a dynamic website to be deployed on GitHub pages.
 
 ## Development infrastructure
 
