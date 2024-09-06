@@ -1,4 +1,4 @@
-# itHub pages example  <!-- omit from toc -->
+# GitHub pages example  <!-- omit from toc -->
 
 ## Table of Contents   <!-- omit from toc -->
 - [Introduction](#introduction)
