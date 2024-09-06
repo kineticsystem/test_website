@@ -10,6 +10,7 @@
   - [vite](#vite)
 - [How to run the website locally](#how-to-run-the-website-locally)
 - [Project structure](#project-structure)
+- [How to deploy the website](#how-to-deploy-the-website)
 
 ## Introduction
 
@@ -30,7 +31,6 @@ Using Node.js allows us to easily manage dependencies for our React project.
 To install it, follow this tutorial:
 
 https://github.com/nvm-sh/nvm#install--update-script
-
 
 To install the LTS version of Node.js, run these commands:
 
@@ -92,3 +92,9 @@ pnpm dev
 
 * `.prettierrc`\
   This is a configuration file used by Prettier, an opinionated code formatter that ensures consistent formatting for your code.
+
+## How to deploy the website
+
+The website will be deployed at the following URL:
+
+ https://crm.github.io
