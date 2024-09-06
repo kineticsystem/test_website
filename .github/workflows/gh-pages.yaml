@@ -23,9 +23,13 @@ concurrency:
 jobs:
 
   gh-pages:
+
+    # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages.
     permissions:
       contents: write
+
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         node-version: [18]
@@ -59,3 +63,6 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: dist
+
+    - name: Print GitHub Pages URL
+      run: echo "Your site is deployed at https://$GITHUB_REPOSITORY_OWNER.github.io/$GITHUB_REPOSITORY"
