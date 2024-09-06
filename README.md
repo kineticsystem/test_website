@@ -97,4 +97,4 @@ pnpm dev
 
 The website will be deployed at the following URL:
 
- https://crm.github.io
+ https://kineticsystem.github.io
