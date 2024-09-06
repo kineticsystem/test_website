@@ -22,11 +22,13 @@ concurrency:
 
 jobs:
 
-  deploy:
+  gh-pages:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         node-version: [18]
+
     steps:
 
     - name: Checkout code
@@ -52,4 +54,4 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
+        publish_dir: dist
