@@ -1,4 +1,9 @@
+
 # GitHub pages example  <!-- omit from toc -->
+
+[![ProjectPage](https://img.shields.io/badge/Project-Page-Green)](https://kineticsystem.github.io)
+[![CI](https://github.com/kineticsystem/test_website/actions/workflows/deploy.yaml/badge.svg)](https://github.com/kineticsystem/test_website/actions/workflows/deploy.yaml)
+
 
 ## Table of Contents   <!-- omit from toc -->
 - [Introduction](#introduction)

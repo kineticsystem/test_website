@@ -1,5 +1,5 @@
 # Deploy a REACT website to GitHub Pages.
-name: Deploy content to Pages
+name: GitHub Pages
 
 on:
   # Runs on pushes targeting the default branch
