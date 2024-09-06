@@ -15,18 +15,18 @@ jobs:
         node-version: [18]
     steps:
 
-    - name: Checkout
+    - name: Checkout code
       uses: actions/checkout@v3
-
-    - uses: pnpm/action-setup@v2
-      with:
-        version: 7
 
     - name: Setup Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'pnpm'
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 7
 
     - name: Install dependencies
       run: pnpm install
