@@ -6,6 +6,12 @@ on:
     branches:
       - main # Set a branch name to trigger deployment.
 
+# Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
 
   build:
