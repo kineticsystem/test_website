@@ -1,4 +1,17 @@
-# Contact Rich Manipulation
+# Contact Rich Manipulation  <!-- omit from toc -->
+
+## Table of Contents   <!-- omit from toc -->
+- [Introduction](#introduction)
+- [Development infrastructure](#development-infrastructure)
+  - [Node.js](#nodejs)
+  - [nvm](#nvm)
+  - [npm](#npm)
+  - [pnpm](#pnpm)
+  - [vite](#vite)
+- [How to run the website locally](#how-to-run-the-website-locally)
+- [Project structure](#project-structure)
+
+## Introduction
 
 This is a dynamic website to host the research paper and all datasets related to the project Contact Rich Manipulation.
 
