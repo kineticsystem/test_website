@@ -26,25 +26,25 @@ function App() {
                 <div className="is-size-5 publication-authors">
                   <span className="author-block">
                     Eliza M. Thornton
-                    <sup>1,2</sup>,
+                    <sup>1,2</sup>,&nbsp;
                   </span>
                   <span className="author-block">
                     <a href="#" target="_blank">
                       Jonathan R. Wexler
-                      <sup>1</sup>,
+                      <sup>1</sup>,&nbsp;
                     </a>
                   </span>
                   <span className="author-block">
                     Sophia Lanford
-                    <sup>1</sup>,
+                    <sup>1</sup>,&nbsp;
                   </span>
                   <span className="author-block">
                     Marina Fenwick
-                    <sup>1</sup>,
+                    <sup>1</sup>,&nbsp;
                   </span>
                   <span className="author-block">
                     Felix P. Nightingale
-                    <sup>1</sup>,
+                    <sup>1</sup>
                   </span>
                 </div>
 
