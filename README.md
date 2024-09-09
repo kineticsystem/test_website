@@ -82,9 +82,11 @@ pnpm dev
 
 ## Project layout
 
-* **public:** This folder contains static assets used by the website such as images or HTML files.
+* **dist/:** This folder contains the production-ready, compiled output of your project. After building the project (usually with Vite or another build tool), all the files required for deployment, including optimized JavaScript, CSS, and other assets, are placed in this directory. This is the folder that gets served to users in a live environment, such as GitHub Pages.
 
-* **src:** This folder contains the React application's source code.
+* **public/:** This folder contains static assets used by the website such as images or HTML files.
+
+* **src/:** This folder contains the React application's source code.
 
 * **.env:** This file is used to define environment variables.
 
