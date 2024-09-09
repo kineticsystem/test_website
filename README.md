@@ -14,6 +14,7 @@
   - [pnpm](#pnpm)
   - [Vite](#vite)
 - [How to build and run the website locally](#how-to-build-and-run-the-website-locally)
+- [Extra packages](#extra-packages)
 - [Development tools](#development-tools)
 - [Project layout](#project-layout)
 
@@ -77,7 +78,32 @@ To install all required dependencies and run the website run the following comma
 
 ```bash
 pnpm install
+pnpm build
 pnpm dev
+```
+
+- **pnpm install:** This is for setting up the environment and downloading all required packages.
+
+- **pnpm build:** This is only necessary when preparing for production deployment. During development, you generally don't need to run it unless you want to test a production build.
+
+- **pnpm dev** This is sufficient for running your app in development mode after installing dependencies.
+
+## Extra packages
+
+The typical way to add additional packages to the react project is using the following command:
+
+```bash
+pnpm add <package>
+```
+
+For example:
+
+```bash
+pnpm add @fortawesome/fontawesome-svg-core
+pnpm add @fortawesome/free-brands-svg-icons
+pnpm add @fortawesome/free-solid-svg-icons
+pnpm add @fortawesome/react-fontawesome
+pnpm add jpswalsh/academicons
 ```
 
 ## Development tools

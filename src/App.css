@@ -3,40 +3,32 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  line-height: 1.5;
+  font-family: "Noto Sans", sans-serif;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.link-block a {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin: 3px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.publication-title {
+  font-family: "Google Sans", sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.publication-authors {
+  font-family: "Google Sans", sans-serif;
 }
 
-.card {
-  padding: 2em;
+.publication-authors a {
+  color: hsl(204, 86%, 53%) !important;
 }
 
-.read-the-docs {
-  color: #888;
+.publication-authors a:hover {
+  text-decoration: underline;
+}
+
+.author-block {
+  display: inline-block;
 }

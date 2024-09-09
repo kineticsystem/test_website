@@ -14,12 +14,12 @@ importers:
       '@fortawesome/free-brands-svg-icons':
         specifier: ^6.6.0
         version: 6.6.0
-      '@fortawesome/free-solid-svg-icons':
-        specifier: ^6.6.0
-        version: 6.6.0
       '@fortawesome/react-fontawesome':
         specifier: ^0.2.2
         version: 0.2.2(@fortawesome/fontawesome-svg-core@6.6.0)(react@18.3.1)
+      academicons:
+        specifier: github:jpswalsh/academicons
+        version: https://codeload.github.com/jpswalsh/academicons/tar.gz/928adc2e3a82fae2c6e61a0110f54ba1ec73ba6a
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -334,10 +334,6 @@ packages:
     resolution: {integrity: sha512-1MPD8lMNW/earme4OQi1IFHtmHUwAKgghXlNwWi9GO7QkTfD+IIaYpIai4m2YJEzqfEji3jFHX1DZI5pbY/biQ==}
     engines: {node: '>=6'}
 
-  '@fortawesome/free-solid-svg-icons@6.6.0':
-    resolution: {integrity: sha512-IYv/2skhEDFc2WGUcqvFJkeK39Q+HyPf5GHUrT/l2pKbtgEIv1al1TKd6qStR5OIwQdN1GZP54ci3y4mroJWjA==}
-    engines: {node: '>=6'}
-
   '@fortawesome/react-fontawesome@0.2.2':
     resolution: {integrity: sha512-EnkrprPNqI6SXJl//m29hpaNzOp1bruISWaOiRtkMi/xSvHJlzc2j2JAYS7egxt/EbjSNV/k6Xy0AQI6vB2+1g==}
     peerDependencies:
@@ -548,6 +544,10 @@ packages:
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0
+
+  academicons@https://codeload.github.com/jpswalsh/academicons/tar.gz/928adc2e3a82fae2c6e61a0110f54ba1ec73ba6a:
+    resolution: {tarball: https://codeload.github.com/jpswalsh/academicons/tar.gz/928adc2e3a82fae2c6e61a0110f54ba1ec73ba6a}
+    version: 1.9.4
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -1364,10 +1364,6 @@ snapshots:
     dependencies:
       '@fortawesome/fontawesome-common-types': 6.6.0
 
-  '@fortawesome/free-solid-svg-icons@6.6.0':
-    dependencies:
-      '@fortawesome/fontawesome-common-types': 6.6.0
-
   '@fortawesome/react-fontawesome@0.2.2(@fortawesome/fontawesome-svg-core@6.6.0)(react@18.3.1)':
     dependencies:
       '@fortawesome/fontawesome-svg-core': 6.6.0
@@ -1580,6 +1576,8 @@ snapshots:
       vite: 5.4.3
     transitivePeerDependencies:
       - supports-color
+
+  academicons@https://codeload.github.com/jpswalsh/academicons/tar.gz/928adc2e3a82fae2c6e61a0110f54ba1ec73ba6a: {}
 
   acorn-jsx@5.3.2(acorn@8.12.1):
     dependencies:

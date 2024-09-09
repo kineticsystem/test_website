@@ -1,10 +1,13 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
-import "./App.css";
+
+import "academicons/css/academicons.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCube } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+
+import "./App.css";
+import "./index.css";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -17,8 +20,7 @@ function App() {
             <div className="columns is-centered">
               <div className="column has-text-centered">
                 <h1 className="title is-1 publication-title">
-                  Geodroix: Auto classification of crystalline solids using Machine
-                  Learning.
+                  Geodroix: Auto classification with Machine Learning
                 </h1>
 
                 <div className="is-size-5 publication-authors">
@@ -27,8 +29,10 @@ function App() {
                     <sup>1,2</sup>,
                   </span>
                   <span className="author-block">
-                    Jonathan R. Wexler
-                    <sup>1</sup>,
+                    <a href="#" target="_blank">
+                      Jonathan R. Wexler
+                      <sup>1</sup>,
+                    </a>
                   </span>
                   <span className="author-block">
                     Sophia Lanford
@@ -49,7 +53,7 @@ function App() {
                   {/* arxiv Link. */}
                   <span className="link-block">
                     <a
-                      href="https://arxiv.org/abs/#"
+                      href="https://arxiv.org/abs/2407.20179"
                       target="_blank"
                       className="external-link button is-normal is-rounded is-dark"
                     >
@@ -72,27 +76,17 @@ function App() {
                       <span>Code</span>
                     </a>
                   </span>
-                  {/* Hugging Face Model Weights Link. */}
+                  {/* Datasets. */}
                   <span className="link-block">
                     <a
-                      href="https://huggingface.co/#"
-                      target="_blank"
-                      className="external-link button is-normal is-rounded is-dark"
-                    >
-                      <span>Models</span>
-                    </a>
-                  </span>
-                  {/* Hugging Face Demo Link. */}
-                  <span className="link-block">
-                    <a
-                      href="https://huggingface.co/spaces/theaiinstitute/#"
+                      href="https://github.com/bdaiinstitute/#"
                       target="_blank"
                       className="external-link button is-normal is-rounded is-dark"
                     >
                       <span className="icon">
-                        <FontAwesomeIcon icon={faCube} />
+                        <FontAwesomeIcon icon={faGithub} />
                       </span>
-                      <span>Demo</span>
+                      <span>Datasets</span>
                     </a>
                   </span>
                 </div>
