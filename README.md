@@ -7,37 +7,43 @@
 
 ## Table of Contents   <!-- omit from toc -->
 - [Introduction](#introduction)
-- [Development infrastructure](#development-infrastructure)
+- [Website deployment](#website-deployment)
+- [Dependencies](#dependencies)
   - [Node.js](#nodejs)
   - [nvm](#nvm)
   - [npm](#npm)
   - [pnpm](#pnpm)
-  - [vite](#vite)
-- [How to run the website locally](#how-to-run-the-website-locally)
-- [Project structure](#project-structure)
-- [How to deploy the website](#how-to-deploy-the-website)
+  - [Vite](#vite)
+- [How to build and run the website locally](#how-to-build-and-run-the-website-locally)
+- [Project layout](#project-layout)
 
 ## Introduction
 
 This is a dynamic website to be deployed on GitHub pages.
 
-## Development infrastructure
+## Website deployment
+
+The development code for the website is maintained in the `main` branch of the project's GitHub repository, accessible at the following URL:
+
+https://kineticsystem.github.io/test_website
+
+A GitHub Action, defined in the `gh-pages.yaml` workflow file, is triggered automatically with each commit to the `main` branch. This action compiles the website and deploys the resulting code to the `gh-pages` branch.
+
+The `gh-pages` branch is utilized by GitHub Pages to host and serve the compiled website, making it publicly accessible. This setup separates the development (main branch) and deployment (gh-pages branch) processes.
+
+## Dependencies
 
 ### Node.js
 
-Node.js is an open-source, cross-platform JavaScript runtime environment that allows developers to execute JavaScript code outside of a web browser. It provides the necessary environment and tools for modern JavaScript development.
-
-Using Node.js allows us to easily manage dependencies for our React project.
+Node.js is an open-source, cross-platform JavaScript runtime environment that enables developers to execute JavaScript code outside of a web browser. It provides the essential tools for modern JavaScript development, making it easy to manage dependencies for our React project.
 
 ### nvm
 
-`nvm` (Node Version Manager) is a tool that allows you to easily install, manage, and switch between different versions of Node.js on your system.
-
-To install it, follow this tutorial:
+`nvm` (Node Version Manager) is a utility that simplifies the installation, management, and switching between different versions of Node.js. You can install nvm by following the instructions in this tutorial: 
 
 https://github.com/nvm-sh/nvm#install--update-script
 
-To install the LTS version of Node.js, run these commands:
+Once installed, you can set up the LTS version of Node.js with the following commands:
 
 ```bash
 nvm install --lts
@@ -47,59 +53,55 @@ nvm use --lts
 
 ### npm
 
-`npm` (Node Package Manager) is a tool that comes bundled with Node.js. 
-
-React and its ecosystem (libraries, plugins, etc.) are distributed through npm, which comes bundled with Node.js.
+`npm` (Node Package Manager) comes bundled with Node.js and is widely used to manage and distribute JavaScript packages. React and its related libraries are available through npm.
 
 ### pnpm
 
-`pnpm` (Performant npm) is a fast, efficient package manager for JavaScript, designed as an alternative to npm and yarn. It is also used to create, compile and run our React application locally.
-
-To install pnpm run this command:
+`pnpm` (Performant npm) is a fast and efficient package manager for JavaScript, offering an alternative to npm and yarn. It is used in this project to create, compile, and run the React application locally. To install pnpm, run the following command:
 
 ```bash
 npm install --global pnpm
 ```
 
-### vite
+### Vite
 
-`vite` is a modern build tool and development server for web applications, particularly optimized for frontend frameworks like React.
-
-This project was created using the following command:
+Vite is a modern build tool and development server optimized for frontend frameworks like React. This project was initialized using Vite with the following command:
 
 ```bash
-pnpm create vite crm --template react-ts
+pnpm create vite . --template react-ts
 ```
 
-## How to run the website locally
+## How to build and run the website locally
 
 To install all required dependencies and run the website run the following commands:
 
 ```bash
-cd crm
 pnpm install
 pnpm dev
 ```
 
-## Project structure
+## Project layout
 
-* `public`\
-  This folder contains static assets used by the website such as images or HTML files.
+* **public:** This folder contains static assets used by the website such as images or HTML files.
 
-* `src`\
-  This folder contains the React application's source code.
+* **src:** This folder contains the React application's source code.
 
-* `.env`\
-  This file is used to define environment variables.
+* **.env:** This file is used to define environment variables.
 
-* `.npmrc`\
-  This is a configuration file for npm and pnpm. It contains various settings related to npm's functionality, such as registry URLs, authentication tokens, package versioning rules, and other preferences.
+* **.npmrc:** This is a configuration file for npm and pnpm. It contains various settings related to npm's functionality, such as registry URLs, authentication tokens, package versioning rules, and other preferences.
 
-* `.prettierrc`\
-  This is a configuration file used by Prettier, an opinionated code formatter that ensures consistent formatting for your code.
+* **.prettierrc:** This is a configuration file used by Prettier, an opinionated code formatter that ensures consistent formatting for your code.
 
-## How to deploy the website
+* **eslint.config.js:** This file contains the configuration for ESLint, a static code analysis tool used to identify and fix problems in JavaScript and TypeScript code. It defines linting rules, environments, and any custom settings for code quality enforcement.
 
-The website will be deployed at the following URL:
+* **package.json:** This is the core file for managing a Node.js project. It lists the project's metadata (name, version, etc.), dependencies, scripts, and configuration for the project, including the packages required to run and build the application.
 
- https://kineticsystem.github.io
+* **pnpm-lock.yaml:** This file is automatically generated by pnpm. It locks the exact versions of dependencies used in the project, ensuring that the same dependency versions are installed each time, helping maintain consistency across different environments.
+
+* **tsconfig.app.json:** This file is a TypeScript configuration specifically for the application's code. It typically extends the base tsconfig.json and customizes settings for compiling the main application code, such as module resolution and compiler options.
+
+* **tsconfig.json:** The main TypeScript configuration file. It defines compiler options, file inclusions, and project-specific settings for TypeScript. It is often extended by other TypeScript configuration files for more specific use cases.
+
+* **tsconfig.node.json:** This configuration file is tailored for Node.js-specific code in a TypeScript project. It includes settings and compiler options that are relevant when writing Node.js scripts or server-side code.
+
+* **vite.config.ts:** This is the configuration file for Vite, the build tool and development server. It defines settings related to how Vite builds and serves the project, including plugins, paths, and optimizations tailored for your frontend framework (like React).
