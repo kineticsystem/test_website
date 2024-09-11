@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import "academicons/css/academicons.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import {
   AdaptiveDpr,
   OrbitControls,
@@ -43,11 +43,6 @@ function Box(props: BoxProps) {
 
 function App() {
   const [count, setCount] = useState(0);
-
-  const gridMaterial = new THREE.MeshBasicMaterial({
-    color: "white",
-    side: THREE.DoubleSide // Make the grid visible from both sides
-  });
 
   return (
     <>
