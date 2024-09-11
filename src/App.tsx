@@ -14,11 +14,11 @@ import {
 import "./App.css";
 import "./index.css";
 import * as THREE from "three";
-import { GridHelper } from "./components/grid-helper";
+import GridHelper from "./components/grid-helper";
 
 type BoxProps = JSX.IntrinsicElements["mesh"];
 
-function Box(props: BoxProps) {
+const Box: React.FC<BoxProps> = (props) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
@@ -39,9 +39,9 @@ function Box(props: BoxProps) {
       <meshStandardMaterial color={hovered ? "hotpink" : "orange"} />
     </mesh>
   );
-}
+};
 
-function App() {
+const App: React.FC = () => {
   const [count, setCount] = useState(0);
 
   return (
@@ -177,6 +177,6 @@ function App() {
       </div>
     </>
   );
-}
+};
 
 export default App;
