@@ -125,6 +125,8 @@ Install the following extensions in VSCode.
 
 - [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode): it is an opinionated code formatter. It enforces a consistent style by parsing your code and re-printing it with its own rules that take the maximum line length into account, wrapping code when necessary.
 
+- [React Import Sorter](https://marketplace.visualstudio.com/items?itemName=MrOnline.react-import-sorter): extension to sort imports.
+
 **Chrome**
 
 Install the following extensions in Chrome.

@@ -1,24 +1,28 @@
 import { useRef, useState } from "react";
 
-import "academicons/css/academicons.min.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import * as THREE from "three";
+
 import { Canvas } from "@react-three/fiber";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   AdaptiveDpr,
-  OrbitControls,
-  PerspectiveCamera,
   GizmoHelper,
-  GizmoViewport
+  GizmoViewport,
+  OrbitControls,
+  PerspectiveCamera
 } from "@react-three/drei";
+
+import GridHelper from "./components/grid-helper";
+
+import "academicons/css/academicons.min.css";
+
 import "./App.css";
 import "./index.css";
-import * as THREE from "three";
-import GridHelper from "./components/grid-helper";
 
 type BoxProps = JSX.IntrinsicElements["mesh"];
 
-const Box: React.FC<BoxProps> = (props) => {
+const Box = (props: BoxProps) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
@@ -41,7 +45,7 @@ const Box: React.FC<BoxProps> = (props) => {
   );
 };
 
-const App: React.FC = () => {
+const App = () => {
   const [count, setCount] = useState(0);
 
   return (
