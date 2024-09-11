@@ -15,7 +15,7 @@
   - [Vite](#vite)
 - [How to build and run the website locally](#how-to-build-and-run-the-website-locally)
 - [Extra packages](#extra-packages)
-- [Development tools](#development-tools)
+- [Development environmen](#development-environmen)
 - [Project layout](#project-layout)
 
 ## Introduction
@@ -107,7 +107,7 @@ pnpm add jpswalsh/academicons
 pnpm add three @types/three @react-three/fiber @react-three/drei
 ```
 
-## Development tools
+## Development environmen
 
 We used VSCode and Chrome to develop and test this website.
 
@@ -123,7 +123,11 @@ Install the following extensions in VSCode.
 
 - [Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense): plugin to autocomplete filenames.
 
-- [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode): it is an opinionated code formatter. It enforces a consistent style by parsing your code and re-printing it with its own rules that take the maximum line length into account, wrapping code when necessary.
+- [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode): it is an opinionated code formatter. It enforces a consistent style by parsing your code and re-printing it with its own rules that take the maximum line length into account, wrapping code when necessary. To install Prettier run:
+
+  ```bash
+  pnpm install -g prettier
+  ```
 
 - [React Import Sorter](https://marketplace.visualstudio.com/items?itemName=MrOnline.react-import-sorter): extension to sort imports.
 

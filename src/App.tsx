@@ -2,16 +2,10 @@ import { useRef, useState } from "react";
 
 import * as THREE from "three";
 
-import { Canvas } from "@react-three/fiber";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  AdaptiveDpr,
-  GizmoHelper,
-  GizmoViewport,
-  OrbitControls,
-  PerspectiveCamera
-} from "@react-three/drei";
+import { AdaptiveDpr, GizmoHelper, GizmoViewport, OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
 
 import GridHelper from "./components/grid-helper";
 
