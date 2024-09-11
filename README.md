@@ -90,13 +90,13 @@ pnpm dev
 
 ## Extra packages
 
-The typical way to add additional packages to the react project is using the following command:
+The typical way to add additional packages to the React project is using the following command:
 
 ```bash
 pnpm add <package>
 ```
 
-For example:
+For example, the following commands have been used for this project:
 
 ```bash
 pnpm add @fortawesome/fontawesome-svg-core
@@ -104,6 +104,7 @@ pnpm add @fortawesome/free-brands-svg-icons
 pnpm add @fortawesome/free-solid-svg-icons
 pnpm add @fortawesome/react-fontawesome
 pnpm add jpswalsh/academicons
+pnpm add three @types/three @react-three/fiber @react-three/drei
 ```
 
 ## Development tools

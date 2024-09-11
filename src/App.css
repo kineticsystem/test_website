@@ -32,3 +32,12 @@
 .author-block {
   display: inline-block;
 }
+
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.teaser {
+  font-family: "Google Sans", sans-serif;
+}
