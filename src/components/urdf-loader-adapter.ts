@@ -19,8 +19,7 @@ export default class URDFLoaderAdapter extends URDFLoader {
   resourcePath = "";
   requestHeader = {};
 
-  // Called each time an individual Collada file is loaded. Defaults to an
-  // empty function.
+  // Called each time an individual mesh is loaded. Defaults to an empty function.
   onMeshLoad: (obj: Object3D, err?: Error) => void = () => {};
 
   // Captures the loading status of all ongoing invocations of loadMeshCb so we
@@ -47,6 +46,9 @@ export default class URDFLoaderAdapter extends URDFLoader {
     );
   };
 
+  /**
+   * Load URDF and meshes synchronously.
+   */
   override load(
     url: string,
     onLoad: (robot: URDFRobot) => void,
@@ -56,6 +58,9 @@ export default class URDFLoaderAdapter extends URDFLoader {
     super.load(url, onLoad, onProgress, onError);
   }
 
+  /**
+   * Load URDF and meshes asynchronously.
+   */
   override loadAsync(url: string, onProgress?: (event: ProgressEvent) => void) {
     return new Promise<URDFRobot>((resolve, reject) => {
       this.load(

@@ -1,20 +1,25 @@
-import { useState } from "react";
+import { useState, Suspense } from "react";
 
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { RobotPreview } from "./components/robot-preview";
 import { RobotContextProvider } from "./context/robot-context";
-
+import { ErrorBoundary } from "react-error-boundary";
 import "academicons/css/academicons.min.css";
 
 import "./App.css";
 import "./index.css";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 const App = () => {
   const [count, setCount] = useState(0);
 
   const urdfUrl = "http://localhost:5173/test_website/robot/urdf/T12.URDF";
+
+  // Create a new QueryClient instance
+  const queryClient = new QueryClient();
 
   return (
     <>
@@ -104,9 +109,15 @@ const App = () => {
         <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
       </div>
 
-      <RobotContextProvider url={urdfUrl}>
-        <RobotPreview />
-      </RobotContextProvider>
+      <ErrorBoundary fallback={<div>Something went wrong</div>}>
+        <QueryClientProvider client={queryClient}>
+          <Suspense fallback={<div>Loading robot...</div>}>
+            <RobotContextProvider url={urdfUrl}>
+              <RobotPreview />
+            </RobotContextProvider>
+          </Suspense>
+        </QueryClientProvider>
+      </ErrorBoundary>
 
       <div className="hero teaser">
         <div className="container is-max-desktop">
