@@ -105,6 +105,8 @@ pnpm add @fortawesome/free-solid-svg-icons
 pnpm add @fortawesome/react-fontawesome
 pnpm add jpswalsh/academicons
 pnpm add three @types/three @react-three/fiber @react-three/drei
+pnpm add urdf-loader
+pnpm add react-hot-toast
 ```
 
 ## Development environmen

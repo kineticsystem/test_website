@@ -1,46 +1,20 @@
-import { useRef, useState } from "react";
-
-import * as THREE from "three";
+import { useState } from "react";
 
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { AdaptiveDpr, GizmoHelper, GizmoViewport, OrbitControls, PerspectiveCamera } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
 
-import GridHelper from "./components/grid-helper";
+import { RobotPreview } from "./components/robot-preview";
+import { RobotContextProvider } from "./context/robot-context";
 
 import "academicons/css/academicons.min.css";
 
 import "./App.css";
 import "./index.css";
 
-type BoxProps = JSX.IntrinsicElements["mesh"];
-
-const Box = (props: BoxProps) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const [hovered, setHover] = useState(false);
-  const [active, setActive] = useState(false);
-
-  // Subscribe this component to the render-loop, rotate the mesh every frame
-  //useFrame((_, delta) => (meshRef.current!.rotation.x += delta));
-
-  return (
-    <mesh
-      {...props}
-      ref={meshRef}
-      scale={active ? 1.5 : 1}
-      onClick={() => setActive(!active)}
-      onPointerOver={() => setHover(true)}
-      onPointerOut={() => setHover(false)}
-    >
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? "hotpink" : "orange"} />
-    </mesh>
-  );
-};
-
 const App = () => {
   const [count, setCount] = useState(0);
+
+  const urdfUrl = "http://localhost:5173/test_website/robot/urdf/T12.URDF";
 
   return (
     <>
@@ -130,39 +104,9 @@ const App = () => {
         <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
       </div>
 
-      <Canvas
-        // only re-render when props changed or when requested.
-        // frameloop="demand"
-        style={{
-          backgroundColor: "#192635",
-          borderRadius: "inherit",
-          width: "100vw", // Full width of the viewport
-          height: "50vh" // Full height of the viewport
-        }}
-      >
-        <AdaptiveDpr />
-        <PerspectiveCamera fov={45} />
-        <OrbitControls makeDefault />
-        <ambientLight intensity={Math.PI / 2} />
-        <spotLight
-          position={[10, 10, 10]}
-          angle={0.15}
-          penumbra={1}
-          decay={0}
-          intensity={Math.PI}
-        />
-        <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-        <Box position={[-1.2, 0, 0]} />
-        <Box position={[1.2, 0, 0]} />
-        {/* Floor grid */}
-        <GridHelper />
-        <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
-          <GizmoViewport
-            axisColors={["#9d4b4b", "#2f7f4f", "#3b5b9d"]}
-            labelColor="white"
-          />
-        </GizmoHelper>
-      </Canvas>
+      <RobotContextProvider url={urdfUrl}>
+        <RobotPreview />
+      </RobotContextProvider>
 
       <div className="hero teaser">
         <div className="container is-max-desktop">
