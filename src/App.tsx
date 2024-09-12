@@ -109,15 +109,15 @@ const App = () => {
         <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
       </div>
 
-      <ErrorBoundary fallback={<div>Something went wrong</div>}>
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <ErrorBoundary fallback={<div>Something went wrong</div>}>
           <Suspense fallback={<div>Loading robot...</div>}>
             <RobotContextProvider url={urdfUrl}>
               <RobotPreview />
             </RobotContextProvider>
           </Suspense>
-        </QueryClientProvider>
-      </ErrorBoundary>
+        </ErrorBoundary>
+      </QueryClientProvider>
 
       <div className="hero teaser">
         <div className="container is-max-desktop">
