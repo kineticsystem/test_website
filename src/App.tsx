@@ -1,4 +1,4 @@
-import { useState, Suspense } from "react";
+import { Suspense } from "react";
 
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,8 +14,6 @@ import "./index.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const App = () => {
-  const [count, setCount] = useState(0);
-
   const urdfUrl = `${window.location.origin}/test_website/robot/urdf/iiwa7.urdf`;
 
   // Create a new QueryClient instance
@@ -103,10 +101,6 @@ const App = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="button">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
       </div>
 
       <QueryClientProvider client={queryClient}>
