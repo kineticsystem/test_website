@@ -18,9 +18,6 @@ export default class URDFLoaderAdapter extends URDFLoader {
   resourcePath = "";
   requestHeader = {};
 
-  // Called each time an individual mesh is loaded. Defaults to an empty function.
-  onMeshLoad: (obj: Object3D, err?: Error) => void = () => {};
-
   // Captures the loading status of all ongoing invocations of loadMeshCb so we
   // can wait to return loadAsync based on mesh load status.
   private meshesLoading: Promise<Object3D>[] = [];
@@ -34,7 +31,6 @@ export default class URDFLoaderAdapter extends URDFLoader {
       new Promise((resolve, reject) =>
         this.defaultMeshLoader(url, manager, (loadedObj: Object3D, err?: Error) => {
           onLoad(loadedObj, err);
-          this.onMeshLoad(loadedObj, err);
           if (err) {
             reject(err);
           } else {
