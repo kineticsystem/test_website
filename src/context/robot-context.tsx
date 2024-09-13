@@ -17,14 +17,12 @@ export const RobotContext = createContext<URDFRobot | undefined>(undefined);
  * Fetch URDF and load the robot asynchronously.
  */
 const fetchAndLoadRobot = async (url: string): Promise<URDFRobot> => {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch URDF: ${response.statusText}`);
-  }
-
-  const urdfData = await response.text();
-  const loadedRobot = await loader.loadAsync(URL.createObjectURL(new Blob([urdfData])));
-
+  const urlObject = new URL(url, window.location.href);
+  const basePath =
+    urlObject.origin +
+    urlObject.pathname.substring(0, urlObject.pathname.lastIndexOf("/") + 1);
+  loader.setResourcePath(basePath);
+  const loadedRobot = await loader.loadAsync(url);
   return loadedRobot;
 };
 

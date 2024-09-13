@@ -1,4 +1,3 @@
-import { toast } from "react-hot-toast";
 import { LoadingManager, Object3D } from "three";
 import URDFLoader, { URDFRobot } from "urdf-loader";
 
@@ -71,7 +70,9 @@ export default class URDFLoaderAdapter extends URDFLoader {
             .then(() => {
               resolve(value);
             })
-            .catch((e) => toast.error(String(e)));
+            .catch((e) => {
+              reject(e); // Propagate the error.
+            });
         },
         onProgress,
         () => reject(new Error("Error loading URDF."))
