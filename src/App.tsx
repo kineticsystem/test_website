@@ -16,7 +16,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const App = () => {
   const [count, setCount] = useState(0);
 
-  const urdfUrl = `${window.location.origin}/test_website/robot/urdf/T12.URDF`;
+  const urdfUrl = `${window.location.origin}/test_website/robot/urdf/iiwa7.urdf`;
 
   // Create a new QueryClient instance
   const queryClient = new QueryClient();
