@@ -6,8 +6,6 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 
 import URDFLoaderAdapter from "../components/urdf-loader-adapter";
 
-const loader = new URDFLoaderAdapter();
-
 /**
  * This is Context Creator.
  */
@@ -16,11 +14,9 @@ export const RobotContext = createContext<URDFRobot | undefined>(undefined);
 /**
  * Fetch URDF and load the robot asynchronously.
  */
-const fetchAndLoadRobot = async (url: string): Promise<URDFRobot> => {
-  const urlObject = new URL(url, window.location.href);
-  const basePath =
-    urlObject.origin +
-    urlObject.pathname.substring(0, urlObject.pathname.lastIndexOf("/") + 1);
+const loadRobot = async (url: string): Promise<URDFRobot> => {
+  const loader = new URDFLoaderAdapter();
+  const basePath = new URL(".", url).href;
   loader.setResourcePath(basePath);
   const loadedRobot = await loader.loadAsync(url);
   return loadedRobot;
@@ -34,9 +30,13 @@ export const RobotContextProvider = ({
   url,
   children
 }: PropsWithChildren<{ url: string }>) => {
+  // The method useSuspenseQuery is used together with <Suspense> to display a
+  // temporary message while loading.
   const { data: robot } = useSuspenseQuery({
-    queryKey: ["robot"],
-    queryFn: () => fetchAndLoadRobot(url)
+    // The queryKey, used for caching, must include the URL to uniquely
+    // identify each query based on the URL.
+    queryKey: ["robot", url],
+    queryFn: () => loadRobot(url)
   });
 
   return <RobotContext.Provider value={robot}>{children}</RobotContext.Provider>;
