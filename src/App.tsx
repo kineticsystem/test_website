@@ -101,24 +101,26 @@ const App = () => {
             </div>
           </div>
         </div>
-      </div>
 
-      <QueryClientProvider client={queryClient}>
-        <ErrorBoundary fallback={<div>Something went wrong</div>}>
-          <Suspense fallback={<div>Loading robot...</div>}>
-            <RobotContextProvider url={urdfUrl}>
-              <RobotPreview />
-            </RobotContextProvider>
-          </Suspense>
-        </ErrorBoundary>
-      </QueryClientProvider>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <QueryClientProvider client={queryClient}>
+            <ErrorBoundary fallback={<div>Something went wrong</div>}>
+              <Suspense fallback={<div>Loading robot...</div>}>
+                <RobotContextProvider url={urdfUrl}>
+                  <RobotPreview />
+                </RobotContextProvider>
+              </Suspense>
+            </ErrorBoundary>
+          </QueryClientProvider>
+        </div>
 
-      <div className="hero teaser">
-        <div className="container is-max-desktop">
-          <div className="hero-body">
-            <h2 className="subtitle has-text-centered">
-              <b>This project</b> is about bla and bla.
-            </h2>
+        <div className="hero teaser">
+          <div className="container is-max-desktop">
+            <div className="hero-body">
+              <h2 className="subtitle has-text-centered">
+                <b>This project</b> is about bla and bla.
+              </h2>
+            </div>
           </div>
         </div>
       </div>

@@ -27,7 +27,9 @@ export const RobotPreview = () => {
       style={{
         backgroundColor: "#192635",
         borderRadius: "inherit",
-        height: "50vh" // Full height of the viewport
+        width: "100vw", // Full width of the viewport
+        height: "50vh", // Full height of the viewport
+        margin: "0 auto" // Center horizontally.
       }}
     >
       <AdaptiveDpr />
