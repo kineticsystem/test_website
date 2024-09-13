@@ -27,7 +27,6 @@ export const RobotPreview = () => {
       style={{
         backgroundColor: "#192635",
         borderRadius: "inherit",
-        width: "100vw", // Full width of the viewport
         height: "50vh" // Full height of the viewport
       }}
     >
