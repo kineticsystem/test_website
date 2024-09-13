@@ -1,7 +1,8 @@
 import { createContext, PropsWithChildren, useCallback, useReducer } from "react";
+
 import { Vector3 } from "three";
 
-const intitialTarget = new Vector3(0, 0.2, 0);
+const intitialTarget = new Vector3(0, 0, 0);
 
 const initialState = {
   key: 0,
@@ -10,23 +11,17 @@ const initialState = {
   movedCamera: false
 };
 
-/**
- * This is Context Creator.
- */
-
-interface CameraContextValue {
+interface CameraContextInterface {
   cameraState: CameraState;
   setControlsEnabled: (enabled: boolean) => void;
   resetCameraPosition: () => void;
   setTarget: (target: Vector3, movedCamera: boolean) => void;
 }
 
-export const CameraContext = createContext<CameraContextValue | undefined>(undefined);
-
 /**
- * This is the Context Provider i.e. the component that provides the
- * new context and the object within.
+ * This is Context Creator.
  */
+export const CameraContext = createContext<CameraContextInterface | undefined>(undefined);
 
 interface CameraState {
   key: number;
@@ -35,6 +30,10 @@ interface CameraState {
   movedCamera: boolean;
 }
 
+/**
+ * This is the Context Provider i.e. the component that provides the
+ * new context and the object within.
+ */
 export const CameraProvider = ({ children }: PropsWithChildren) => {
   const [cameraState, dispatch] = useReducer(
     (state: CameraState, action: Partial<CameraState>) => {

@@ -7,7 +7,7 @@ import { GridHelperProps } from "@react-three/fiber";
  * @param {GridHelperProps} props.rest - Additional properties from Three.js GridHelper.
  * @returns A double-sided grid.
  */
-const GridHelper = ({ size = 5, ...props }: { size?: number } & GridHelperProps) => {
+const Grid = ({ size = 5, ...props }: { size?: number } & GridHelperProps) => {
   return (
     <group>
       {/* 1-decimeter blocks */}
@@ -18,4 +18,4 @@ const GridHelper = ({ size = 5, ...props }: { size?: number } & GridHelperProps)
   );
 };
 
-export default GridHelper;
+export default Grid;
