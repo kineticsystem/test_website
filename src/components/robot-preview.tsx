@@ -1,24 +1,27 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
-import { PerspectiveCamera as PerspectiveCameraImpl } from "three";
+import * as THREE from "three";
 
 import { Canvas } from "@react-three/fiber";
-import { AdaptiveDpr, GizmoHelper, GizmoViewport } from "@react-three/drei";
+import {
+  OrbitControls,
+  PerspectiveCamera,
+  AdaptiveDpr,
+  GizmoHelper,
+  GizmoViewport
+} from "@react-three/drei";
 
 import Grid from "./grid";
-import { CameraControls } from "./camera-controls";
-import { CameraProvider } from "../context/camera-context";
 import { useRobotContext } from "../hooks/use-robot-context";
+
+//THREE.Object3D.DEFAULT_UP = new THREE.Vector3(0, 0, 1);
 
 export const RobotPreview = () => {
   const robot = useRobotContext();
-  const cameraRef = useRef<PerspectiveCameraImpl>(null);
 
-  useEffect(() => {
-    if (cameraRef.current) {
-      cameraRef.current.position.set(-2, 2, 0); // Set initial camera position
-    }
-  }, []);
+  // useEffect(() => {
+  //   THREE.Object3D.DEFAULT_UP.set(0, 0, 1);
+  // }, []);
 
   return (
     <Canvas
@@ -32,29 +35,34 @@ export const RobotPreview = () => {
         margin: "0 auto" // Center horizontally.
       }}
     >
-      <AdaptiveDpr />
-      <CameraProvider>
-        <CameraControls />
-      </CameraProvider>
-      <ambientLight intensity={Math.PI / 2} />
-      <spotLight
-        position={[10, 10, 10]}
-        angle={0.15}
-        penumbra={1}
-        decay={0}
-        intensity={Math.PI}
-      />
-      <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-      {/* Floor grid */}
-      <Grid />
-      <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
-        <GizmoViewport
-          axisColors={["#9d4b4b", "#2f7f4f", "#3b5b9d"]}
-          labelColor="white"
+      <group rotation-x={0}>
+        <AdaptiveDpr />
+
+        {/* Render the URDF model */}
+        <primitive object={robot} />
+
+        <GizmoHelper alignment="top-left" margin={[80, 80]}>
+          <GizmoViewport
+            axisColors={["#9d4b4b", "#2f7f4f", "#3b5b9d"]}
+            labelColor="white"
+          />
+        </GizmoHelper>
+
+        <ambientLight intensity={Math.PI / 2} />
+        <spotLight
+          position={[10, 10, 10]}
+          angle={0.15}
+          penumbra={1}
+          decay={0}
+          intensity={Math.PI}
         />
-      </GizmoHelper>
-      {/* Render the URDF model */}
-      <primitive object={robot} />
+
+        <PerspectiveCamera makeDefault position={[2.5, 2.5, 2.5]} fov={20} />
+        <OrbitControls makeDefault />
+
+        {/* Floor grid */}
+        <Grid />
+      </group>
     </Canvas>
   );
 };

@@ -1,20 +1,21 @@
 import { Suspense } from "react";
 
+import { ErrorBoundary } from "react-error-boundary";
+
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { RobotPreview } from "./components/robot-preview";
 import { RobotContextProvider } from "./context/robot-context";
-import { ErrorBoundary } from "react-error-boundary";
+
 import "academicons/css/academicons.min.css";
 
 import "./App.css";
 import "./index.css";
-
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const App = () => {
-  const urdfUrl = `${window.location.origin}/test_website/robot/urdf/iiwa7.urdf`;
+  const urdfUrl = `${window.location.origin}/test_website/drake_models/iiwa_description/urdf/iiwa7.urdf`;
 
   // Create a new QueryClient instance
   const queryClient = new QueryClient();
