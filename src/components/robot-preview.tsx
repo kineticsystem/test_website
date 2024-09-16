@@ -14,15 +14,9 @@ import {
 import Grid from "./grid";
 import { useRobotContext } from "../hooks/use-robot-context";
 
-//THREE.Object3D.DEFAULT_UP = new THREE.Vector3(0, 0, 1);
-
 export const RobotPreview = () => {
-  const robot = useRobotContext();
-
-  // useEffect(() => {
-  //   THREE.Object3D.DEFAULT_UP.set(0, 0, 1);
-  // }, []);
-
+  const robot1 = useRobotContext();
+  const robot2 = useRobotContext();
   return (
     <Canvas
       // only re-render when props changed or when requested.
@@ -39,7 +33,8 @@ export const RobotPreview = () => {
         <AdaptiveDpr />
 
         {/* Render the URDF model */}
-        <primitive object={robot} />
+        <primitive position={[0.5, 0, 0]} object={robot1} />
+        <primitive position={[-0.5, 0, 0]} object={robot2} />
 
         <GizmoHelper alignment="top-left" margin={[80, 80]}>
           <GizmoViewport
