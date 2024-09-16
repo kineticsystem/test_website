@@ -26,8 +26,8 @@ function Cylinder() {
 }
 
 export const RobotPreview = () => {
-  const robot1 = useRobotContext();
-  const robot2 = useRobotContext();
+  const leftArm = useRobotContext();
+  const rightArm = useRobotContext();
   return (
     <Canvas
       // only re-render when props changed or when requested.
@@ -52,8 +52,8 @@ export const RobotPreview = () => {
 
       {/* We rotate all element of the scene to make it appear like if the reference frame is z-up. */}
       <group rotation-x={-Math.PI / 2}>
-        <primitive position={[0.45, 0, 0]} object={robot1} />
-        <primitive position={[-0.45, 0, 0]} object={robot2} />
+        <primitive position={[0.45, 0, 0]} object={leftArm} />
+        <primitive position={[-0.45, 0, 0]} object={rightArm} />
 
         <Cylinder />
         <Grid />
