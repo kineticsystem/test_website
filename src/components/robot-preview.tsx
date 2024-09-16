@@ -17,17 +17,17 @@ function Cylinder() {
 
   return (
     <group rotation-x={Math.PI / 2}>
-      <mesh ref={myref}>
+      <mesh ref={myref} castShadow receiveShadow>
         <cylinderGeometry attach="geometry" args={[0.14, 0.14, 0.5]} />
-        <meshBasicMaterial attach="material" color={[0.9, 0.9, 0.9]} />
+        <meshStandardMaterial attach="material" color={[1, 0.3, 0.3]} />
       </mesh>
     </group>
   );
 }
 
 export const RobotPreview = () => {
-  const leftArm = useRobotContext();
-  const rightArm = useRobotContext();
+  const robot1 = useRobotContext();
+  const robot2 = useRobotContext();
   return (
     <Canvas
       // only re-render when props changed or when requested.
@@ -43,7 +43,7 @@ export const RobotPreview = () => {
       <AdaptiveDpr />
       <ambientLight intensity={Math.PI / 2} />
       <spotLight
-        position={[10, 10, 10]}
+        position={[0, 10, 10]}
         angle={0.15}
         penumbra={1}
         decay={0}
@@ -52,8 +52,8 @@ export const RobotPreview = () => {
 
       {/* We rotate all element of the scene to make it appear like if the reference frame is z-up. */}
       <group rotation-x={-Math.PI / 2}>
-        <primitive position={[0.45, 0, 0]} object={leftArm} />
-        <primitive position={[-0.45, 0, 0]} object={rightArm} />
+        <primitive position={[0.45, 0, 0]} object={robot1} />
+        <primitive position={[-0.45, 0, 0]} object={robot2} />
 
         <Cylinder />
         <Grid />
