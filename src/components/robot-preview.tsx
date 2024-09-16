@@ -16,10 +16,12 @@ function Cylinder() {
   const myref = useRef<Mesh>(null);
 
   return (
-    <mesh ref={myref}>
-      <cylinderGeometry attach="geometry" args={[0.14, 0.14, 0.5]} />
-      <meshBasicMaterial attach="material" color={[0.9, 0.9, 0.9]} />
-    </mesh>
+    <group rotation-x={Math.PI / 2}>
+      <mesh ref={myref}>
+        <cylinderGeometry attach="geometry" args={[0.14, 0.14, 0.5]} />
+        <meshBasicMaterial attach="material" color={[0.9, 0.9, 0.9]} />
+      </mesh>
+    </group>
   );
 }
 
@@ -38,45 +40,36 @@ export const RobotPreview = () => {
         margin: "0 auto" // Center horizontally.
       }}
     >
-      <group rotation-x={0}>
-        <AdaptiveDpr />
+      <AdaptiveDpr />
+      <ambientLight intensity={Math.PI / 2} />
+      <spotLight
+        position={[10, 10, 10]}
+        angle={0.15}
+        penumbra={1}
+        decay={0}
+        intensity={Math.PI}
+      />
 
-        {/* Render the URDF model */}
-        <primitive
-          rotation={[-Math.PI / 2, 0, 0]}
-          position={[0.45, 0, 0]}
-          object={robot1}
-        />
-        <primitive
-          rotation={[-Math.PI / 2, 0, 0]}
-          position={[-0.45, 0, 0]}
-          object={robot2}
-        />
-
-        <GizmoHelper alignment="top-left" margin={[80, 80]}>
-          <GizmoViewport
-            axisColors={["#9d4b4b", "#2f7f4f", "#3b5b9d"]}
-            labelColor="white"
-          />
-        </GizmoHelper>
-
-        <ambientLight intensity={Math.PI / 2} />
-        <spotLight
-          position={[10, 10, 10]}
-          angle={0.15}
-          penumbra={1}
-          decay={0}
-          intensity={Math.PI}
-        />
-
-        <PerspectiveCamera makeDefault position={[2.5, 2.5, 2.5]} fov={20} />
-        <OrbitControls makeDefault />
+      {/* We rotate all element of the scene to make it appear like if the reference frame is z-up. */}
+      <group rotation-x={-Math.PI / 2}>
+        <primitive position={[0.45, 0, 0]} object={robot1} />
+        <primitive position={[-0.45, 0, 0]} object={robot2} />
 
         <Cylinder />
-
-        {/* Floor grid */}
         <Grid />
       </group>
+
+      <PerspectiveCamera makeDefault position={[2.5, 2.5, 2.5]} fov={20} />
+      <OrbitControls makeDefault />
+
+      {/* We invert colors and labels to make it appear like if the reference frame is z-up. */}
+      <GizmoHelper alignment="top-left" margin={[80, 80]}>
+        <GizmoViewport
+          axisColors={["#2f7f4f", "#3b5b9d", "#9d4b4b"]}
+          labels={["Y", "Z", "X"]}
+          labelColor="white"
+        />
+      </GizmoHelper>
     </Canvas>
   );
 };

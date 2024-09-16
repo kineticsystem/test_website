@@ -9,7 +9,7 @@ import { GridHelperProps } from "@react-three/fiber";
  */
 const Grid = ({ size = 6, ...props }: { size?: number } & GridHelperProps) => {
   return (
-    <group>
+    <group rotation-x={Math.PI / 2}>
       {/* 1-decimeter blocks */}
       <gridHelper args={[size, size * 10, 0x3a3a3a, 0x3a3a3a]} {...props} />
       {/* 1-meter blocks */}
