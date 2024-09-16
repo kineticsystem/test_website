@@ -9,6 +9,19 @@ import {
 
 import Grid from "./grid";
 import { useRobotContext } from "../hooks/use-robot-context";
+import { useRef } from "react";
+import { Mesh } from "three";
+
+function Cylinder() {
+  const myref = useRef<Mesh>(null);
+
+  return (
+    <mesh ref={myref}>
+      <cylinderGeometry attach="geometry" args={[0.14, 0.14, 0.5]} />
+      <meshBasicMaterial attach="material" color={[0.9, 0.9, 0.9]} />
+    </mesh>
+  );
+}
 
 export const RobotPreview = () => {
   const robot1 = useRobotContext();
@@ -29,8 +42,8 @@ export const RobotPreview = () => {
         <AdaptiveDpr />
 
         {/* Render the URDF model */}
-        <primitive position={[0.5, 0, 0]} object={robot1} />
-        <primitive position={[-0.5, 0, 0]} object={robot2} />
+        <primitive position={[0.45, 0, 0]} object={robot1} />
+        <primitive position={[-0.45, 0, 0]} object={robot2} />
 
         <GizmoHelper alignment="top-left" margin={[80, 80]}>
           <GizmoViewport
@@ -50,6 +63,8 @@ export const RobotPreview = () => {
 
         <PerspectiveCamera makeDefault position={[2.5, 2.5, 2.5]} fov={20} />
         <OrbitControls makeDefault />
+
+        <Cylinder />
 
         {/* Floor grid */}
         <Grid />
