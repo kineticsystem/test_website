@@ -42,8 +42,16 @@ export const RobotPreview = () => {
         <AdaptiveDpr />
 
         {/* Render the URDF model */}
-        <primitive position={[0.45, 0, 0]} object={robot1} />
-        <primitive position={[-0.45, 0, 0]} object={robot2} />
+        <primitive
+          rotation={[-Math.PI / 2, 0, 0]}
+          position={[0.45, 0, 0]}
+          object={robot1}
+        />
+        <primitive
+          rotation={[-Math.PI / 2, 0, 0]}
+          position={[-0.45, 0, 0]}
+          object={robot2}
+        />
 
         <GizmoHelper alignment="top-left" margin={[80, 80]}>
           <GizmoViewport
