@@ -4,6 +4,7 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { RobotPreview } from "./components/robot-preview";
 import { RobotContextProvider } from "./context/robot-context";
@@ -12,8 +13,6 @@ import "academicons/css/academicons.min.css";
 
 import "./App.css";
 import "./index.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
 const App = () => {
   const urdfUrl = `${window.location.origin}/test_website/drake_models/iiwa_description/urdf/iiwa7.urdf`;
 

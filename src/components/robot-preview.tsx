@@ -1,14 +1,10 @@
-import { useEffect } from "react";
-
-import * as THREE from "three";
-
 import { Canvas } from "@react-three/fiber";
 import {
-  OrbitControls,
-  PerspectiveCamera,
   AdaptiveDpr,
   GizmoHelper,
-  GizmoViewport
+  GizmoViewport,
+  OrbitControls,
+  PerspectiveCamera
 } from "@react-three/drei";
 
 import Grid from "./grid";
