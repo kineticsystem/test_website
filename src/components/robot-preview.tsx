@@ -10,24 +10,9 @@ import {
 import Grid from "./grid";
 import { useRobotContext } from "../hooks/use-robot-context";
 import { useRef } from "react";
-import { Mesh } from "three";
 import { URDFRobot } from "urdf-loader";
 import { Frame } from "./frame";
-
-const Cylinder = () => {
-  const cylinderRef = useRef<Mesh>(null);
-  return (
-    <mesh ref={cylinderRef} rotation-x={Math.PI / 2} castShadow receiveShadow>
-      <cylinderGeometry attach="geometry" args={[0.14, 0.14, 0.5]} />
-      <meshStandardMaterial
-        attach="material"
-        color={[1, 0.3, 0.3]}
-        transparent={true}
-        opacity={0.75}
-      />
-    </mesh>
-  );
-};
+import { Cylinder } from "./cylinder";
 
 interface RobotProps {
   robot: URDFRobot;
@@ -126,7 +111,7 @@ export const RobotPreview = () => {
         <Robot1 robot={robot1} position={[0.45, 0, 0]} />
         <Robot2 robot={robot2} position={[-0.45, 0, 0]} />
 
-        <Cylinder />
+        <Cylinder radius={0.14} height={0.5} color={"#ff6666"} opacity={0.75} />
         <Frame size={0.75} />
 
         <Grid />
