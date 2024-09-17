@@ -12,16 +12,20 @@ import { useRobotContext } from "../hooks/use-robot-context";
 import { useRef } from "react";
 import { Mesh } from "three";
 import { URDFRobot } from "urdf-loader";
-const Cylinder = () => {
-  const myref = useRef<Mesh>(null);
+import { Frame } from "./frame";
 
+const Cylinder = () => {
+  const cylinderRef = useRef<Mesh>(null);
   return (
-    <group rotation-x={Math.PI / 2}>
-      <mesh ref={myref} castShadow receiveShadow>
-        <cylinderGeometry attach="geometry" args={[0.14, 0.14, 0.5]} />
-        <meshStandardMaterial attach="material" color={[1, 0.3, 0.3]} />
-      </mesh>
-    </group>
+    <mesh ref={cylinderRef} rotation-x={Math.PI / 2} castShadow receiveShadow>
+      <cylinderGeometry attach="geometry" args={[0.14, 0.14, 0.5]} />
+      <meshStandardMaterial
+        attach="material"
+        color={[1, 0.3, 0.3]}
+        transparent={true}
+        opacity={0.75}
+      />
+    </mesh>
   );
 };
 
@@ -121,7 +125,10 @@ export const RobotPreview = () => {
       <group rotation-x={-Math.PI / 2}>
         <Robot1 robot={robot1} position={[0.45, 0, 0]} />
         <Robot2 robot={robot2} position={[-0.45, 0, 0]} />
+
         <Cylinder />
+        <Frame size={0.75} />
+
         <Grid />
       </group>
 
