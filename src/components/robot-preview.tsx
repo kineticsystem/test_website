@@ -111,7 +111,7 @@ export const RobotPreview = () => {
         <Robot1 robot={robot1} position={[0.45, 0, 0]} />
         <Robot2 robot={robot2} position={[-0.45, 0, 0]} />
 
-        <Cylinder radius={0.14} height={0.5} color={"#ff6666"} opacity={0.75} />
+        <Cylinder radius={0.14} height={0.5} color={"#ff8888"} opacity={0.75} />
         <Frame size={0.75} />
 
         <Grid />
