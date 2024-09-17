@@ -107,7 +107,7 @@ export const RobotPreview = () => {
       />
 
       {/* We rotate all element of the scene to make it appear like if the reference frame is z-up. */}
-      <group rotation-x={-Math.PI / 2}>
+      <group rotation-x={-Math.PI / 2} position={[0, -0.2, 0]}>
         <Robot1 robot={robot1} position={[0.45, 0, 0]} />
         <Robot2 robot={robot2} position={[-0.45, 0, 0]} />
 
