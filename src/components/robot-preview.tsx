@@ -1,4 +1,4 @@
-import { Canvas } from "@react-three/fiber";
+import { Canvas, RootState, useFrame } from "@react-three/fiber";
 import {
   AdaptiveDpr,
   GizmoHelper,
@@ -11,8 +11,8 @@ import Grid from "./grid";
 import { useRobotContext } from "../hooks/use-robot-context";
 import { useRef } from "react";
 import { Mesh } from "three";
-
-function Cylinder() {
+import { URDFRobot } from "urdf-loader";
+const Cylinder = () => {
   const myref = useRef<Mesh>(null);
 
   return (
@@ -23,7 +23,74 @@ function Cylinder() {
       </mesh>
     </group>
   );
+};
+
+interface RobotProps {
+  robot: URDFRobot;
+  position: [number, number, number];
 }
+
+const Robot1 = ({ robot, position }: RobotProps) => {
+  const angleRef = useRef<number>(0);
+
+  useFrame((state: RootState, delta: number) => {
+    angleRef.current += delta;
+    if (robot && robot.joints) {
+      const minAngle = -Math.PI / 4; // Minimum angle in radians
+      const maxAngle = Math.PI / 4; // Maximum angle in radians
+      const frequency = 0.5; // Oscillations per second
+      const t = state.clock.elapsedTime;
+
+      // Calculate amplitude and offset for the sine wave
+      const amplitude = (maxAngle - minAngle) / 2;
+      const offset = (maxAngle + minAngle) / 2;
+
+      // Compute the angle using the sine function
+      const angle = amplitude * Math.sin(2 * Math.PI * frequency * t) + offset;
+
+      robot.setJointValue("iiwa_joint_1", angle);
+      robot.setJointValue("iiwa_joint_2", angle);
+      robot.setJointValue("iiwa_joint_3", angle);
+      robot.setJointValue("iiwa_joint_4", angle);
+      robot.setJointValue("iiwa_joint_5", angle);
+      robot.setJointValue("iiwa_joint_6", angle);
+      robot.setJointValue("iiwa_joint_7", angle);
+    }
+  });
+
+  return <primitive position={position} object={robot} />;
+};
+
+const Robot2 = ({ robot, position }: RobotProps) => {
+  const angleRef = useRef<number>(0);
+
+  useFrame((state: RootState, delta: number) => {
+    angleRef.current += delta;
+    if (robot && robot.joints) {
+      const minAngle = -Math.PI / 4; // Minimum angle in radians
+      const maxAngle = Math.PI / 4; // Maximum angle in radians
+      const frequency = 0.5; // Oscillations per second
+      const t = state.clock.elapsedTime;
+
+      // Calculate amplitude and offset for the sine wave
+      const amplitude = (maxAngle - minAngle) / 2;
+      const offset = (maxAngle + minAngle) / 2;
+
+      // Compute the angle using the sine function
+      const angle = amplitude * Math.sin(2 * Math.PI * frequency * t) + offset;
+
+      robot.setJointValue("iiwa_joint_1", -angle);
+      robot.setJointValue("iiwa_joint_2", -angle);
+      robot.setJointValue("iiwa_joint_3", -angle);
+      robot.setJointValue("iiwa_joint_4", -angle);
+      robot.setJointValue("iiwa_joint_5", -angle);
+      robot.setJointValue("iiwa_joint_6", -angle);
+      robot.setJointValue("iiwa_joint_7", -angle);
+    }
+  });
+
+  return <primitive position={position} object={robot} />;
+};
 
 export const RobotPreview = () => {
   const robot1 = useRobotContext();
@@ -52,9 +119,8 @@ export const RobotPreview = () => {
 
       {/* We rotate all element of the scene to make it appear like if the reference frame is z-up. */}
       <group rotation-x={-Math.PI / 2}>
-        <primitive position={[0.45, 0, 0]} object={robot1} />
-        <primitive position={[-0.45, 0, 0]} object={robot2} />
-
+        <Robot1 robot={robot1} position={[0.45, 0, 0]} />
+        <Robot2 robot={robot2} position={[-0.45, 0, 0]} />
         <Cylinder />
         <Grid />
       </group>
