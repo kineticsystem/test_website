@@ -14,28 +14,7 @@ import { Frame } from "./frame";
 import { Robot } from "./robot";
 import { Cylinder } from "./cylinder";
 import { useRobotContext } from "../hooks/use-robot-context";
-
-export interface ArmState {
-  joint_1: number;
-  joint_2: number;
-  joint_3: number;
-  joint_4: number;
-  joint_5: number;
-  joint_6: number;
-  joint_7: number;
-}
-
-export interface CylinderState {
-  x: number;
-  y: number;
-  rotation: number;
-}
-
-export interface SceneState {
-  leftArm: ArmState;
-  rightArm: ArmState;
-  cylinder: CylinderState;
-}
+import { SceneState } from "./scene_state";
 
 interface SceneProps {
   state: SceneState;
@@ -92,7 +71,7 @@ export const Scene = ({ state }: SceneProps) => {
         <Robot robot={leftArm} position={[0.45, 0, 0]} />
         <Robot robot={rightArm} position={[-0.45, 0, 0]} />
         <group
-          position={[state.cylinder.x, state.cylinder.y, 0]}
+          position={[state.cylinder.x, state.cylinder.y, 0.25]}
           rotation-z={state.cylinder.rotation}
         >
           <Cylinder radius={0.14} height={0.5} color={"#ff8888"} opacity={0.75} />

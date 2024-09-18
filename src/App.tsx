@@ -6,8 +6,10 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { Scene, SceneState } from "./components/scene";
+import { Scene } from "./components/scene";
+import { SceneState } from "./components/scene_state";
 import { RobotContextProvider } from "./context/robot-context";
+import { SceneController } from "./components/robot_controller";
 
 import "academicons/css/academicons.min.css";
 
@@ -45,6 +47,10 @@ const App = () => {
       rotation: 0
     }
   });
+
+  const onStateChanged = (state: SceneState) => {
+    setSceneState(state);
+  };
 
   return (
     <>
@@ -127,6 +133,10 @@ const App = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <SceneController onStateChanged={onStateChanged} />
         </div>
 
         <div style={{ display: "flex", justifyContent: "center" }}>
