@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -6,18 +6,45 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { RobotPreview } from "./components/robot-preview";
+import { Scene, SceneState } from "./components/scene";
 import { RobotContextProvider } from "./context/robot-context";
 
 import "academicons/css/academicons.min.css";
 
 import "./App.css";
 import "./index.css";
+
 const App = () => {
   const urdfUrl = `${window.location.origin}/test_website/drake_models/iiwa_description/urdf/iiwa7.urdf`;
 
   // Create a new QueryClient instance
   const queryClient = new QueryClient();
+
+  const [sceneState, setSceneState] = useState<SceneState>({
+    leftArm: {
+      joint_1: -Math.PI / 2,
+      joint_2: Math.PI / 2,
+      joint_3: 0,
+      joint_4: 0,
+      joint_5: 0,
+      joint_6: 0,
+      joint_7: 0
+    },
+    rightArm: {
+      joint_1: Math.PI / 2,
+      joint_2: 0,
+      joint_3: 0,
+      joint_4: 0,
+      joint_5: 0,
+      joint_6: 0,
+      joint_7: 0
+    },
+    cylinder: {
+      x: 0,
+      y: -0.5,
+      rotation: 0
+    }
+  });
 
   return (
     <>
@@ -107,7 +134,7 @@ const App = () => {
             <ErrorBoundary fallback={<div>Something went wrong</div>}>
               <Suspense fallback={<div>Loading robot...</div>}>
                 <RobotContextProvider url={urdfUrl}>
-                  <RobotPreview />
+                  <Scene state={sceneState} />
                 </RobotContextProvider>
               </Suspense>
             </ErrorBoundary>

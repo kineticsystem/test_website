@@ -96,7 +96,7 @@ The typical way to add additional packages to the React project is using the fol
 pnpm add <package>
 ```
 
-For example, the following commands have been used for this project:
+Examples:
 
 ```bash
 pnpm add @fortawesome/fontawesome-svg-core
