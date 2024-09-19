@@ -1,3 +1,7 @@
+/**
+ * These types are used to represent the object coordinates in the scene.
+ */
+
 export interface ArmState {
   joint_1: number;
   joint_2: number;

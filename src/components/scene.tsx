@@ -22,6 +22,14 @@ interface SceneProps {
 
 /**
  * Component to display the scene with two arms and a cylinder.
+ *
+ * ThreeJS default coordinate frame is y-up. There is a method to change the
+ * reference frame to z-up:
+ * THREE.Object3D.DEFAULT_UP = new THREE.Vector3(0, 0, 1);
+ *
+ * Unfortunately, the GizmoHelper only works with the default y-up frame.
+ * For this reason, we decided to apply some rotations to the whole scene to
+ * make it z-up and change labels and colors in the GizmoHelper, instead.
  */
 export const Scene = ({ state }: SceneProps) => {
   const leftArm = useRobotContext();
@@ -66,7 +74,7 @@ export const Scene = ({ state }: SceneProps) => {
         intensity={Math.PI}
       />
 
-      {/* We rotate the scene to make it appear like if the reference frame is z-up. */}
+      {/* We rotate the whole scene to make it z-up. */}
       <group
         rotation-x={-Math.PI / 2}
         rotation-z={-Math.PI / 2}
@@ -87,7 +95,7 @@ export const Scene = ({ state }: SceneProps) => {
       <PerspectiveCamera makeDefault position={[2.5, 2.5, 2.5]} fov={20} />
       <OrbitControls makeDefault />
 
-      {/* We invert colors and labels to make it appear like if the reference frame is z-up. */}
+      {/* We invert colors and labels to make it look like z-up. */}
       <group scale={[-1, -1, 1]}>
         <GizmoHelper alignment="top-left" margin={[80, 80]}>
           <GizmoViewport
