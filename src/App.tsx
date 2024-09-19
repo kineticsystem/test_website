@@ -24,26 +24,26 @@ const App = () => {
 
   const [sceneState, setSceneState] = useState<SceneState>({
     leftArm: {
-      joint_1: 0,
-      joint_2: 0,
-      joint_3: 0,
-      joint_4: 0,
+      joint_1: 0.014487597656250184,
+      joint_2: 1.5707,
+      joint_3: -1.5707,
+      joint_4: 0.9621149999999998,
       joint_5: 0,
-      joint_6: 0,
+      joint_6: 1.8224313687622034,
       joint_7: 0
     },
     rightArm: {
-      joint_1: 0,
-      joint_2: 0,
-      joint_3: 0,
-      joint_4: 0,
+      joint_1: 0.8866409765625005,
+      joint_2: 1.5707,
+      joint_3: -1.5707,
+      joint_4: 1.48407875,
       joint_5: 0,
-      joint_6: 0,
+      joint_6: 1.4970950337700102,
       joint_7: 0
     },
     cylinder: {
-      x: 0.5,
-      y: 0,
+      x: 0.6184808436607272,
+      y: -0.09208531449445188,
       rotation: 0
     }
   });
