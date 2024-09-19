@@ -1,5 +1,7 @@
 import { useRef } from "react";
-import { Vector3, Group } from "three";
+
+import { Group, Vector3 } from "three";
+
 import { Arrow } from "./arrow";
 
 interface FrameProps {

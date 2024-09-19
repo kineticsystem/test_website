@@ -24,8 +24,8 @@ const App = () => {
 
   const [sceneState, setSceneState] = useState<SceneState>({
     leftArm: {
-      joint_1: -Math.PI / 2,
-      joint_2: Math.PI / 2,
+      joint_1: 0,
+      joint_2: 0,
       joint_3: 0,
       joint_4: 0,
       joint_5: 0,
@@ -33,7 +33,7 @@ const App = () => {
       joint_7: 0
     },
     rightArm: {
-      joint_1: Math.PI / 2,
+      joint_1: 0,
       joint_2: 0,
       joint_3: 0,
       joint_4: 0,
@@ -42,8 +42,8 @@ const App = () => {
       joint_7: 0
     },
     cylinder: {
-      x: 0,
-      y: -0.5,
+      x: 0.5,
+      y: 0,
       rotation: 0
     }
   });

@@ -13,8 +13,8 @@ import Grid from "./grid";
 import { Frame } from "./frame";
 import { Robot } from "./robot";
 import { Cylinder } from "./cylinder";
-import { useRobotContext } from "../hooks/use-robot-context";
 import { SceneState } from "./scene_state";
+import { useRobotContext } from "../hooks/use-robot-context";
 
 interface SceneProps {
   state: SceneState;
@@ -51,7 +51,7 @@ export const Scene = ({ state }: SceneProps) => {
       style={{
         backgroundColor: "#192635",
         borderRadius: "inherit",
-        width: "100vw", // Full width of the viewport
+        width: "50vw", // Full width of the viewport
         height: "50vh", // Full height of the viewport
         margin: "0 auto" // Center horizontally.
       }}
@@ -66,16 +66,20 @@ export const Scene = ({ state }: SceneProps) => {
         intensity={Math.PI}
       />
 
-      {/* We rotate all element of the scene to make it appear like if the reference frame is z-up. */}
-      <group rotation-x={-Math.PI / 2} position={[0, -0.2, 0]}>
-        <Robot robot={leftArm} position={[0.45, 0, 0]} />
-        <Robot robot={rightArm} position={[-0.45, 0, 0]} />
+      {/* We rotate the scene to make it appear like if the reference frame is z-up. */}
+      <group
+        rotation-x={-Math.PI / 2}
+        rotation-z={-Math.PI / 2}
+        position={[0, -0.2, -0.35]}
+      >
+        <Robot robot={leftArm} position={[0, 0.45, 0]} />
+        <Robot robot={rightArm} position={[0, -0.45, 0]} />
         <group
           position={[state.cylinder.x, state.cylinder.y, 0.25]}
           rotation-z={state.cylinder.rotation}
         >
           <Cylinder radius={0.14} height={0.5} color={"#ff8888"} opacity={0.75} />
-          <Frame size={0.75} />
+          <Frame size={0.6} />
         </group>
         <Grid />
       </group>
@@ -84,13 +88,15 @@ export const Scene = ({ state }: SceneProps) => {
       <OrbitControls makeDefault />
 
       {/* We invert colors and labels to make it appear like if the reference frame is z-up. */}
-      <GizmoHelper alignment="top-left" margin={[80, 80]}>
-        <GizmoViewport
-          axisColors={["#2f7f4f", "#3b5b9d", "#9d4b4b"]}
-          labels={["Y", "Z", "X"]}
-          labelColor="white"
-        />
-      </GizmoHelper>
+      <group scale={[-1, -1, 1]}>
+        <GizmoHelper alignment="top-left" margin={[80, 80]}>
+          <GizmoViewport
+            axisColors={["#2f7f4f", "#3b5b9d", "#9d4b4b"]}
+            labels={["Y", "Z", "X"]}
+            labelColor="white"
+          />
+        </GizmoHelper>
+      </group>
     </Canvas>
   );
 };

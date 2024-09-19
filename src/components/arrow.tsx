@@ -1,5 +1,6 @@
-import { useRef, useEffect } from "react";
-import { Vector3, Group } from "three";
+import { useEffect, useRef } from "react";
+
+import { Group, Vector3 } from "three";
 
 interface ArrowProps {
   direction: Vector3;

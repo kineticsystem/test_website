@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
 import { SceneState } from "./scene_state";
 
 interface Point {
@@ -51,7 +52,7 @@ export const SceneController = ({ onStateChanged }: SceneControllerProps) => {
         const newSceneSequence = parsedData.points.map((point) => {
           const sceneState: SceneState = {
             leftArm: {
-              joint_1: point.positions[3] - Math.PI / 2,
+              joint_1: point.positions[3],
               joint_2: Math.PI / 2,
               joint_3: -Math.PI / 2,
               joint_4: -point.positions[4],
@@ -60,7 +61,7 @@ export const SceneController = ({ onStateChanged }: SceneControllerProps) => {
               joint_7: 0
             },
             rightArm: {
-              joint_1: point.positions[6] - Math.PI / 2,
+              joint_1: point.positions[6],
               joint_2: Math.PI / 2,
               joint_3: -Math.PI / 2,
               joint_4: -point.positions[7],
@@ -69,8 +70,8 @@ export const SceneController = ({ onStateChanged }: SceneControllerProps) => {
               joint_7: 0
             },
             cylinder: {
-              x: point.positions[1],
-              y: -point.positions[0],
+              x: point.positions[0],
+              y: point.positions[1],
               rotation: point.positions[2]
             }
           };
