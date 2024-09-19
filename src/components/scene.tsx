@@ -18,6 +18,8 @@ import { useRobotContext } from "../hooks/use-robot-context";
 
 interface SceneProps {
   state: SceneState;
+  cameraPosition: [number, number, number];
+  controlsEnabled?: boolean;
 }
 
 /**
@@ -31,10 +33,9 @@ interface SceneProps {
  * For this reason, we decided to apply some rotations to the whole scene to
  * make it z-up and change labels and colors in the GizmoHelper, instead.
  */
-export const Scene = ({ state }: SceneProps) => {
+export const Scene = ({ state, cameraPosition, controlsEnabled = true }: SceneProps) => {
   const leftArm = useRobotContext();
   const rightArm = useRobotContext();
-
   useEffect(() => {
     leftArm.setJointValue("iiwa_joint_1", state.leftArm.joint_1);
     leftArm.setJointValue("iiwa_joint_2", state.leftArm.joint_2);
@@ -53,58 +54,66 @@ export const Scene = ({ state }: SceneProps) => {
   }, [state, leftArm, rightArm]);
 
   return (
-    <Canvas
-      // only re-render when props changed or when requested.
-      // frameloop="demand"
-      style={{
-        backgroundColor: "#192635",
-        borderRadius: "inherit",
-        width: "50vw", // Full width of the viewport
-        height: "50vh", // Full height of the viewport
-        margin: "0 auto" // Center horizontally.
-      }}
-    >
-      <AdaptiveDpr />
-      <ambientLight intensity={Math.PI / 2} />
-      <spotLight
-        position={[0, 10, 10]}
-        angle={0.15}
-        penumbra={1}
-        decay={0}
-        intensity={Math.PI}
-      />
-
-      {/* We rotate the whole scene to make it z-up. */}
-      <group
-        rotation-x={-Math.PI / 2}
-        rotation-z={-Math.PI / 2}
-        position={[0, -0.2, -0.35]}
-      >
-        <Robot robot={leftArm} position={[0, 0.45, 0]} />
-        <Robot robot={rightArm} position={[0, -0.45, 0]} />
-        <group
-          position={[state.cylinder.x, state.cylinder.y, 0.25]}
-          rotation-z={state.cylinder.rotation}
+    <div className="w-full">
+      <div className="aspect-square bg-gray-200 rounded-md overflow-hidden shadow-md">
+        <Canvas
+          // only re-render when props changed or when requested.
+          // frameloop="demand"
+          style={{
+            backgroundColor: "#192635",
+            borderRadius: "inherit",
+            margin: "0 auto" // Center horizontally.
+          }}
         >
-          <Cylinder radius={0.14} height={0.5} color={"#ff8888"} opacity={0.75} />
-          <Frame size={0.6} />
-        </group>
-        <Grid />
-      </group>
-
-      <PerspectiveCamera makeDefault position={[2.5, 2.5, 2.5]} fov={20} />
-      <OrbitControls makeDefault />
-
-      {/* We invert colors and labels to make it look like z-up. */}
-      <group scale={[-1, -1, 1]}>
-        <GizmoHelper alignment="top-left" margin={[80, 80]}>
-          <GizmoViewport
-            axisColors={["#2f7f4f", "#3b5b9d", "#9d4b4b"]}
-            labels={["Y", "Z", "X"]}
-            labelColor="white"
+          <AdaptiveDpr />
+          <ambientLight intensity={Math.PI / 2} />
+          <spotLight
+            position={[0, 10, 10]}
+            angle={0.15}
+            penumbra={1}
+            decay={0}
+            intensity={Math.PI}
           />
-        </GizmoHelper>
-      </group>
-    </Canvas>
+
+          {/* We rotate the whole scene to make it z-up. */}
+          <group
+            rotation-x={-Math.PI / 2}
+            rotation-z={-Math.PI / 2}
+            position={[0, -0.2, -0.35]}
+          >
+            <Robot robot={leftArm} position={[0, 0.45, 0]} />
+            <Robot robot={rightArm} position={[0, -0.45, 0]} />
+            <group
+              position={[state.cylinder.x, state.cylinder.y, 0.25]}
+              rotation-z={state.cylinder.rotation}
+            >
+              <Cylinder radius={0.14} height={0.5} color={"#ff8888"} opacity={0.75} />
+              <Frame size={0.6} />
+            </group>
+            <Grid />
+          </group>
+
+          <PerspectiveCamera
+            makeDefault
+            position={[cameraPosition[1], cameraPosition[2], cameraPosition[0]]}
+            fov={20}
+          />
+          <OrbitControls makeDefault enableRotate={controlsEnabled} />
+
+          {/* We invert colors and labels to make it look like z-up. */}
+
+          <group scale={[-1, -1, 1]}>
+            <GizmoHelper alignment="top-left" margin={[80, 80]}>
+              <GizmoViewport
+                axisColors={["#2f7f4f", "#3b5b9d", "#9d4b4b"]}
+                labels={["Y", "Z", "X"]}
+                labelColor="white"
+                disabled={!controlsEnabled}
+              />
+            </GizmoHelper>
+          </group>
+        </Canvas>
+      </div>
+    </div>
   );
 };

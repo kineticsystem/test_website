@@ -136,23 +136,17 @@ export const SceneController = ({ onStateChanged }: SceneControllerProps) => {
 
   return (
     <div>
-      <h1>Robot Scene Controller</h1>
-
       {/* File Input */}
       <input type="file" accept=".json,application/json" onChange={handleFileSelect} />
-
-      {/* Playback Controls */}
-      <div>
-        <button onClick={handlePlay} disabled={isPlaying || sceneSequence.length === 0}>
-          Play
-        </button>
-        <button onClick={handlePause} disabled={!isPlaying}>
-          Pause
-        </button>
-        <button onClick={handleStop} disabled={!isPlaying && currentFrameIndex === 0}>
-          Stop
-        </button>
-      </div>
+      <button onClick={handlePlay} disabled={isPlaying || sceneSequence.length === 0}>
+        Play
+      </button>
+      <button onClick={handlePause} disabled={!isPlaying}>
+        Pause
+      </button>
+      <button onClick={handleStop} disabled={!isPlaying && currentFrameIndex === 0}>
+        Stop
+      </button>
     </div>
   );
 };
