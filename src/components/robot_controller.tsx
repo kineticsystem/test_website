@@ -1,30 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import { SceneState } from "./scene_state";
-
-interface Point {
-  time_from_start: number;
-  positions: number[];
-}
-
-interface Trajectory {
-  joint_names: string[];
-  points: Point[];
-}
-
-const readJsonFile = (file: Blob): Promise<Trajectory> =>
-  new Promise((resolve, reject) => {
-    const fileReader = new FileReader();
-
-    fileReader.onload = (event) => {
-      if (event.target) {
-        resolve(JSON.parse(event.target.result as string));
-      }
-    };
-
-    fileReader.onerror = (error) => reject(error);
-    fileReader.readAsText(file);
-  });
+import { parseTrajectory } from "./trajectory_loader";
 
 export interface SceneControllerProps {
   onStateChanged: (state: SceneState) => void;
@@ -45,38 +22,10 @@ export const SceneController = ({ onStateChanged }: SceneControllerProps) => {
 
   // Parse the file and populate the sequence of SceneStates.
   const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
+    const file = event.target.files?.[0];
+    if (file) {
       try {
-        const parsedData = await readJsonFile(event.target.files[0]);
-
-        const newSceneSequence = parsedData.points.map((point) => {
-          const sceneState: SceneState = {
-            leftArm: {
-              joint_1: point.positions[3],
-              joint_2: Math.PI / 2,
-              joint_3: -Math.PI / 2,
-              joint_4: point.positions[4],
-              joint_5: 0,
-              joint_6: point.positions[5],
-              joint_7: 0
-            },
-            rightArm: {
-              joint_1: point.positions[6],
-              joint_2: Math.PI / 2,
-              joint_3: -Math.PI / 2,
-              joint_4: point.positions[7],
-              joint_5: 0,
-              joint_6: point.positions[8],
-              joint_7: 0
-            },
-            cylinder: {
-              x: point.positions[0],
-              y: point.positions[1],
-              rotation: point.positions[2]
-            }
-          };
-          return sceneState;
-        });
+        const newSceneSequence = await parseTrajectory(file);
         setSceneSequence(newSceneSequence);
         onStateChanged(newSceneSequence[0]);
       } catch (error) {
