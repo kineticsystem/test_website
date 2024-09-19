@@ -23,23 +23,24 @@ const App = () => {
   const queryClient = new QueryClient();
 
   const [sceneState, setSceneState] = useState<SceneState>({
+    timeFromStart: 0,
     leftArm: {
-      joint_1: 0.014487597656250184,
-      joint_2: 1.5707,
-      joint_3: -1.5707,
-      joint_4: 0.9621149999999998,
-      joint_5: 0,
-      joint_6: 1.8224313687622034,
-      joint_7: 0
+      joint1: 0.014487597656250184,
+      joint2: 1.5707,
+      joint3: -1.5707,
+      joint4: 0.9621149999999998,
+      joint5: 0,
+      joint6: 1.8224313687622034,
+      joint7: 0
     },
     rightArm: {
-      joint_1: 0.8866409765625005,
-      joint_2: 1.5707,
-      joint_3: -1.5707,
-      joint_4: 1.48407875,
-      joint_5: 0,
-      joint_6: 1.4970950337700102,
-      joint_7: 0
+      joint1: 0.8866409765625005,
+      joint2: 1.5707,
+      joint3: -1.5707,
+      joint4: 1.48407875,
+      joint5: 0,
+      joint6: 1.4970950337700102,
+      joint7: 0
     },
     cylinder: {
       x: 0.6184808436607272,
@@ -144,7 +145,8 @@ const App = () => {
                     <ErrorBoundary fallback={<div>Something went wrong</div>}>
                       <Suspense fallback={<div>Loading robot...</div>}>
                         <RobotContextProvider url={urdfUrl}>
-                          <div className="flex flex-col md:flex-row flex-wrap">
+                          {/* Added justify-center to center the column */}
+                          <div className="flex flex-col md:flex-row flex-wrap justify-center">
                             <div key="1" className="w-full md:w-1/2 px-0 mb-0">
                               <div className="bg-white-500 text-white p-1 rounded-lg">
                                 <Scene
@@ -153,15 +155,7 @@ const App = () => {
                                 />
                               </div>
                             </div>
-                            <div key="2" className="w-full md:w-1/2">
-                              <div className="bg-white-500 text-white p-1 rounded-lg">
-                                <Scene
-                                  state={sceneState}
-                                  cameraPosition={[0, 0, 4]}
-                                  controlsEnabled={false}
-                                />
-                              </div>
-                            </div>
+                            {/* If you have more columns and want only one centered, ensure other columns have appropriate widths or use auto margins */}
                           </div>
                         </RobotContextProvider>
                       </Suspense>

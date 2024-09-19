@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import { SceneState } from "./scene_state";
-import { parseTrajectory } from "./trajectory_loader";
+import { readTrajectory } from "./trajectory_loader";
 
 export interface SceneControllerProps {
   onStateChanged: (state: SceneState) => void;
@@ -25,9 +25,11 @@ export const SceneController = ({ onStateChanged }: SceneControllerProps) => {
     const file = event.target.files?.[0];
     if (file) {
       try {
-        const newSceneSequence = await parseTrajectory(file);
-        setSceneSequence(newSceneSequence);
-        onStateChanged(newSceneSequence[0]);
+        const newSceneSequence = await readTrajectory(file);
+        if (newSceneSequence?.points?.length > 0) {
+          setSceneSequence(newSceneSequence.points);
+          onStateChanged(newSceneSequence.points[0]);
+        }
       } catch (error) {
         console.error("Error reading JSON file:", error);
       }

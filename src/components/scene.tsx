@@ -37,20 +37,20 @@ export const Scene = ({ state, cameraPosition, controlsEnabled = true }: ScenePr
   const leftArm = useRobotContext();
   const rightArm = useRobotContext();
   useEffect(() => {
-    leftArm.setJointValue("iiwa_joint_1", state.leftArm.joint_1);
-    leftArm.setJointValue("iiwa_joint_2", state.leftArm.joint_2);
-    leftArm.setJointValue("iiwa_joint_3", state.leftArm.joint_3);
-    leftArm.setJointValue("iiwa_joint_4", state.leftArm.joint_4);
-    leftArm.setJointValue("iiwa_joint_5", state.leftArm.joint_5);
-    leftArm.setJointValue("iiwa_joint_6", state.leftArm.joint_6);
-    leftArm.setJointValue("iiwa_joint_7", state.leftArm.joint_7);
-    rightArm.setJointValue("iiwa_joint_1", state.rightArm.joint_1);
-    rightArm.setJointValue("iiwa_joint_2", state.rightArm.joint_2);
-    rightArm.setJointValue("iiwa_joint_3", state.rightArm.joint_3);
-    rightArm.setJointValue("iiwa_joint_4", state.rightArm.joint_4);
-    rightArm.setJointValue("iiwa_joint_5", state.rightArm.joint_5);
-    rightArm.setJointValue("iiwa_joint_6", state.rightArm.joint_6);
-    rightArm.setJointValue("iiwa_joint_7", state.rightArm.joint_7);
+    leftArm.setJointValue("iiwa_joint1", state.leftArm.joint1);
+    leftArm.setJointValue("iiwa_joint2", state.leftArm.joint2);
+    leftArm.setJointValue("iiwa_joint3", state.leftArm.joint3);
+    leftArm.setJointValue("iiwa_joint4", state.leftArm.joint4);
+    leftArm.setJointValue("iiwa_joint5", state.leftArm.joint5);
+    leftArm.setJointValue("iiwa_joint6", state.leftArm.joint6);
+    leftArm.setJointValue("iiwa_joint7", state.leftArm.joint7);
+    rightArm.setJointValue("iiwa_joint1", state.rightArm.joint1);
+    rightArm.setJointValue("iiwa_joint2", state.rightArm.joint2);
+    rightArm.setJointValue("iiwa_joint3", state.rightArm.joint3);
+    rightArm.setJointValue("iiwa_joint4", state.rightArm.joint4);
+    rightArm.setJointValue("iiwa_joint5", state.rightArm.joint5);
+    rightArm.setJointValue("iiwa_joint6", state.rightArm.joint6);
+    rightArm.setJointValue("iiwa_joint7", state.rightArm.joint7);
   }, [state, leftArm, rightArm]);
 
   return (
