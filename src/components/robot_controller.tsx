@@ -55,18 +55,18 @@ export const SceneController = ({ onStateChanged }: SceneControllerProps) => {
               joint_1: point.positions[3],
               joint_2: Math.PI / 2,
               joint_3: -Math.PI / 2,
-              joint_4: -point.positions[4],
+              joint_4: point.positions[4],
               joint_5: 0,
-              joint_6: -point.positions[5],
+              joint_6: point.positions[5],
               joint_7: 0
             },
             rightArm: {
               joint_1: point.positions[6],
               joint_2: Math.PI / 2,
               joint_3: -Math.PI / 2,
-              joint_4: -point.positions[7],
+              joint_4: point.positions[7],
               joint_5: 0,
-              joint_6: -point.positions[8],
+              joint_6: point.positions[8],
               joint_7: 0
             },
             cylinder: {
