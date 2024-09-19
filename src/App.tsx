@@ -53,6 +53,10 @@ const App = () => {
     setSceneState(state);
   };
 
+  const trajectoryFiles = ["trajectory_0.json"];
+
+  const buttons = Array.from({ length: 10 }, (_, index) => `Button ${index + 1}`);
+
   return (
     <>
       <div className="hero">
@@ -134,6 +138,21 @@ const App = () => {
                       <span>Datasets</span>
                     </a>
                   </span>
+                </div>
+
+                {/* Buttons Container */}
+                <div className="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-2 w-full mt-4">
+                  {buttons.map((label, index) => (
+                    <button
+                      key={index}
+                      className="button w-full"
+                      onClick={() => {
+                        console.log(`${label} clicked`);
+                      }}
+                    >
+                      {label}
+                    </button>
+                  ))}
                 </div>
 
                 <div>
