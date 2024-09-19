@@ -135,6 +135,10 @@ const App = () => {
                   </span>
                 </div>
 
+                <div>
+                  <SceneController onStateChanged={onStateChanged} />
+                </div>
+
                 <div className="container mx-auto px-2 py-2 max-w-3xl">
                   <QueryClientProvider client={queryClient}>
                     <ErrorBoundary fallback={<div>Something went wrong</div>}>
@@ -158,33 +162,11 @@ const App = () => {
                                 />
                               </div>
                             </div>
-                            <div key="3" className="w-full md:w-1/2">
-                              <div className="bg-white-500 text-white p-1 rounded-lg">
-                                <Scene
-                                  state={sceneState}
-                                  cameraPosition={[0, 4, 0]}
-                                  controlsEnabled={false}
-                                />
-                              </div>
-                            </div>
-                            <div key="4" className="w-full md:w-1/2">
-                              <div className="bg-white-500 text-white p-1 rounded-lg">
-                                <Scene
-                                  state={sceneState}
-                                  cameraPosition={[4, 0, 0]}
-                                  controlsEnabled={false}
-                                />
-                              </div>
-                            </div>
                           </div>
                         </RobotContextProvider>
                       </Suspense>
                     </ErrorBoundary>
                   </QueryClientProvider>
-                </div>
-
-                <div>
-                  <SceneController onStateChanged={onStateChanged} />
                 </div>
 
                 {/* column has-text-centered */}
