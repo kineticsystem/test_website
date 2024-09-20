@@ -8,6 +8,10 @@ interface FrameProps {
   position?: Vector3;
   size?: number;
   thickness?: number;
+  opacity?: number;
+  displayX?: boolean;
+  displayY?: boolean;
+  displayZ?: boolean;
 }
 
 /**
@@ -20,7 +24,10 @@ interface FrameProps {
 export const Frame = ({
   position = new Vector3(0, 0, 0),
   size = 1,
-  thickness = 0.005
+  thickness = 0.005,
+  displayX = true,
+  displayY = true,
+  displayZ = true
 }: FrameProps) => {
   const groupRef = useRef<Group>(null);
   const centerRadius = 0.01;
@@ -33,30 +40,36 @@ export const Frame = ({
         <sphereGeometry args={[centerRadius, sphereSectors, sphereSectors]} />
         <meshStandardMaterial color={0xffffff} />
       </mesh>
-      <Arrow
-        direction={new Vector3(1, 0, 0)}
-        length={size}
-        color={0x9d4b4b}
-        thickness={thickness}
-        headThickness={headThickness}
-        headLength={headLength}
-      />
-      <Arrow
-        direction={new Vector3(0, 1, 0)}
-        length={size}
-        color={0x2f7f4f}
-        thickness={thickness}
-        headThickness={headThickness}
-        headLength={headLength}
-      />
-      <Arrow
-        direction={new Vector3(0, 0, 1)}
-        length={size}
-        color={0x3b5b9d}
-        thickness={thickness}
-        headThickness={headThickness}
-        headLength={headLength}
-      />
+      {displayX && (
+        <Arrow
+          direction={new Vector3(1, 0, 0)}
+          length={size}
+          color={0x9d4b4b}
+          thickness={thickness}
+          headThickness={headThickness}
+          headLength={headLength}
+        />
+      )}
+      {displayY && (
+        <Arrow
+          direction={new Vector3(0, 1, 0)}
+          length={size}
+          color={0x2f7f4f}
+          thickness={thickness}
+          headThickness={headThickness}
+          headLength={headLength}
+        />
+      )}
+      {displayZ && (
+        <Arrow
+          direction={new Vector3(0, 0, 1)}
+          length={size}
+          color={0x3b5b9d}
+          thickness={thickness}
+          headThickness={headThickness}
+          headLength={headLength}
+        />
+      )}
     </group>
   );
 };

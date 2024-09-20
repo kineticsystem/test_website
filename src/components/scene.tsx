@@ -13,10 +13,12 @@ import Grid from "./grid";
 import { Frame } from "./frame";
 import { Robot } from "./robot";
 import { Cylinder } from "./cylinder";
-import { SceneState } from "./scene_state";
+import { CylinderState, SceneState } from "./scene_state";
 import { useRobotContext } from "../hooks/use-robot-context";
+import { CircleOutline } from "./circle";
 
 interface SceneProps {
+  goal: CylinderState;
   state: SceneState;
   cameraPosition: [number, number, number];
   controlsEnabled?: boolean;
@@ -33,7 +35,12 @@ interface SceneProps {
  * For this reason, we decided to apply some rotations to the whole scene to
  * make it z-up and change labels and colors in the GizmoHelper, instead.
  */
-export const Scene = ({ state, cameraPosition, controlsEnabled = true }: SceneProps) => {
+export const Scene = ({
+  goal,
+  state,
+  cameraPosition,
+  controlsEnabled = true
+}: SceneProps) => {
   const leftArm = useRobotContext();
   const rightArm = useRobotContext();
   useEffect(() => {
@@ -83,6 +90,8 @@ export const Scene = ({ state, cameraPosition, controlsEnabled = true }: ScenePr
           >
             <Robot robot={leftArm} position={[0, 0.45, 0]} />
             <Robot robot={rightArm} position={[0, -0.45, 0]} />
+
+            {/* The moving cylinder. */}
             <group
               position={[state.cylinder.x, state.cylinder.y, 0.25]}
               rotation-z={state.cylinder.rotation}
@@ -90,6 +99,13 @@ export const Scene = ({ state, cameraPosition, controlsEnabled = true }: ScenePr
               <Cylinder radius={0.14} height={0.5} color={"#ff8888"} opacity={0.75} />
               <Frame size={0.6} />
             </group>
+
+            {/* The goal. */}
+            <group position={[goal.x, goal.y, 0.25]} rotation-z={goal.rotation}>
+              <CircleOutline radius={0.14} />
+              <Frame size={0.4} displayZ={false} />
+            </group>
+
             <Grid />
           </group>
 

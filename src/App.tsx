@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { Scene } from "./components/scene";
-import { SceneState, SceneStateSequence } from "./components/scene_state";
+import { CylinderState, SceneState, GoalTrajectory } from "./components/scene_state";
 import { RobotContextProvider } from "./context/robot-context";
 import { Player } from "./components/player";
 
@@ -21,6 +21,12 @@ const App = () => {
 
   // Create a new QueryClient instance
   const queryClient = new QueryClient();
+
+  const [goal, setGoal] = useState<CylinderState>({
+    x: 0.6718483143235885,
+    y: -0.23452121868326742,
+    rotation: 0.5336689388195219
+  });
 
   const [sceneState, setSceneState] = useState<SceneState>({
     timeFromStart: 0,
@@ -74,8 +80,10 @@ const App = () => {
           `Failed to fetch ${url}: ${response.status} ${response.statusText}`
         );
       }
-      const sequence: SceneStateSequence = await response.json();
-      setSceneSequence(sequence.points);
+      const data: GoalTrajectory = await response.json();
+      setGoal(data.goal);
+      setSceneSequence(data.points);
+      console.log(data.goal);
     } catch (error) {
       throw new Error(`Error loading trajectory: ${(error as Error).message}`);
     }
@@ -193,6 +201,7 @@ const App = () => {
                             <div key="1" className="w-full md:w-1/2 px-0 mb-0">
                               <div className="bg-white-500 text-white p-1 rounded-lg">
                                 <Scene
+                                  goal={goal}
                                   state={sceneState}
                                   cameraPosition={[2.5, 2.5, 2.5]}
                                 />

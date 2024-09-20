@@ -25,6 +25,7 @@ export interface SceneState {
   cylinder: CylinderState;
 }
 
-export interface SceneStateSequence {
+export interface GoalTrajectory {
+  goal: CylinderState;
   points: SceneState[];
 }
