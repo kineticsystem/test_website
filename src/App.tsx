@@ -83,7 +83,6 @@ const App = () => {
       const data: GoalTrajectory = await response.json();
       setGoal(data.goal);
       setSceneSequence(data.points);
-      console.log(data.goal);
     } catch (error) {
       throw new Error(`Error loading trajectory: ${(error as Error).message}`);
     }

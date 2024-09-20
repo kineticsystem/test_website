@@ -1,39 +1,31 @@
-import { useMemo } from "react";
-import * as THREE from "three";
-import { TorusGeometry } from "three";
-
+/**
+ * Component to draw a circle.
+ */
 export const Circle = ({ position = [0, 0], radius = 1, color = "blue", ...props }) => {
   return (
     <mesh position={[position[0], position[1], 0]} {...props}>
-      {/* CircleGeometry takes radius and segments as arguments */}
       <circleGeometry args={[radius, 64]} />
-      {/* You can choose different materials; MeshStandardMaterial is commonly used */}
       <meshStandardMaterial color={color} wireframe />
     </mesh>
   );
 };
 
+/**
+ * Component to draw a circle outline.
+ */
 export const CircleOutline = ({
   position = [0, 0, 0],
-  radius = 1, // Major radius (distance from center to tube center)
-  tube = 0.005, // Minor radius (thickness of the circle)
+  radius = 1,
+  tube = 0.005,
   radialSegments = 16,
   tubularSegments = 100,
   arc = Math.PI * 2,
   color = "white",
   ...props
 }) => {
-  // Memoize geometry to prevent unnecessary recalculations
-  const geometry = useMemo(() => {
-    return new TorusGeometry(radius, tube, radialSegments, tubularSegments, arc);
-  }, [radius, tube, radialSegments, tubularSegments, arc]);
-
   return (
-    <mesh
-      position={[position[0], position[1], position[2]]}
-      geometry={geometry}
-      {...props}
-    >
+    <mesh position={[position[0], position[1], position[2]]} {...props}>
+      <torusGeometry args={[radius, tube, radialSegments, tubularSegments, arc]} />
       <meshStandardMaterial color={color} />
     </mesh>
   );
