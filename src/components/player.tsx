@@ -1,16 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import { SceneState } from "./scene_state";
-import { readTrajectory } from "./trajectory_loader";
-
-export interface SceneControllerProps {
-  onStateChanged: (state: SceneState) => void;
+export interface PlayerProps<T> {
+  sequence: T[];
+  onFrameChanged: (state: T) => void;
 }
 
-export const SceneController = ({ onStateChanged }: SceneControllerProps) => {
-  // State to hold the sequence of SceneStates.
-  const [sceneSequence, setSceneSequence] = useState<SceneState[]>([]);
-
+export const Player = <T,>({
+  sequence: sceneSequence,
+  onFrameChanged: onStateChanged
+}: PlayerProps<T>) => {
   // State to control playback
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -19,22 +17,6 @@ export const SceneController = ({ onStateChanged }: SceneControllerProps) => {
 
   // Ref to store the playback interval
   const intervalRef = useRef<number | null>(null);
-
-  // Parse the file and populate the sequence of SceneStates.
-  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      try {
-        const newSceneSequence = await readTrajectory(file);
-        if (newSceneSequence?.points?.length > 0) {
-          setSceneSequence(newSceneSequence.points);
-          onStateChanged(newSceneSequence.points[0]);
-        }
-      } catch (error) {
-        console.error("Error reading JSON file:", error);
-      }
-    }
-  };
 
   useEffect(() => {
     if (isPlaying) {
@@ -87,8 +69,6 @@ export const SceneController = ({ onStateChanged }: SceneControllerProps) => {
 
   return (
     <div>
-      {/* File Input */}
-      <input type="file" accept=".json,application/json" onChange={handleFileSelect} />
       <button onClick={handlePlay} disabled={isPlaying || sceneSequence.length === 0}>
         Play
       </button>

@@ -7,9 +7,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { Scene } from "./components/scene";
-import { SceneState } from "./components/scene_state";
+import { SceneState, SceneStateSequence } from "./components/scene_state";
 import { RobotContextProvider } from "./context/robot-context";
-import { SceneController } from "./components/robot_controller";
+import { Player } from "./components/player";
 
 import "academicons/css/academicons.min.css";
 
@@ -49,13 +49,37 @@ const App = () => {
     }
   });
 
+  // State to hold the sequence of SceneStates.
+  const [sceneSequence, setSceneSequence] = useState<SceneState[]>([]);
+
   const onStateChanged = (state: SceneState) => {
     setSceneState(state);
   };
 
-  const trajectoryFiles = ["trajectory_0.json"];
+  // Load
+  const trajectoryFiles: string[] = [];
+  for (let i = 0; i < 10; i++) {
+    const trajectoryFile = `${window.location.origin}/test_website/data/trajectory_${i}.json`;
+    trajectoryFiles.push(trajectoryFile);
+  }
 
-  const buttons = Array.from({ length: 10 }, (_, index) => `Button ${index + 1}`);
+  const buttons = Array.from({ length: 10 }, (_, index) => `Trajectory ${index + 1}`);
+
+  const handleButtonClick = async (index: number) => {
+    try {
+      const url = trajectoryFiles[index];
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch ${url}: ${response.status} ${response.statusText}`
+        );
+      }
+      const sequence: SceneStateSequence = await response.json();
+      setSceneSequence(sequence.points);
+    } catch (error) {
+      throw new Error(`Error loading trajectory: ${(error as Error).message}`);
+    }
+  };
 
   return (
     <>
@@ -147,7 +171,7 @@ const App = () => {
                       key={index}
                       className="button w-full"
                       onClick={() => {
-                        console.log(`${label} clicked`);
+                        handleButtonClick(index);
                       }}
                     >
                       {label}
@@ -156,7 +180,7 @@ const App = () => {
                 </div>
 
                 <div>
-                  <SceneController onStateChanged={onStateChanged} />
+                  <Player sequence={sceneSequence} onStateChanged={onStateChanged} />
                 </div>
 
                 <div className="container mx-auto px-2 py-2 max-w-3xl">
