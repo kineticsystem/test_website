@@ -97,7 +97,7 @@ export const Scene = ({
               rotation-z={state.cylinder.rotation}
             >
               <Cylinder radius={0.14} height={0.5} color={"#ff8888"} opacity={0.75} />
-              <Frame size={0.6} />
+              <Frame size={0.4} />
             </group>
 
             {/* The goal. */}
