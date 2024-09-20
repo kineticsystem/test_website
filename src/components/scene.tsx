@@ -15,7 +15,7 @@ import { Robot } from "./robot";
 import { Cylinder } from "./cylinder";
 import { CylinderState, SceneState } from "./scene_state";
 import { useRobotContext } from "../hooks/use-robot-context";
-import { CircleOutline } from "./circle";
+import { CircleOutline, Sector } from "./circle";
 
 interface SceneProps {
   goal: CylinderState;
@@ -60,6 +60,16 @@ export const Scene = ({
     rightArm.setJointValue("iiwa_joint7", state.rightArm.joint7);
   }, [state, leftArm, rightArm]);
 
+  let startAngle = 0;
+  let endAngle = 0;
+  if (state.cylinder.rotation - goal.rotation > 0) {
+    startAngle = 0;
+    endAngle = state.cylinder.rotation - goal.rotation;
+  } else {
+    startAngle = state.cylinder.rotation - goal.rotation;
+    endAngle = 0;
+  }
+
   return (
     <div className="w-full">
       <div className="aspect-square bg-gray-200 rounded-md overflow-hidden shadow-md">
@@ -101,9 +111,10 @@ export const Scene = ({
             </group>
 
             {/* The goal. */}
-            <group position={[goal.x, goal.y, 0.25]} rotation-z={goal.rotation}>
+            <group position={[goal.x, goal.y, 0]} rotation-z={goal.rotation}>
               <CircleOutline radius={0.14} />
-              <Frame size={0.4} displayZ={false} />
+              <Sector radius={0.14} startAngle={startAngle} endAngle={endAngle} />
+              {/* <Frame size={0.4} displayY={false} displayZ={false} /> */}
             </group>
 
             <Grid />
