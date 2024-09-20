@@ -180,7 +180,7 @@ const App = () => {
                 </div>
 
                 <div>
-                  <Player sequence={sceneSequence} onStateChanged={onStateChanged} />
+                  <Player sequence={sceneSequence} onFrameChanged={onStateChanged} />
                 </div>
 
                 <div className="container mx-auto px-2 py-2 max-w-3xl">
