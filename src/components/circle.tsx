@@ -56,7 +56,7 @@ export const Sector = ({
   return (
     <mesh position={[position[0], position[1], position[2]]} {...props}>
       <shapeGeometry args={[shape]} />
-      <meshStandardMaterial color={color} />
+      <meshStandardMaterial color={color} side={THREE.DoubleSide} />
     </mesh>
   );
 };

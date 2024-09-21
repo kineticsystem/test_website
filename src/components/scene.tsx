@@ -113,7 +113,12 @@ export const Scene = ({
             {/* The goal. */}
             <group position={[goal.x, goal.y, 0]} rotation-z={goal.rotation}>
               <CircleOutline radius={0.14} />
-              <Sector radius={0.14} startAngle={startAngle} endAngle={endAngle} />
+              <Sector
+                color={"#FFFFFF"}
+                radius={0.14}
+                startAngle={startAngle}
+                endAngle={endAngle}
+              />
               {/* <Frame size={0.4} displayY={false} displayZ={false} /> */}
             </group>
 
