@@ -56,7 +56,7 @@ const App = () => {
   });
 
   // State to hold the sequence of SceneStates.
-  const [sceneSequence, setSceneSequence] = useState<SceneState[]>([]);
+  const [sceneSequence, setSceneSequence] = useState<SceneState[]>([sceneState]);
 
   const onStateChanged = (state: SceneState) => {
     setSceneState(state);
