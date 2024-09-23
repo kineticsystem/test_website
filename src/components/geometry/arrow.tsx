@@ -2,6 +2,15 @@ import { useEffect, useRef } from "react";
 
 import { Group, Vector3 } from "three";
 
+/**
+ * Props for the Arrow component.
+ * @property direction Vector representing the direction of the arrow.
+ * @property color The arrow color.
+ * @property length The arrow length.
+ * @property thickness The shaft thickness (default is 0.02).
+ * @property headLength The arrow head length (default is 0.2).
+ * @property headThickness The arrow head thickness (default is 0.1).
+ */
 interface ArrowProps {
   direction: Vector3;
   length: number;
@@ -9,20 +18,12 @@ interface ArrowProps {
   thickness?: number;
   headLength?: number;
   headThickness?: number;
-  sectors?: number;
 }
 
 /**
- * This component displays an arrow from the origin pointing to the given direction.
- * @param direction Vector prepresenting the direction of the arrow.
- * @param color The arrow color.
- * @param length The arrow length.
- * @param thickness The shaft thickness.
- * @param headLength The arrow head length.
- * @param headThickness The arrow head thickness.
- * @param sectors The number of sectors used to draw the arrow shaft and head.
- * @returns An arrow.
- *
+ * Component to display an arrow from the origin pointing to the given direction.
+ * @param props {@link ArrowProps}
+ * @returns A 3D arrow.
  */
 export const Arrow = ({
   direction,
@@ -30,11 +31,10 @@ export const Arrow = ({
   length,
   thickness = 0.02,
   headLength = 0.2,
-  headThickness = 0.1,
-  sectors = 12
+  headThickness = 0.1
 }: ArrowProps) => {
   const groupRef = useRef<Group>(null);
-
+  const sectors = 12;
   useEffect(() => {
     if (groupRef.current) {
       // Normalize the direction vector

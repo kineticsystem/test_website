@@ -9,13 +9,14 @@ import {
   PerspectiveCamera
 } from "@react-three/drei";
 
-import Grid from "./grid";
-import { Frame } from "./frame";
 import { Robot } from "./robot";
-import { Cylinder } from "./cylinder";
+import { Grid } from "./geometry/grid";
+import { Frame } from "./geometry/frame";
+import { Sector } from "./geometry/sector";
+import { Cylinder } from "./geometry/cylinder";
 import { CylinderState, SceneState } from "./scene_state";
+import { CircleOutline } from "./geometry/circle_outline";
 import { useRobotContext } from "../hooks/use-robot-context";
-import { CircleOutline, Sector } from "./circle";
 
 interface SceneProps {
   goal: CylinderState;
@@ -111,17 +112,17 @@ export const Scene = ({
             </group>
 
             {/* The goal. */}
-            <group position={[goal.x, goal.y, 0]} rotation-z={goal.rotation}>
-              <CircleOutline radius={0.14} />
+            <group position={[goal.x, goal.y, -0.00001]} rotation-z={goal.rotation}>
+              <CircleOutline radius={0.14} color={"#FFFFFF"} />
               <Sector
                 color={"#FFFFFF"}
                 radius={0.14}
                 startAngle={startAngle}
                 endAngle={endAngle}
               />
-              {/* <Frame size={0.4} displayY={false} displayZ={false} /> */}
             </group>
 
+            {/* Floor. */}
             <Grid />
           </group>
 
