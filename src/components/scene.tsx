@@ -123,7 +123,7 @@ export const Scene = ({
             </group>
 
             {/* Floor. */}
-            <Grid />
+            <Grid size={4} />
           </group>
 
           <PerspectiveCamera
