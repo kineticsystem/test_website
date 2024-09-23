@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay, faPause, faRedoAlt } from "@fortawesome/free-solid-svg-icons";
+
 import { useEffect, useRef, useState } from "react";
 
 export interface PlayerProps<T> {
@@ -6,7 +9,7 @@ export interface PlayerProps<T> {
 }
 
 export const Player = <T,>({
-  sequence: sceneSequence,
+  sequence,
   onFrameChanged: onStateChanged
 }: PlayerProps<T>) => {
   // State to control playback
@@ -15,69 +18,86 @@ export const Player = <T,>({
   // Current frame.
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
 
-  // Ref to store the playback interval
+  const [isComplete, setIsComplete] = useState(false);
+
+  // Ref to store the playback interval.
   const intervalRef = useRef<number | null>(null);
 
+  // Auto play when the sequence is set.
   useEffect(() => {
-    if (isPlaying) {
-      // Only set up interval if playback is active
-      intervalRef.current = setInterval(() => {
-        setCurrentFrameIndex((prevIndex) => {
-          const nextIndex = prevIndex + 1;
-          if (nextIndex < sceneSequence.length) {
-            onStateChanged(sceneSequence[nextIndex]);
-            return nextIndex;
-          } else {
-            setIsPlaying(false); // Stop playing when the end is reached
-            return prevIndex;
-          }
-        });
-      }, 50);
-    } else if (intervalRef.current !== null) {
-      // Clear the interval if playback is paused or stopped
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
+    if (sequence?.length > 0) {
+      setCurrentFrameIndex(0);
+      setIsComplete(false);
+      setIsPlaying(true);
     }
+  }, [sequence]);
 
-    // Clean up on unmount
+  useEffect(() => {
+    if (sequence?.length > 0) {
+      onStateChanged(sequence[currentFrameIndex]);
+    }
+  }, [currentFrameIndex, onStateChanged, sequence]);
+
+  // Setup an interval to play the sequence.
+  useEffect(() => {
+    if (isPlaying && currentFrameIndex < sequence.length - 1) {
+      intervalRef.current = setInterval(() => {
+        setCurrentFrameIndex((prev) => prev + 1);
+      }, 50);
+    } else if (currentFrameIndex === sequence.length - 1) {
+      setIsPlaying(false);
+      setIsComplete(true);
+    }
     return () => {
-      if (intervalRef.current !== null) {
+      if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
     };
-  }, [isPlaying, onStateChanged, sceneSequence]);
+  }, [isPlaying, currentFrameIndex, sequence]);
 
   // Playback controls
-
-  const handlePlay = () => {
-    if (sceneSequence.length > 0) {
-      setIsPlaying(true);
+  const handlePlayPause = () => {
+    if (isComplete) {
+      setCurrentFrameIndex(0);
+      setIsComplete(false);
     }
+    setIsPlaying((prev) => !prev);
   };
 
-  const handlePause = () => {
-    setIsPlaying(false);
-  };
-
-  const handleStop = () => {
-    setIsPlaying(false);
-    setCurrentFrameIndex(0);
-    if (sceneSequence.length > 0) {
-      onStateChanged(sceneSequence[0]);
+  // Progress bar.
+  const handleProgressBarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newFrameIndex = Number(e.target.value);
+    setCurrentFrameIndex(newFrameIndex);
+    if (newFrameIndex === sequence.length - 1) {
+      setIsComplete(true);
+      setIsPlaying(false);
+    } else {
+      setIsComplete(false);
     }
   };
 
   return (
     <div>
-      <button onClick={handlePlay} disabled={isPlaying || sceneSequence.length === 0}>
-        Play
+      <button onClick={handlePlayPause} disabled={sequence.length === 0}>
+        {isComplete ? (
+          <FontAwesomeIcon icon={faRedoAlt} />
+        ) : isPlaying ? (
+          <FontAwesomeIcon icon={faPause} />
+        ) : (
+          <FontAwesomeIcon icon={faPlay} />
+        )}
       </button>
-      <button onClick={handlePause} disabled={!isPlaying}>
-        Pause
-      </button>
-      <button onClick={handleStop} disabled={!isPlaying && currentFrameIndex === 0}>
-        Stop
-      </button>
+      <input
+        type="range"
+        min="0"
+        max={sequence.length - 1}
+        value={currentFrameIndex}
+        onChange={handleProgressBarChange}
+        style={{ width: "100%" }}
+      />
+      <div>
+        Frame {currentFrameIndex + 1} of {sequence.length}
+      </div>
     </div>
   );
 };
