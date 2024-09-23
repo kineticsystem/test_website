@@ -13,7 +13,7 @@ export interface SectorProps {
   radius: number;
   startAngle: number;
   endAngle: number; // In radians
-  color: string;
+  color: string | number;
 }
 
 /**

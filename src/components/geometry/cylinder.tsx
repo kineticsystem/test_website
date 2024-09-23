@@ -5,7 +5,7 @@ import { Mesh } from "three";
 interface CylinderProps {
   radius: number;
   height: number;
-  color: string;
+  color: string | number;
   opacity?: number;
 }
 

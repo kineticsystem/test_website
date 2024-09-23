@@ -5,7 +5,7 @@
  */
 export interface CircleOutlineProps {
   radius: number;
-  color: string;
+  color: string | number;
 }
 
 /**

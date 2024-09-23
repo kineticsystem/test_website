@@ -37,10 +37,12 @@ export const Frame = ({
   const headLength = 0.1;
   return (
     <group>
+      {/* Center of the frame. */}
       <mesh>
         <sphereGeometry args={[centerRadius, sphereSectors, sphereSectors]} />
         <meshStandardMaterial color={0xffffff} />
       </mesh>
+      {/* Arrow X. */}
       {displayX && (
         <Arrow
           direction={new Vector3(1, 0, 0)}
@@ -51,6 +53,7 @@ export const Frame = ({
           headLength={headLength}
         />
       )}
+      {/* Arrow Y. */}
       {displayY && (
         <Arrow
           direction={new Vector3(0, 1, 0)}
@@ -61,6 +64,7 @@ export const Frame = ({
           headLength={headLength}
         />
       )}
+      {/* Arrow Z. */}
       {displayZ && (
         <Arrow
           direction={new Vector3(0, 0, 1)}

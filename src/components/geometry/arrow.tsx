@@ -14,7 +14,7 @@ import { Group, Vector3 } from "three";
 interface ArrowProps {
   direction: Vector3;
   length: number;
-  color: number;
+  color: string | number;
   thickness?: number;
   headLength?: number;
   headThickness?: number;
