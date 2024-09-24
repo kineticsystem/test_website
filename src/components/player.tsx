@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { Range } from "react-range";
+import { getTrackBackground, Range } from "react-range";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPause, faPlay, faRedoAlt } from "@fortawesome/free-solid-svg-icons";
@@ -67,7 +67,7 @@ const PlayerIcon = ({ playerState }: PlayerIconProps) => {
       return <FontAwesomeIcon icon={faPause} />;
       break;
     case PlayerState.Disabled:
-      return <FontAwesomeIcon icon={faPlay} color="#CCCCCC" />;
+      return <FontAwesomeIcon icon={faPlay} color="#C0C0C0" />;
       break;
   }
 };
@@ -172,32 +172,64 @@ export const Player = <T,>({ sequence, onFrameChanged }: PlayerProps<T>) => {
       {/* Component enabled when the sequence length is greater than 0. */}
       {sequence.length > 1 ? (
         <Range
+          values={[frame]}
           step={1}
           min={0}
           max={sequence.length - 1}
-          values={[frame]}
-          allowOverlap={true}
           onChange={(values) => handleProgressBarChange(values[0])}
           renderTrack={({ props, children }) => (
-            <div {...props} style={styles.renderTrack}>
-              {children}
+            <div
+              onMouseDown={props.onMouseDown}
+              onTouchStart={props.onTouchStart}
+              style={{
+                ...props.style,
+                height: "36px",
+                display: "flex",
+                width: "100%"
+              }}
+            >
+              <div
+                ref={props.ref}
+                style={{
+                  height: "5px",
+                  width: "100%",
+                  borderRadius: "4px",
+                  background: getTrackBackground({
+                    values: [frame],
+                    colors: ["#548BF4", "#C0C0C0"],
+                    min: 0,
+                    max: sequence.length - 1
+                  }),
+                  alignSelf: "center"
+                }}
+              >
+                {children}
+              </div>
             </div>
           )}
-          renderThumb={({ props }) => {
-            // We cannot spread props with "key" values into a div.
-            // We must destructure the "key" to prevent warnings.
-            const { key, ...restProps } = props;
-            return (
-              <div
-                key={key}
-                {...restProps} // Spread the rest without key.
-                style={{ height: "10px", width: "10px", backgroundColor: "#3b82f6" }}
-              />
-            );
-          }}
+          renderThumb={({ props }) => (
+            <div
+              {...props}
+              key={props.key}
+              style={{
+                height: "16px",
+                width: "16px",
+                borderRadius: "50%", // Inner circle
+                backgroundColor: "#548BF4"
+              }}
+            />
+          )}
         />
       ) : (
-        <div style={styles.renderTrack} />
+        <div
+          style={{
+            height: "5px",
+            width: "100%",
+            borderRadius: "4px",
+            background: "#C0C0C0",
+            alignSelf: "center"
+          }}
+        />
       )}
     </div>
   );
