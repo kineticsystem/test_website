@@ -147,10 +147,11 @@ export const Player = <T,>({ sequence, onFrameChanged }: PlayerProps<T>) => {
   const handleProgressBarChange = (newFrame: number) => {
     if (newFrame < sequence.length - 1) {
       setState(PlayerState.Paused);
+      setFrame(newFrame);
     } else if (newFrame === sequence.length - 1) {
       setState(PlayerState.Completed);
+      setFrame(newFrame);
     }
-    setFrame(newFrame);
   };
 
   return (
