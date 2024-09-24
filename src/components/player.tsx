@@ -36,7 +36,8 @@ enum PlayerState {
   InitialState,
   Completed,
   Paused,
-  Playing
+  Playing,
+  Disabled
 }
 
 /**
@@ -64,6 +65,9 @@ const PlayerIcon = ({ playerState }: PlayerIconProps) => {
       break;
     case PlayerState.Playing:
       return <FontAwesomeIcon icon={faPause} />;
+      break;
+    case PlayerState.Disabled:
+      return <FontAwesomeIcon icon={faPlay} color="#CCCCCC" />;
       break;
   }
 };
@@ -117,6 +121,9 @@ export const Player = <T,>({ sequence, onFrameChanged }: PlayerProps<T>) => {
       } else if (state == PlayerState.Paused) {
         onFrameChanged(sequence[frame]);
       }
+    }
+    if (!sequence || sequence.length <= 1) {
+      setState(PlayerState.Disabled);
     }
     return () => {
       // Method called immediately after a dependency changes.
