@@ -197,7 +197,7 @@ const App = () => {
                         <RobotContextProvider url={urdfUrl}>
                           {/* Added justify-center to center the column */}
                           <div className="flex flex-col md:flex-row flex-wrap justify-center">
-                            <div key="1" className="w-full md:w-1/2 px-0 mb-0">
+                            <div className="w-full md:w-1/2 px-0 mb-0">
                               <div className="bg-white-500 text-white p-1 rounded-lg">
                                 <Scene
                                   goal={goal}
