@@ -134,6 +134,7 @@ export const Player = <T,>({ sequence, onFrameChanged }: PlayerProps<T>) => {
       case PlayerState.Completed:
       case PlayerState.InitialState:
       case PlayerState.Paused:
+        setFrame(0);
         setState(PlayerState.Playing);
         break;
       case PlayerState.Playing:
@@ -144,7 +145,11 @@ export const Player = <T,>({ sequence, onFrameChanged }: PlayerProps<T>) => {
 
   // bar handle, only available when the sequence length is greater than 0.
   const handleProgressBarChange = (newFrame: number) => {
-    setState(PlayerState.Paused);
+    if (newFrame < sequence.length - 1) {
+      setState(PlayerState.Paused);
+    } else if (newFrame === sequence.length - 1) {
+      setState(PlayerState.Completed);
+    }
     setFrame(newFrame);
   };
 
