@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { getTrackBackground, Range } from "react-range";
 
@@ -88,7 +88,7 @@ export interface PlayerProps<T> {
  * @param props {@link PlayerProps}
  * @returns A sequence player.
  */
-const PlayerComponent = <T,>({ sequence, onFrameChanged }: PlayerProps<T>) => {
+export const Player = <T,>({ sequence, onFrameChanged }: PlayerProps<T>) => {
   // Used to check when the sequence changes.
   const prevSequenceRef = useRef<T[]>(sequence);
 
@@ -239,5 +239,3 @@ const PlayerComponent = <T,>({ sequence, onFrameChanged }: PlayerProps<T>) => {
     </div>
   );
 };
-
-export const Player = memo(PlayerComponent);
