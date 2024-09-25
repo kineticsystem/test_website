@@ -1,14 +1,48 @@
-import Plot from "react-plotly.js";
-import { PlotMouseEvent, Data, Layout } from "plotly.js";
+import { memo, useCallback, useEffect, useState } from "react";
 
-const ScatterPlot = () => {
+import Plot from "react-plotly.js";
+import { Data, Layout, PlotMouseEvent } from "plotly.js";
+
+/**
+ * Props for the ScatterPlotComponent component.
+ * @param onPointSelected A callback function invoked when the user clicks on
+ * a point on the scatter plot.
+ */
+export interface ScatterPlotProps {
+  onPointSelected: (id: number) => void;
+}
+
+/**
+ * This is a component to display a scatter plot and invoke a callback when
+ * a point is clicked.
+ *
+ * IMPORTANT:
+ * The Plot component does not work well with "memo". In this scenario,
+ * all mouse events are not correctly connected and fail to fire.
+ * Two workarounds have to be implemented to resolve the problem:
+ * 1. An initialization state must to be added and updated on the first mount
+ *    to trigger a re-rendering;
+ * 2. The onClick event must be given a function reference and not a handler
+ *    reference.
+ * @param props {@link ScatterPlotProps}
+ * @returns A scatter plot.
+ */
+export const ScatterPlotComponent = ({ onPointSelected }: ScatterPlotProps) => {
+  // Initialization state.
+  const [, setInitialized] = useState(false);
+
+  useEffect(() => {
+    setInitialized(true);
+  }, []);
+
   const data: Data[] = [
     {
-      x: [1, 2, 3, 4, 5],
-      y: [2, 3, 1, 5, 4],
+      x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      y: [1.1, 1.9, 3.3, 4.1, 4.8, 4.4, 6.3, 7, 8.2, 10],
       mode: "markers",
       type: "scatter",
-      marker: { size: 12 }
+      marker: { size: 12 },
+      customdata: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     }
   ];
 
@@ -19,13 +53,18 @@ const ScatterPlot = () => {
   };
 
   // Event handler for clicking on a point
-  const handleClick = (event: PlotMouseEvent) => {
-    const pointIndex = event.points[0].pointIndex;
-    const x = event.points[0].x;
-    const y = event.points[0].y;
-
-    alert(`Dot clicked at X: ${x}, Y: ${y}, Index: ${pointIndex}`);
-  };
+  const handleClick = useCallback(
+    (event: PlotMouseEvent) => {
+      if (event.points && event.points.length > 0) {
+        const point = event.points[0];
+        const index = point.customdata as number;
+        if (index !== undefined) {
+          onPointSelected(index);
+        }
+      }
+    },
+    [onPointSelected]
+  );
 
   return (
     <div className="w-full">
@@ -33,7 +72,9 @@ const ScatterPlot = () => {
         <Plot
           data={data}
           layout={layout}
-          onClick={handleClick} // Attach click handler here
+          // This event does not work with a handler reference, and must be
+          // given a function reference instead.
+          onClick={(event: PlotMouseEvent) => handleClick(event)}
           config={{
             responsive: true,
             displayModeBar: false
@@ -45,4 +86,5 @@ const ScatterPlot = () => {
   );
 };
 
-export default ScatterPlot;
+// Memoize the named component
+export const ScatterPlot = memo(ScatterPlotComponent);

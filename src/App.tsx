@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { Suspense, useCallback, useMemo, useState } from "react";
 
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -7,15 +7,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { Scene } from "./components/scene";
-import { CylinderState, SceneState, GoalTrajectory } from "./components/scene_state";
-import { RobotContextProvider } from "./context/robot-context";
 import { Player } from "./components/player";
+import { ScatterPlot } from "./components/scatter-plot";
+import { RobotContextProvider } from "./context/robot-context";
+import { CylinderState, GoalTrajectory, SceneState } from "./components/scene_state";
 
 import "academicons/css/academicons.min.css";
 
 import "./App.css";
 import "./index.css";
-import ScatterPlot from "./components/scatter-plot";
 
 const App = () => {
   const urdfUrl = `${window.location.origin}/test_website/drake_models/iiwa_description/urdf/iiwa7.urdf`;
@@ -59,35 +59,40 @@ const App = () => {
   // State to hold the sequence of SceneStates.
   const [sceneSequence, setSceneSequence] = useState<SceneState[]>([sceneState]);
 
-  const onStateChanged = (state: SceneState) => {
-    setSceneState(state);
-  };
-
   // Load
-  const trajectoryFiles: string[] = [];
-  for (let i = 0; i < 10; i++) {
-    const trajectoryFile = `${window.location.origin}/test_website/data/trajectory_${i}.json`;
-    trajectoryFiles.push(trajectoryFile);
-  }
+  const trajectoryFiles: string[] = useMemo(
+    () =>
+      Array.from(
+        { length: 10 },
+        (_, index) =>
+          `${window.location.origin}/test_website/data/trajectory_${index}.json`
+      ),
+    []
+  );
 
-  const buttons = Array.from({ length: 10 }, (_, index) => `Trajectory ${index + 1}`);
+  const onStateChanged = useCallback((state: SceneState) => {
+    setSceneState(state);
+  }, []);
 
-  const handleButtonClick = async (index: number) => {
-    try {
-      const url = trajectoryFiles[index];
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(
-          `Failed to fetch ${url}: ${response.status} ${response.statusText}`
-        );
+  const handleSelectedPoint = useCallback(
+    async (index: number) => {
+      try {
+        const url = trajectoryFiles[index];
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(
+            `Failed to fetch ${url}: ${response.status} ${response.statusText}`
+          );
+        }
+        const data: GoalTrajectory = await response.json();
+        setGoal(data.goal);
+        setSceneSequence(data.points);
+      } catch (error) {
+        throw new Error(`Error loading trajectory: ${(error as Error).message}`);
       }
-      const data: GoalTrajectory = await response.json();
-      setGoal(data.goal);
-      setSceneSequence(data.points);
-    } catch (error) {
-      throw new Error(`Error loading trajectory: ${(error as Error).message}`);
-    }
-  };
+    },
+    [trajectoryFiles]
+  );
 
   return (
     <>
@@ -172,27 +177,14 @@ const App = () => {
                   </span>
                 </div>
 
-                {/* Buttons Container */}
-                <div className="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-2 w-full mt-4">
-                  {buttons.map((label, index) => (
-                    <button
-                      key={index}
-                      className="button w-full"
-                      onClick={() => {
-                        handleButtonClick(index);
-                      }}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
+                <div style={{ margin: 20, color: "red" }}>Click on the scatter plot.</div>
 
                 <div className="container mx-auto px-2 py-2 max-w-3xl">
                   {/* Center the column. */}
                   <div className="flex flex-col md:flex-row flex-wrap justify-center items-center">
                     {/* Scatter Plot. */}
                     <div className="w-full md:w-1/2 px-1 mb-1">
-                      <ScatterPlot />
+                      <ScatterPlot onPointSelected={handleSelectedPoint} />
                     </div>
 
                     {/* Scene. */}
