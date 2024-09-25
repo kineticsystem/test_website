@@ -73,7 +73,7 @@ export const Scene = ({
 
   return (
     <div className="w-full">
-      <div className="aspect-square bg-gray-200 rounded-md overflow-hidden shadow-md">
+      <div className="aspect-square bg-white rounded-md overflow-hidden">
         <Canvas
           // only re-render when props changed or when requested.
           // frameloop="demand"

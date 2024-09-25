@@ -15,6 +15,7 @@ import "academicons/css/academicons.min.css";
 
 import "./App.css";
 import "./index.css";
+import ScatterPlot from "./components/scatter-plot";
 
 const App = () => {
   const urdfUrl = `${window.location.origin}/test_website/drake_models/iiwa_description/urdf/iiwa7.urdf`;
@@ -186,32 +187,36 @@ const App = () => {
                   ))}
                 </div>
 
-                <div>
-                  <Player sequence={sceneSequence} onFrameChanged={onStateChanged} />
+                <div className="container mx-auto px-2 py-2 max-w-3xl">
+                  {/* Center the column. */}
+                  <div className="flex flex-col md:flex-row flex-wrap justify-center items-center">
+                    {/* Scatter Plot. */}
+                    <div className="w-full md:w-1/2 px-1 mb-1">
+                      <ScatterPlot />
+                    </div>
+
+                    {/* Scene. */}
+                    <div className="w-full md:w-1/2 px-1 mb-1">
+                      <QueryClientProvider client={queryClient}>
+                        <ErrorBoundary fallback={<div>Something went wrong</div>}>
+                          <Suspense fallback={<div>Loading robot...</div>}>
+                            <RobotContextProvider url={urdfUrl}>
+                              <Scene
+                                goal={goal}
+                                state={sceneState}
+                                cameraPosition={[2.5, 2.5, 2.5]}
+                              />
+                            </RobotContextProvider>
+                          </Suspense>
+                        </ErrorBoundary>
+                      </QueryClientProvider>
+                    </div>
+                    {/* If you have more columns and want only one centered, ensure other columns have appropriate widths or use auto margins */}
+                  </div>
                 </div>
 
-                <div className="container mx-auto px-2 py-2 max-w-3xl">
-                  <QueryClientProvider client={queryClient}>
-                    <ErrorBoundary fallback={<div>Something went wrong</div>}>
-                      <Suspense fallback={<div>Loading robot...</div>}>
-                        <RobotContextProvider url={urdfUrl}>
-                          {/* Added justify-center to center the column */}
-                          <div className="flex flex-col md:flex-row flex-wrap justify-center">
-                            <div className="w-full md:w-1/2 px-0 mb-0">
-                              <div className="bg-white-500 text-white p-1 rounded-lg">
-                                <Scene
-                                  goal={goal}
-                                  state={sceneState}
-                                  cameraPosition={[2.5, 2.5, 2.5]}
-                                />
-                              </div>
-                            </div>
-                            {/* If you have more columns and want only one centered, ensure other columns have appropriate widths or use auto margins */}
-                          </div>
-                        </RobotContextProvider>
-                      </Suspense>
-                    </ErrorBoundary>
-                  </QueryClientProvider>
+                <div>
+                  <Player sequence={sceneSequence} onFrameChanged={onStateChanged} />
                 </div>
 
                 {/* column has-text-centered */}
