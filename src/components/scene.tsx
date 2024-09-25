@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 
 import { Canvas } from "@react-three/fiber";
 import {
@@ -17,7 +17,6 @@ import { Cylinder } from "./geometry/cylinder";
 import { CylinderState, SceneState } from "./scene_state";
 import { CircleOutline } from "./geometry/circle_outline";
 import { useRobotContext } from "../hooks/use-robot-context";
-
 interface SceneProps {
   goal: CylinderState;
   state: SceneState;
@@ -36,7 +35,7 @@ interface SceneProps {
  * For this reason, we decided to apply some rotations to the whole scene to
  * make it z-up and change labels and colors in the GizmoHelper, instead.
  */
-export const Scene = ({
+const SceneComponent = ({
   goal,
   state,
   cameraPosition,
@@ -150,3 +149,6 @@ export const Scene = ({
     </div>
   );
 };
+
+// Memoize the named component
+export const Scene = memo(SceneComponent);

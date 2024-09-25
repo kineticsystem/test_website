@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 
 import Plot from "react-plotly.js";
 import { Data, Layout, PlotMouseEvent } from "plotly.js";
@@ -35,22 +35,28 @@ export const ScatterPlotComponent = ({ onPointSelected }: ScatterPlotProps) => {
     setInitialized(true);
   }, []);
 
-  const data: Data[] = [
-    {
-      x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      y: [1.1, 1.9, 3.3, 4.1, 4.8, 4.4, 6.3, 7, 8.2, 10],
-      mode: "markers",
-      type: "scatter",
-      marker: { size: 12 },
-      customdata: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    }
-  ];
+  const data: Data[] = useMemo(
+    () => [
+      {
+        x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        y: [1.1, 1.9, 3.3, 4.1, 4.8, 4.4, 6.3, 7, 8.2, 10],
+        mode: "markers",
+        type: "scatter",
+        marker: { size: 12 },
+        customdata: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+      }
+    ],
+    []
+  );
 
-  const layout: Partial<Layout> = {
-    xaxis: { title: "X Axis" },
-    yaxis: { title: "Y Axis" },
-    margin: { l: 0, r: 0, t: 0, b: 0 } // Removes all margins
-  };
+  const layout: Partial<Layout> = useMemo(
+    () => ({
+      xaxis: { title: "X Axis" },
+      yaxis: { title: "Y Axis" },
+      margin: { l: 0, r: 0, t: 0, b: 0 } // Removes all margins
+    }),
+    []
+  ); // Empty array means this layout is memoized once
 
   // Event handler for clicking on a point
   const handleClick = useCallback(

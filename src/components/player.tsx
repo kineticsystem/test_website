@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 
 import { getTrackBackground, Range } from "react-range";
 
@@ -88,7 +88,7 @@ export interface PlayerProps<T> {
  * @param props {@link PlayerProps}
  * @returns A sequence player.
  */
-export const Player = <T,>({ sequence, onFrameChanged }: PlayerProps<T>) => {
+const PlayerComponent = <T,>({ sequence, onFrameChanged }: PlayerProps<T>) => {
   // Used to check when the sequence changes.
   const prevSequenceRef = useRef<T[]>(sequence);
 
@@ -134,7 +134,7 @@ export const Player = <T,>({ sequence, onFrameChanged }: PlayerProps<T>) => {
   }, [sequence, frame, state, onFrameChanged]);
 
   // Playback control, only available when sequence length > 0.
-  const handlePlayPause = () => {
+  const handlePlayPause = useCallback(() => {
     switch (state) {
       case PlayerState.Completed:
       case PlayerState.InitialState:
@@ -148,18 +148,21 @@ export const Player = <T,>({ sequence, onFrameChanged }: PlayerProps<T>) => {
         setState(PlayerState.Paused);
         break;
     }
-  };
+  }, [state]);
 
-  // bar handle, only available when the sequence length is greater than 0.
-  const handleProgressBarChange = (newFrame: number) => {
-    if (newFrame < sequence.length - 1) {
-      setState(PlayerState.Paused);
-      setFrame(newFrame);
-    } else if (newFrame === sequence.length - 1) {
-      setState(PlayerState.Completed);
-      setFrame(newFrame);
-    }
-  };
+  // Bar handle, only available when the sequence length is greater than 0.
+  const handleProgressBarChange = useCallback(
+    (newFrame: number) => {
+      if (newFrame < sequence.length - 1) {
+        setState(PlayerState.Paused);
+        setFrame(newFrame);
+      } else if (newFrame === sequence.length - 1) {
+        setState(PlayerState.Completed);
+        setFrame(newFrame);
+      }
+    },
+    [sequence.length]
+  );
 
   return (
     <div style={styles.container}>
@@ -236,3 +239,5 @@ export const Player = <T,>({ sequence, onFrameChanged }: PlayerProps<T>) => {
     </div>
   );
 };
+
+export const Player = memo(PlayerComponent);
