@@ -138,8 +138,10 @@ export const Player = <T,>({ sequence, onFrameChanged }: PlayerProps<T>) => {
     switch (state) {
       case PlayerState.Completed:
       case PlayerState.InitialState:
-      case PlayerState.Paused:
         setFrame(0);
+        setState(PlayerState.Playing);
+        break;
+      case PlayerState.Paused:
         setState(PlayerState.Playing);
         break;
       case PlayerState.Playing:
