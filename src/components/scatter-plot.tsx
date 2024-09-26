@@ -67,7 +67,7 @@ export const ScatterPlotComponent = ({ onPointSelected }: ScatterPlotProps) => {
         gridcolor: "#DDDDDD",
         gridwidth: 1,
         tick0: 0,
-        dtick: 0.5,
+        dtick: 2,
         zeroline: true,
         zerolinecolor: "#666666",
         zerolinewidth: 1
@@ -80,7 +80,7 @@ export const ScatterPlotComponent = ({ onPointSelected }: ScatterPlotProps) => {
         gridcolor: "#DDDDDD",
         gridwidth: 1,
         tick0: 0,
-        dtick: 0.5,
+        dtick: 2,
         zeroline: true,
         zerolinecolor: "#666666",
         zerolinewidth: 1
