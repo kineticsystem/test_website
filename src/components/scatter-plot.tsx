@@ -50,7 +50,7 @@ export const ScatterPlotComponent = ({ onPointSelected }: ScatterPlotProps) => {
         y: [1.1, 1.9, 3.3, 4.1, 4.8, 4.4, 6.3, 7, 8.2, 10],
         mode: "markers",
         type: "scatter",
-        marker: { color: "blue", size: 12 },
+        marker: { color: "#4682B4", size: 12 },
         customdata: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
       }
     ],
