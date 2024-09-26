@@ -38,11 +38,19 @@ export const ScatterPlotComponent = ({ onPointSelected }: ScatterPlotProps) => {
   const data: Data[] = useMemo(
     () => [
       {
+        x: [0, 10],
+        y: [0, 10], // y = x
+        mode: "lines",
+        type: "scatter",
+        line: { color: "#CCCCCC", width: 1 },
+        name: "x = y"
+      },
+      {
         x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         y: [1.1, 1.9, 3.3, 4.1, 4.8, 4.4, 6.3, 7, 8.2, 10],
         mode: "markers",
         type: "scatter",
-        marker: { size: 12 },
+        marker: { color: "blue", size: 12 },
         customdata: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
       }
     ],
@@ -51,12 +59,39 @@ export const ScatterPlotComponent = ({ onPointSelected }: ScatterPlotProps) => {
 
   const layout: Partial<Layout> = useMemo(
     () => ({
-      xaxis: { title: "X Axis" },
-      yaxis: { title: "Y Axis" },
-      margin: { l: 0, r: 0, t: 0, b: 0 } // Removes all margins
+      xaxis: {
+        title: "X Axis",
+        range: [-0.5, 10.5],
+        fixedrange: true,
+        showgrid: true,
+        gridcolor: "#DDDDDD",
+        gridwidth: 1,
+        tick0: 0,
+        dtick: 0.5,
+        zeroline: true,
+        zerolinecolor: "#666666",
+        zerolinewidth: 1
+      },
+      yaxis: {
+        title: "Y Axis",
+        range: [-0.5, 10.5],
+        fixedrange: true,
+        showgrid: true,
+        gridcolor: "#DDDDDD",
+        gridwidth: 1,
+        tick0: 0,
+        dtick: 0.5,
+        zeroline: true,
+        zerolinecolor: "#666666",
+        zerolinewidth: 1
+      },
+      margin: { l: 0, r: 0, t: 0, b: 0 }, // Removes all margins
+      showlegend: false,
+      plot_bgcolor: "#F0F0F0",
+      paper_bgcolor: "#F0F0F0"
     }),
     []
-  ); // Empty array means this layout is memoized once
+  );
 
   // Event handler for clicking on a point
   const handleClick = useCallback(
