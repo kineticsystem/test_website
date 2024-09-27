@@ -14,13 +14,13 @@ import { Grid } from "../geometry/grid";
 import { Frame } from "../geometry/frame";
 import { Sector } from "../geometry/sector";
 import { Cylinder } from "../geometry/cylinder";
-import { CylinderState, IiwaSceneState } from "./iiwa_scene_state";
+import { CylinderState, SceneState } from "./iiwa_scene_state";
 import { CircleOutline } from "../geometry/circle_outline";
 import { useRobotContext } from "../../hooks/use-robot-context";
 
 interface iiwaSceneProps {
   goal: CylinderState;
-  state: IiwaSceneState;
+  state: SceneState;
   cameraPosition: [number, number, number];
   controlsEnabled?: boolean;
 }
@@ -45,20 +45,20 @@ const IiwaSceneComponent = ({
   const leftArm = useRobotContext();
   const rightArm = useRobotContext();
   useEffect(() => {
+    leftArm.setJointValue("iiwa_joint0", state.leftArm.joint0);
     leftArm.setJointValue("iiwa_joint1", state.leftArm.joint1);
     leftArm.setJointValue("iiwa_joint2", state.leftArm.joint2);
     leftArm.setJointValue("iiwa_joint3", state.leftArm.joint3);
     leftArm.setJointValue("iiwa_joint4", state.leftArm.joint4);
     leftArm.setJointValue("iiwa_joint5", state.leftArm.joint5);
     leftArm.setJointValue("iiwa_joint6", state.leftArm.joint6);
-    leftArm.setJointValue("iiwa_joint7", state.leftArm.joint7);
+    rightArm.setJointValue("iiwa_joint0", state.rightArm.joint0);
     rightArm.setJointValue("iiwa_joint1", state.rightArm.joint1);
     rightArm.setJointValue("iiwa_joint2", state.rightArm.joint2);
     rightArm.setJointValue("iiwa_joint3", state.rightArm.joint3);
     rightArm.setJointValue("iiwa_joint4", state.rightArm.joint4);
     rightArm.setJointValue("iiwa_joint5", state.rightArm.joint5);
     rightArm.setJointValue("iiwa_joint6", state.rightArm.joint6);
-    rightArm.setJointValue("iiwa_joint7", state.rightArm.joint7);
   }, [state, leftArm, rightArm]);
 
   let startAngle = 0;

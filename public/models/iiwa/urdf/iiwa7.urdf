@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+
 <robot name="iiwa7">
 
   <material name="Orange">
@@ -42,8 +43,8 @@
     </visual>
   </link>
 
-  <!-- Joint 1 -->
-  <joint name="iiwa_joint1" type="continuous">
+  <!-- Joint 0 -->
+  <joint name="iiwa_joint0" type="continuous">
     <parent link="iiwa_link_0"/>
     <child link="iiwa_link_1"/>
     <origin xyz="0 0 0.1575" rpy="0 0 0"/>
@@ -60,8 +61,8 @@
     </visual>
   </link>
 
-  <!-- Joint 2 -->
-  <joint name="iiwa_joint2" type="continuous">
+  <!-- Joint 1 -->
+  <joint name="iiwa_joint1" type="continuous">
     <parent link="iiwa_link_1"/>
     <child link="iiwa_link_2"/>
     <origin xyz="0 0 0.183" rpy="0 0 0"/>
@@ -78,8 +79,8 @@
     </visual>
   </link>
 
-  <!-- Joint 3 -->
-  <joint name="iiwa_joint3" type="continuous">
+  <!-- Joint 2 -->
+  <joint name="iiwa_joint2" type="continuous">
     <parent link="iiwa_link_2"/>
     <child link="iiwa_link_3"/>
     <origin xyz="0 0 0.183" rpy="0 0 0"/>
@@ -96,8 +97,8 @@
     </visual>
   </link>
 
-  <!-- Joint 4 -->
-  <joint name="iiwa_joint4" type="continuous">
+  <!-- Joint 3 -->
+  <joint name="iiwa_joint3" type="continuous">
     <parent link="iiwa_link_3"/>
     <child link="iiwa_link_4"/>
     <origin xyz="0 0 0.2155" rpy="0 0 0"/>
@@ -114,8 +115,8 @@
     </visual>
   </link>
 
-  <!-- Joint 5 -->
-  <joint name="iiwa_joint5" type="continuous">
+  <!-- Joint 4 -->
+  <joint name="iiwa_joint4" type="continuous">
     <parent link="iiwa_link_4"/>
     <child link="iiwa_link_5"/>
     <origin xyz="0 0 0.184" rpy="0 0 0"/>
@@ -132,8 +133,8 @@
     </visual>
   </link>
 
-  <!-- Joint 6 -->
-  <joint name="iiwa_joint6" type="continuous">
+  <!-- Joint 5 -->
+  <joint name="iiwa_joint5" type="continuous">
     <parent link="iiwa_link_5"/>
     <child link="iiwa_link_6"/>
     <origin xyz="0 -0.060700 0.2155" rpy="0 0 0"/>
@@ -157,8 +158,8 @@
     </visual>
   </link> 
 
-  <!-- Joint 7 -->
-  <joint name="iiwa_joint7" type="continuous">
+  <!-- Joint 6 -->
+  <joint name="iiwa_joint6" type="continuous">
     <parent link="iiwa_link_6"/>
     <child link="iiwa_link_7"/>
     <origin xyz="0 0.060700 0.0805" rpy="0 0 0"/>

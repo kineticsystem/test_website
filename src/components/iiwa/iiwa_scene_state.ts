@@ -4,13 +4,13 @@
  */
 
 export interface ArmState {
+  joint0: number;
   joint1: number;
   joint2: number;
   joint3: number;
   joint4: number;
   joint5: number;
   joint6: number;
-  joint7: number;
 }
 
 export interface CylinderState {
@@ -19,14 +19,14 @@ export interface CylinderState {
   rotation: number;
 }
 
-export interface IiwaSceneState {
+export interface SceneState {
   timeFromStart: number;
   leftArm: ArmState;
   rightArm: ArmState;
   cylinder: CylinderState;
 }
 
-export interface IiwaSceneEpisode {
+export interface SceneEpisode {
   goal: CylinderState;
-  points: IiwaSceneState[];
+  points: SceneState[];
 }
