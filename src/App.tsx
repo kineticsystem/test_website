@@ -6,11 +6,15 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { Scene } from "./components/scene";
 import { Player } from "./components/player";
 import { ScatterPlot } from "./components/scatter-plot";
+import { IiwaScene } from "./components/iiwa/iiwa_scene";
 import { RobotContextProvider } from "./context/robot-context";
-import { CylinderState, GoalTrajectory, SceneState } from "./components/scene_state";
+import {
+  CylinderState,
+  IiwaSceneEpisode,
+  IiwaSceneState
+} from "./components/iiwa/iiwa_scene_state";
 
 import "academicons/css/academicons.min.css";
 
@@ -29,7 +33,7 @@ const App = () => {
     rotation: 0.5336689388195219
   });
 
-  const [sceneState, setSceneState] = useState<SceneState>({
+  const [sceneState, setSceneState] = useState<IiwaSceneState>({
     timeFromStart: 0,
     leftArm: {
       joint1: 0.014487597656250184,
@@ -57,7 +61,7 @@ const App = () => {
   });
 
   // State to hold the sequence of SceneStates.
-  const [sceneSequence, setSceneSequence] = useState<SceneState[]>([sceneState]);
+  const [sceneSequence, setSceneSequence] = useState<IiwaSceneState[]>([sceneState]);
 
   // Load
   const trajectoryFiles: string[] = useMemo(
@@ -70,7 +74,7 @@ const App = () => {
     []
   );
 
-  const onStateChanged = useCallback((state: SceneState) => {
+  const onStateChanged = useCallback((state: IiwaSceneState) => {
     setSceneState(state);
   }, []);
 
@@ -84,7 +88,7 @@ const App = () => {
             `Failed to fetch ${url}: ${response.status} ${response.statusText}`
           );
         }
-        const data: GoalTrajectory = await response.json();
+        const data: IiwaSceneEpisode = await response.json();
         setGoal(data.goal);
         setSceneSequence(data.points);
       } catch (error) {
@@ -193,7 +197,7 @@ const App = () => {
                         <ErrorBoundary fallback={<div>Something went wrong</div>}>
                           <Suspense fallback={<div>Loading robot...</div>}>
                             <RobotContextProvider url={iiwaUrdf}>
-                              <Scene
+                              <IiwaScene
                                 goal={goal}
                                 state={sceneState}
                                 cameraPosition={[2.5, 2.5, 2.5]}

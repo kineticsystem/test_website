@@ -9,17 +9,18 @@ import {
   PerspectiveCamera
 } from "@react-three/drei";
 
-import { Robot } from "./robot";
-import { Grid } from "./geometry/grid";
-import { Frame } from "./geometry/frame";
-import { Sector } from "./geometry/sector";
-import { Cylinder } from "./geometry/cylinder";
-import { CylinderState, SceneState } from "./scene_state";
-import { CircleOutline } from "./geometry/circle_outline";
-import { useRobotContext } from "../hooks/use-robot-context";
-interface SceneProps {
+import { Robot } from "../robot";
+import { Grid } from "../geometry/grid";
+import { Frame } from "../geometry/frame";
+import { Sector } from "../geometry/sector";
+import { Cylinder } from "../geometry/cylinder";
+import { CylinderState, IiwaSceneState } from "./iiwa_scene_state";
+import { CircleOutline } from "../geometry/circle_outline";
+import { useRobotContext } from "../../hooks/use-robot-context";
+
+interface iiwaSceneProps {
   goal: CylinderState;
-  state: SceneState;
+  state: IiwaSceneState;
   cameraPosition: [number, number, number];
   controlsEnabled?: boolean;
 }
@@ -35,12 +36,12 @@ interface SceneProps {
  * For this reason, we decided to apply some rotations to the whole scene to
  * make it z-up and change labels and colors in the GizmoHelper, instead.
  */
-const SceneComponent = ({
+const IiwaSceneComponent = ({
   goal,
   state,
   cameraPosition,
   controlsEnabled = true
-}: SceneProps) => {
+}: iiwaSceneProps) => {
   const leftArm = useRobotContext();
   const rightArm = useRobotContext();
   useEffect(() => {
@@ -151,4 +152,4 @@ const SceneComponent = ({
 };
 
 // Memoize the named component
-export const Scene = memo(SceneComponent);
+export const IiwaScene = memo(IiwaSceneComponent);

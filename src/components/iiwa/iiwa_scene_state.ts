@@ -1,5 +1,6 @@
 /**
- * These types are used to represent the object coordinates in the scene.
+ * These types are used to represent the trajectories of each object
+ * in the scene.
  */
 
 export interface ArmState {
@@ -18,14 +19,14 @@ export interface CylinderState {
   rotation: number;
 }
 
-export interface SceneState {
+export interface IiwaSceneState {
   timeFromStart: number;
   leftArm: ArmState;
   rightArm: ArmState;
   cylinder: CylinderState;
 }
 
-export interface GoalTrajectory {
+export interface IiwaSceneEpisode {
   goal: CylinderState;
-  points: SceneState[];
+  points: IiwaSceneState[];
 }
