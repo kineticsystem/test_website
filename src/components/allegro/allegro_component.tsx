@@ -4,48 +4,64 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { Player } from "./../../components/player";
-import { ScatterPlot } from "./../../components/scatter-plot";
-import { Scene } from "./../../components/iiwa/iiwa_scene";
-import { RobotContextProvider } from "./../../context/robot-context";
-import { CylinderState, SceneEpisode, SceneState } from "./iiwa_scene_state";
+import { Player } from "../player";
+import { ScatterPlot } from "../scatter-plot";
+import { Scene } from "../allegro/allegro_scene";
+import { RobotContextProvider } from "../../context/robot-context";
+import { CubeState, SceneEpisode, SceneState } from "./allegro_scene_state";
 
-export const IiwaComponent = () => {
+export const AllegroComponent = () => {
   // Create a new QueryClient instance
   const queryClient = new QueryClient();
 
-  const urdf = `${window.location.origin}/test_website/models/iiwa/urdf/iiwa7.urdf`;
+  const urdf = `${window.location.origin}/test_website/models/allegro/urdf/allegro_right_hand.urdf`;
 
-  const [goal, setGoal] = useState<CylinderState>({
-    x: 0.6718483143235885,
-    y: -0.23452121868326742,
-    rotation: 0.5336689388195219
+  const [goal, setGoal] = useState<CubeState>({
+    position: {
+      x: 0.065,
+      y: 0.0,
+      z: 0.05869370640654911
+    },
+    rotation: {
+      w: 0.9508815466352549,
+      x: -0.15033622173376135,
+      y: 0.22499405578410397,
+      z: -0.15033622173376135
+    }
   });
 
   const [sceneState, setSceneState] = useState<SceneState>({
     timeFromStart: 0,
-    leftArm: {
-      joint0: 0.014487597656250184,
-      joint1: 1.5707,
-      joint2: -1.5707,
-      joint3: 0.9621149999999998,
-      joint4: 0,
-      joint5: 1.8224313687622034,
-      joint6: 0
+    hand: {
+      joint0: 0.01,
+      joint1: 1.24,
+      joint2: 1.31,
+      joint3: 1.13,
+      joint4: -0.01,
+      joint5: 0.77,
+      joint6: 1.31,
+      joint7: 1.39,
+      joint8: 0.0,
+      joint9: 1.24,
+      joint10: 1.31,
+      joint11: 1.13,
+      joint12: 0.49,
+      joint13: 1.58,
+      joint14: 1.4,
+      joint15: 1.36
     },
-    rightArm: {
-      joint0: 0.8866409765625005,
-      joint1: 1.5707,
-      joint2: -1.5707,
-      joint3: 1.48407875,
-      joint4: 0,
-      joint5: 1.4970950337700102,
-      joint6: 0
-    },
-    cylinder: {
-      x: 0.6184808436607272,
-      y: -0.09208531449445188,
-      rotation: 0
+    cube: {
+      position: {
+        x: 0.065,
+        y: 0.0,
+        z: 0.042
+      },
+      rotation: {
+        w: 1.0,
+        x: 0.0,
+        y: 0.0,
+        z: 0.0
+      }
     }
   });
 
@@ -56,9 +72,9 @@ export const IiwaComponent = () => {
   const trajectoryFiles: string[] = useMemo(
     () =>
       Array.from(
-        { length: 10 },
+        { length: 1 },
         (_, index) =>
-          `${window.location.origin}/test_website/data/iiwa/trajectory_${index}.json`
+          `${window.location.origin}/test_website/data/allegro/trajectory_${index}.json`
       ),
     []
   );
@@ -106,7 +122,7 @@ export const IiwaComponent = () => {
                     <Scene
                       goal={goal}
                       state={sceneState}
-                      cameraPosition={[2.5, 2.5, 2.5]}
+                      cameraPosition={[0.5, 0.5, 0.5]}
                     />
                   </RobotContextProvider>
                 </Suspense>

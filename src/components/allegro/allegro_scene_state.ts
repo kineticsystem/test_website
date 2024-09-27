@@ -36,13 +36,13 @@ export interface CubeState {
   };
 }
 
-export interface AllegroSceneState {
+export interface SceneState {
   timeFromStart: number;
   hand: HandState;
   cube: CubeState;
 }
 
-export interface AllegroSceneEpisode {
+export interface SceneEpisode {
   goal: CubeState;
-  points: AllegroSceneState[];
+  points: SceneState[];
 }

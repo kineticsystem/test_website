@@ -2,6 +2,14 @@
 
 <robot name="allegro_hand_right">
 
+  <material name="Black">
+    <color rgba="0.2 0.2 0.2 1"/>
+  </material>
+
+  <material name="White">
+    <color rgba=".9 .9 .9 1"/>
+  </material>
+
   <!-- Base link -->
   <link name="hand_root">
     <origin xyz="0 0 0"/>
@@ -17,12 +25,10 @@
   <link name="palm_link">
     <visual>
       <geometry>
-        <mesh filename="../meshes/base_link.obj"/>
+        <mesh filename="../meshes/visual/base_link.stl"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0 "/>
-      <material name="black">
-        <color rgba="0.2 0.2 0.2 1"/>
-      </material>
+      <material name="Black"/>
     </visual>
   </link>
 
@@ -30,9 +36,9 @@
   <link name="link_0">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_0.0.obj"/>
+        <mesh filename="../meshes/visual/link_0.stl"/>
       </geometry>
-      <material name="black"/>
+      <material name="Black"/>
     </visual>
   </link>
 
@@ -47,9 +53,9 @@
   <link name="link_1">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_1.0.obj"/>
+        <mesh filename="../meshes/visual/link_1.stl"/>
       </geometry>
-      <material name="black"/>
+      <material name="Black"/>
     </visual>
   </link>
 
@@ -64,9 +70,9 @@
   <link name="link_2">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_2.0.obj"/>
+        <mesh filename="../meshes/visual/link_2.stl"/>
       </geometry>
-      <material name="black"/>
+      <material name="Black"/>
     </visual>
   </link>
 
@@ -81,9 +87,9 @@
   <link name="link_3">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_3.0.obj"/>
+        <mesh filename="../meshes/visual/link_3.stl"/>
       </geometry>
-      <material name="black"/>
+      <material name="Black"/>
     </visual>
   </link>
 
@@ -98,11 +104,9 @@
   <link name="link_3_tip">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_3.0_tip.obj"/>
+        <mesh filename="../meshes/visual/link_3_tip.stl"/>
       </geometry>
-      <material name="white">
-        <color rgba=".9 .9 .9 1"/>
-      </material>
+      <material name="White"/>
     </visual>
   </link>
 
@@ -116,9 +120,9 @@
   <link name="link_4">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_0.0.obj"/>
+        <mesh filename="../meshes/visual/link_0.stl"/>
       </geometry>
-      <material name="black"/>
+      <material name="Black"/>
     </visual>
   </link>
 
@@ -133,9 +137,9 @@
   <link name="link_5">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_1.0.obj"/>
+        <mesh filename="../meshes/visual/link_1.stl"/>
       </geometry>
-      <material name="black"/>
+      <material name="Black"/>
     </visual>
   </link>
 
@@ -150,9 +154,9 @@
   <link name="link_6">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_2.0.obj"/>
+        <mesh filename="../meshes/visual/link_2.stl"/>
       </geometry>
-      <material name="black"/>
+      <material name="Black"/>
     </visual>
   </link>
 
@@ -167,9 +171,9 @@
   <link name="link_7">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_3.0.obj"/>
+        <mesh filename="../meshes/visual/link_3.stl"/>
       </geometry>
-      <material name="black"/>
+      <material name="Black"/>
     </visual>
   </link>
 
@@ -184,11 +188,9 @@
   <link name="link_7_tip">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_3.0_tip.obj"/>
+        <mesh filename="../meshes/visual/link_3_tip.stl"/>
       </geometry>
-      <material name="white">
-        <color rgba=".9 .9 .9 1"/>
-      </material>
+      <material name="White"/>
     </visual>
   </link>
 
@@ -202,9 +204,9 @@
   <link name="link_8">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_0.0.obj"/>
+        <mesh filename="../meshes/visual/link_0.stl"/>
       </geometry>
-      <material name="black"/>
+      <material name="Black"/>
     </visual>
   </link>
 
@@ -219,9 +221,9 @@
   <link name="link_9">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_1.0.obj"/>
+        <mesh filename="../meshes/visual/link_1.stl"/>
       </geometry>
-      <material name="black"/>
+      <material name="Black"/>
     </visual>
   </link>
 
@@ -236,9 +238,9 @@
   <link name="link_10">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_2.0.obj"/>
+        <mesh filename="../meshes/visual/link_2.stl"/>
       </geometry>
-      <material name="black"/>
+      <material name="Black"/>
     </visual>
   </link>
 
@@ -253,9 +255,9 @@
   <link name="link_11">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_3.0.obj"/>
+        <mesh filename="../meshes/visual/link_3.stl"/>
       </geometry>
-      <material name="black"/>
+      <material name="Black"/>
     </visual>
   </link>
 
@@ -270,11 +272,9 @@
   <link name="link_11_tip">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_3.0_tip.obj"/>
+        <mesh filename="../meshes/visual/link_3_tip.stl"/>
       </geometry>
-      <material name="white">
-        <color rgba=".9 .9 .9 1"/>
-      </material>
+      <material name="White"/>
     </visual>
   </link>
 
@@ -288,11 +288,9 @@
   <link name="link_12">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_12.0_right.obj"/>
+        <mesh filename="../meshes/visual/link_12_right.stl"/>
       </geometry>
-      <material name="black">
-        <color rgba=".2 .2 .2 1"/>
-      </material>
+      <material name="Black"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
   </link>
@@ -308,11 +306,9 @@
   <link name="link_13">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_13.0.obj"/>
+        <mesh filename="../meshes/visual/link_13.stl"/>
       </geometry>
-      <material name="black">
-        <color rgba=".2 .2 .2 1"/>
-      </material>
+      <material name="Black"/>
     </visual>
   </link>
 
@@ -327,10 +323,9 @@
   <link name="link_14">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_14.0.obj"/>
+        <mesh filename="../meshes/visual/link_14.stl"/>
       </geometry>
-      <material name="black">
-                </material>
+      <material name="Black"/>
     </visual>
   </link>
 
@@ -345,10 +340,9 @@
   <link name="link_15">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_15.0.obj"/>
+        <mesh filename="../meshes/visual/link_15.stl"/>
       </geometry>
-      <material name="black">
-                </material>
+      <material name="Black"/>
     </visual>
   </link>
 
@@ -363,11 +357,9 @@
   <link name="link_15_tip">
     <visual>
       <geometry>
-        <mesh filename="../meshes/link_15.0_tip.obj"/>
+        <mesh filename="../meshes/visual/link_15_tip.stl"/>
       </geometry>
-      <material name="white">
-        <color rgba=".9 .9 .9 1"/>
-      </material>
+      <material name="White"/>
     </visual>
   </link>
   

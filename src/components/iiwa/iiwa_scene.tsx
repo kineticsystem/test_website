@@ -18,7 +18,7 @@ import { CylinderState, SceneState } from "./iiwa_scene_state";
 import { CircleOutline } from "../geometry/circle_outline";
 import { useRobotContext } from "../../hooks/use-robot-context";
 
-interface iiwaSceneProps {
+interface SceneProps {
   goal: CylinderState;
   state: SceneState;
   cameraPosition: [number, number, number];
@@ -36,12 +36,12 @@ interface iiwaSceneProps {
  * For this reason, we decided to apply some rotations to the whole scene to
  * make it z-up and change labels and colors in the GizmoHelper, instead.
  */
-const IiwaSceneComponent = ({
+const SceneComponent = ({
   goal,
   state,
   cameraPosition,
   controlsEnabled = true
-}: iiwaSceneProps) => {
+}: SceneProps) => {
   const leftArm = useRobotContext();
   const rightArm = useRobotContext();
   useEffect(() => {
@@ -152,4 +152,4 @@ const IiwaSceneComponent = ({
 };
 
 // Memoize the named component
-export const IiwaScene = memo(IiwaSceneComponent);
+export const Scene = memo(SceneComponent);

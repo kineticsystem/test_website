@@ -7,6 +7,7 @@ import "academicons/css/academicons.min.css";
 
 import "./App.css";
 import "./index.css";
+import { AllegroComponent } from "./components/allegro/allegro_component";
 
 const App = () => {
   return (
@@ -95,6 +96,8 @@ const App = () => {
                 <div style={{ margin: 20, color: "red" }}>Click on the scatter plot.</div>
 
                 <IiwaComponent />
+
+                <AllegroComponent />
 
                 {/* column has-text-centered */}
               </div>
