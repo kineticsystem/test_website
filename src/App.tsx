@@ -18,7 +18,7 @@ import "./App.css";
 import "./index.css";
 
 const App = () => {
-  const urdfUrl = `${window.location.origin}/test_website/drake_models/iiwa_description/urdf/iiwa7.urdf`;
+  const iiwaUrdf = `${window.location.origin}/test_website/drake_models/iiwa/urdf/iiwa7.urdf`;
 
   // Create a new QueryClient instance
   const queryClient = new QueryClient();
@@ -192,7 +192,7 @@ const App = () => {
                       <QueryClientProvider client={queryClient}>
                         <ErrorBoundary fallback={<div>Something went wrong</div>}>
                           <Suspense fallback={<div>Loading robot...</div>}>
-                            <RobotContextProvider url={urdfUrl}>
+                            <RobotContextProvider url={iiwaUrdf}>
                               <Scene
                                 goal={goal}
                                 state={sceneState}
