@@ -82,7 +82,11 @@ const SceneComponent = ({
 
           {/* We rotate the whole scene to make it z-up. */}
           <group rotation-x={-Math.PI / 2} rotation-z={-Math.PI / 2} position={[0, 0, 0]}>
-            <Robot robot={hand} position={[0, 0, 0]} />
+            <Robot
+              robot={hand}
+              position={[0, 0, 0]}
+              rotation={[Math.PI, Math.PI / 2, 0]}
+            />
 
             {/* Floor. */}
             <Grid size={4} />
