@@ -18,7 +18,7 @@ import "./App.css";
 import "./index.css";
 
 const App = () => {
-  const iiwaUrdf = `${window.location.origin}/test_website/drake_models/iiwa/urdf/iiwa7.urdf`;
+  const iiwaUrdf = `${window.location.origin}/test_website/models/iiwa/urdf/iiwa7.urdf`;
 
   // Create a new QueryClient instance
   const queryClient = new QueryClient();
@@ -65,7 +65,7 @@ const App = () => {
       Array.from(
         { length: 10 },
         (_, index) =>
-          `${window.location.origin}/test_website/data/trajectory_${index}.json`
+          `${window.location.origin}/test_website/data/iiwa/trajectory_${index}.json`
       ),
     []
   );
