@@ -111,7 +111,7 @@ const SceneComponent = ({
                 state.cube.rotation.w
               ]}
             >
-              <Cube size={0.06} opacity={0.75} />
+              <Cube size={0.06} opacity={1} />
               <Frame size={0.1} thickness={0.001} />
             </group>
 

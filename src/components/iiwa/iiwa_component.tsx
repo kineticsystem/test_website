@@ -11,10 +11,13 @@ import { RobotContextProvider } from "./../../context/robot-context";
 import { CylinderState, SceneEpisode, SceneState } from "./iiwa_scene_state";
 
 export const IiwaComponent = () => {
+  // Dynamically get the base URL from Vite's environment variables
+  const BASE_URL = `${window.location.origin}${import.meta.env.BASE_URL}`;
+
   // Create a new QueryClient instance
   const queryClient = new QueryClient();
 
-  const urdf = `${window.location.origin}/test_website/models/iiwa/urdf/iiwa7.urdf`;
+  const urdf = `${BASE_URL}/models/iiwa/urdf/iiwa7.urdf`;
 
   const [goal, setGoal] = useState<CylinderState>({
     x: 0.6718483143235885,
@@ -57,10 +60,9 @@ export const IiwaComponent = () => {
     () =>
       Array.from(
         { length: 10 },
-        (_, index) =>
-          `${window.location.origin}/test_website/data/iiwa/trajectory_${index}.json`
+        (_, index) => `${BASE_URL}data/iiwa/trajectory_${index}.json`
       ),
-    []
+    [BASE_URL]
   );
 
   const onStateChanged = useCallback((state: SceneState) => {

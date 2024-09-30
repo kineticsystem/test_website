@@ -1,7 +1,10 @@
 import { useRef } from "react";
 
-import { Mesh } from "three";
 import * as THREE from "three";
+import { Mesh, Texture } from "three";
+import { TextureLoader } from "three";
+
+import { useLoader } from "@react-three/fiber";
 
 interface CubeProps {
   size: number;
@@ -12,57 +15,70 @@ interface CubeProps {
  * This is a cube oriented along the z-axis.
  */
 export const Cube = ({ size, opacity = 1 }: CubeProps) => {
+  // Dynamically get the base URL from Vite's environment variables
+  const BASE_URL = `${window.location.origin}${import.meta.env.BASE_URL}`;
+
   const cubeRef = useRef<Mesh>(null);
+
+  const texture: Texture[] = useLoader(TextureLoader, [
+    `${BASE_URL}models/allegro/textures/1.jpg`,
+    `${BASE_URL}models/allegro/textures/2.jpg`,
+    `${BASE_URL}models/allegro/textures/3.jpg`,
+    `${BASE_URL}models/allegro/textures/4.jpg`,
+    `${BASE_URL}models/allegro/textures/5.jpg`,
+    `${BASE_URL}models/allegro/textures/6.jpg`
+  ]) as Texture[];
+
   return (
     <mesh ref={cubeRef} rotation-x={Math.PI / 2} castShadow receiveShadow>
       <boxGeometry attach="geometry" args={[size, size, size]} />
-      {/* Red. */}
       <meshStandardMaterial
         attach="material-0"
-        color="#FF0000"
+        color="#FFFFFF"
         transparent={true}
         opacity={opacity}
         side={THREE.DoubleSide}
+        map={texture[1]}
       />
-      {/* Green. */}
       <meshStandardMaterial
         attach="material-1"
-        color="#00FF00"
+        color="#FFFFFF"
         transparent={true}
         opacity={opacity}
         side={THREE.DoubleSide}
+        map={texture[3]}
       />
-      {/* Green. */}
       <meshStandardMaterial
         attach="material-2"
-        color="#0000FF"
+        color="#FFFFFF"
         transparent={true}
         opacity={opacity}
         side={THREE.DoubleSide}
+        map={texture[0]}
       />
-      {/* Yellow. */}
       <meshStandardMaterial
         attach="material-3"
-        color="#FFFF00"
+        color="#FFFFFF"
         transparent={true}
         opacity={opacity}
         side={THREE.DoubleSide}
+        map={texture[5]}
       />
-      {/* Magenta. */}
       <meshStandardMaterial
         attach="material-4"
-        color="#FF00FF"
+        color="#FFFFFF"
         transparent={true}
         opacity={opacity}
         side={THREE.DoubleSide}
+        map={texture[4]}
       />
-      {/* Cyan. */}
       <meshStandardMaterial
         attach="material-5"
-        color="#00FFFF"
+        color="#FFFFFF"
         transparent={true}
         opacity={opacity}
         side={THREE.DoubleSide}
+        map={texture[2]}
       />
     </mesh>
   );

@@ -11,10 +11,13 @@ import { RobotContextProvider } from "../../context/robot-context";
 import { CubeState, SceneEpisode, SceneState } from "./allegro_scene_state";
 
 export const AllegroComponent = () => {
+  // Dynamically get the base URL from Vite's environment variables
+  const BASE_URL = `${window.location.origin}${import.meta.env.BASE_URL}`;
+
   // Create a new QueryClient instance
   const queryClient = new QueryClient();
 
-  const urdf = `${window.location.origin}/test_website/models/allegro/urdf/allegro_right_hand.urdf`;
+  const urdf = `${BASE_URL}models/allegro/urdf/allegro_right_hand.urdf`;
 
   const [goal, setGoal] = useState<CubeState>({
     position: {
@@ -73,10 +76,9 @@ export const AllegroComponent = () => {
     () =>
       Array.from(
         { length: 1 },
-        (_, index) =>
-          `${window.location.origin}/test_website/data/allegro/trajectory_${index}.json`
+        (_, index) => `${BASE_URL}data/allegro/trajectory_${index}.json`
       ),
-    []
+    [BASE_URL]
   );
 
   const onStateChanged = useCallback((state: SceneState) => {
