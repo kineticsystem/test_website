@@ -88,7 +88,7 @@ const SceneComponent = ({
           <group
             rotation-x={-Math.PI / 2}
             rotation-z={-Math.PI / 2}
-            position={[0.06, 0.01, -0.02]}
+            position={[0.0, -0.05, -0.067]}
           >
             <Robot
               robot={hand}
