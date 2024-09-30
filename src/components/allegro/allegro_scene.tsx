@@ -1,4 +1,4 @@
-import { memo, useEffect } from "react";
+import { memo, useEffect, useRef } from "react";
 
 import { Canvas } from "@react-three/fiber";
 import {
@@ -11,6 +11,8 @@ import {
 
 import { Robot } from "../robot";
 import { Grid } from "../geometry/grid";
+import { Cube } from "../geometry/cube";
+import { Frame } from "../geometry/frame";
 import { CubeState, SceneState } from "./allegro_scene_state";
 import { useRobotContext } from "../../hooks/use-robot-context";
 
@@ -38,6 +40,7 @@ const SceneComponent = ({
   controlsEnabled = true
 }: SceneProps) => {
   const hand = useRobotContext();
+  const cubeRef = useRef(null);
 
   useEffect(() => {
     hand.setJointValue("joint_0", state.hand.joint0);
@@ -62,6 +65,7 @@ const SceneComponent = ({
     <div className="w-full">
       <div className="aspect-square bg-white rounded-md overflow-hidden">
         <Canvas
+          shadows
           // only re-render when props changed or when requested.
           // frameloop="demand"
           style={{
@@ -71,22 +75,45 @@ const SceneComponent = ({
           }}
         >
           <AdaptiveDpr />
-          <ambientLight intensity={Math.PI / 2} />
+          <ambientLight intensity={1.0} />
           <spotLight
-            position={[0, 10, 10]}
+            position={[0, 2, 2]}
             angle={0.15}
             penumbra={1}
             decay={0}
-            intensity={Math.PI}
+            intensity={3.14}
           />
 
           {/* We rotate the whole scene to make it z-up. */}
-          <group rotation-x={-Math.PI / 2} rotation-z={-Math.PI / 2} position={[0, 0, 0]}>
+          <group
+            rotation-x={-Math.PI / 2}
+            rotation-z={-Math.PI / 2}
+            position={[0.06, 0.01, -0.02]}
+          >
             <Robot
               robot={hand}
               position={[0, 0, 0]}
               rotation={[Math.PI, Math.PI / 2, 0]}
             />
+
+            {/* The moving cube. */}
+            <group
+              ref={cubeRef}
+              position={[
+                state.cube.position.x,
+                state.cube.position.y,
+                state.cube.position.z
+              ]}
+              quaternion={[
+                state.cube.rotation.x,
+                state.cube.rotation.y,
+                state.cube.rotation.z,
+                state.cube.rotation.w
+              ]}
+            >
+              <Cube size={0.06} opacity={0.75} />
+              <Frame size={0.1} thickness={0.001} />
+            </group>
 
             {/* Floor. */}
             <Grid size={4} />

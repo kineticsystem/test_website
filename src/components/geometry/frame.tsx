@@ -31,10 +31,10 @@ export const Frame = ({
   displayY = true,
   displayZ = true
 }: FrameProps) => {
-  const centerRadius = 0.01;
+  const centerRadius = 2 * thickness;
   const sphereSectors = 30;
   const headThickness = 4 * thickness;
-  const headLength = 0.1;
+  const headLength = 20 * thickness;
   return (
     <group>
       {/* Center of the frame. */}

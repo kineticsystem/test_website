@@ -91,6 +91,7 @@ const SceneComponent = ({
             penumbra={1}
             decay={0}
             intensity={Math.PI}
+            color={"#FFFFFF"}
           />
 
           {/* We rotate the whole scene to make it z-up. */}
