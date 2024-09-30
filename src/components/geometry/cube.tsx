@@ -1,8 +1,5 @@
-import { useRef } from "react";
-
 import * as THREE from "three";
-import { Mesh, Texture } from "three";
-import { TextureLoader } from "three";
+import { Texture, TextureLoader } from "three";
 
 import { useLoader } from "@react-three/fiber";
 
@@ -18,8 +15,6 @@ export const Cube = ({ size, opacity = 1 }: CubeProps) => {
   // Dynamically get the base URL from Vite's environment variables
   const BASE_URL = `${window.location.origin}${import.meta.env.BASE_URL}`;
 
-  const cubeRef = useRef<Mesh>(null);
-
   const texture: Texture[] = useLoader(TextureLoader, [
     `${BASE_URL}models/allegro/textures/1.jpg`,
     `${BASE_URL}models/allegro/textures/2.jpg`,
@@ -30,7 +25,7 @@ export const Cube = ({ size, opacity = 1 }: CubeProps) => {
   ]) as Texture[];
 
   return (
-    <mesh ref={cubeRef} rotation-x={Math.PI / 2} castShadow receiveShadow>
+    <mesh rotation-x={Math.PI / 2} castShadow receiveShadow>
       <boxGeometry attach="geometry" args={[size, size, size]} />
       <meshStandardMaterial
         attach="material-0"
