@@ -21,15 +21,15 @@ export const AllegroComponent = () => {
 
   const [goal, setGoal] = useState<CubeState>({
     position: {
-      x: 0.065,
-      y: 0.0,
-      z: 0.05869370640654911
+      x: 0.07481670858231289,
+      y: 0.0033861859459129156,
+      z: 0.05812032524744818
     },
     rotation: {
-      w: 0.9508815466352549,
-      x: -0.15033622173376135,
-      y: 0.22499405578410397,
-      z: -0.15033622173376135
+      w: 0.9512620870428025,
+      x: -0.14976138347929052,
+      y: 0.2230638640876131,
+      z: -0.15137530284575615
     }
   });
 
@@ -124,7 +124,7 @@ export const AllegroComponent = () => {
                     <Scene
                       goal={goal}
                       state={sceneState}
-                      cameraPosition={[0.5, 0.5, 0.5]}
+                      cameraPosition={[0.4, 0.4, 0.4]}
                     />
                   </RobotContextProvider>
                 </Suspense>

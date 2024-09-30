@@ -15,6 +15,7 @@ import { Cube } from "../geometry/cube";
 import { Frame } from "../geometry/frame";
 import { CubeState, SceneState } from "./allegro_scene_state";
 import { useRobotContext } from "../../hooks/use-robot-context";
+import { CubeOutline } from "../geometry/cube_outline";
 
 interface SceneProps {
   goal: CubeState;
@@ -35,6 +36,7 @@ interface SceneProps {
  * make it z-up and change labels and colors in the GizmoHelper, instead.
  */
 const SceneComponent = ({
+  goal,
   state,
   cameraPosition,
   controlsEnabled = true
@@ -111,8 +113,21 @@ const SceneComponent = ({
                 state.cube.rotation.w
               ]}
             >
-              <Cube size={0.06} opacity={1} />
+              <Cube size={0.06} opacity={0.75} />
               <Frame size={0.1} thickness={0.001} />
+            </group>
+
+            {/* The goal. */}
+            <group
+              position={[goal.position.x, goal.position.y, goal.position.z]}
+              quaternion={[
+                goal.rotation.x,
+                goal.rotation.y,
+                goal.rotation.z,
+                goal.rotation.w
+              ]}
+            >
+              <CubeOutline size={0.06} thickness={0.0015} color={"#FFFFFF"} />
             </group>
 
             {/* Floor. */}

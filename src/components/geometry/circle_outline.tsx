@@ -5,7 +5,8 @@
  */
 export interface CircleOutlineProps {
   radius: number;
-  color: string | number;
+  thickness: number;
+  color?: string | number;
 }
 
 /**
@@ -13,14 +14,17 @@ export interface CircleOutlineProps {
  * @param props {@link CircleOutlineProps}
  * @returns A circle outline.
  */
-export const CircleOutline = ({ radius = 1, color = "white" }: CircleOutlineProps) => {
+export const CircleOutline = ({
+  radius,
+  thickness,
+  color = "white"
+}: CircleOutlineProps) => {
   const radialSegments = 64;
   const tubularSegments = 64;
-  const tube = 0.004;
   const arc = Math.PI * 2;
   return (
     <mesh>
-      <torusGeometry args={[radius, tube, radialSegments, tubularSegments, arc]} />
+      <torusGeometry args={[radius, thickness, radialSegments, tubularSegments, arc]} />
       <meshStandardMaterial color={color} />
     </mesh>
   );

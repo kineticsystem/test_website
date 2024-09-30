@@ -114,7 +114,7 @@ const SceneComponent = ({
 
             {/* The goal. */}
             <group position={[goal.x, goal.y, -0.00001]} rotation-z={goal.rotation}>
-              <CircleOutline radius={0.14} color={"#FFFFFF"} />
+              <CircleOutline radius={0.14} thickness={0.004} color={"#FFFFFF"} />
               <Sector
                 color={"#FFFFFF"}
                 radius={0.14}
