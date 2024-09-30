@@ -116,7 +116,7 @@ const SceneComponent = ({
             </group>
 
             {/* Floor. */}
-            <Grid size={4} />
+            <Grid size={1} primarySubdivisionCount={2} secondarySubdivisionCount={10} />
           </group>
 
           <PerspectiveCamera

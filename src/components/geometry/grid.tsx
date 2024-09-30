@@ -1,13 +1,17 @@
 /**
  * Props for the Grid component.
- * @property size The size if the grid in squares.
- * @property primaryColor The primary grid color.
- * @property secondaryColor The secondary grid color.
+ * @property size The size of the grid in meters.
+ * @property primarySubdivisionCount The number of grid subdivisions.
+ * @property secondarySubdivisionCount The number of divisions within a grid division.
+ * @property primarySubdivisionColor The primary grid color.
+ * @property secondarySubdivisionColor The secondary grid color.
  */
 export interface GridProps {
   size: number;
-  primaryColor?: string | number;
-  secondaryColor?: string | number;
+  primarySubdivisionCount?: number;
+  secondarySubdivisionCount?: number;
+  primarySubdivisionColor?: string | number;
+  secondarySubdivisionColor?: string | number;
 }
 
 /**
@@ -16,16 +20,30 @@ export interface GridProps {
  * @returns A grid component.
  */
 export const Grid = ({
-  size = 6,
-  primaryColor = "#3a3a3a",
-  secondaryColor = "#aaaaaa"
+  size = 2,
+  primarySubdivisionCount = 2,
+  secondarySubdivisionCount = 10,
+  primarySubdivisionColor = "#aaaaaa",
+  secondarySubdivisionColor = "#3a3a3a"
 }: GridProps) => {
   return (
     <group rotation-x={Math.PI / 2}>
-      {/* 1-decimeter blocks */}
-      <gridHelper args={[size, size * 10, primaryColor, primaryColor]} />
-      {/* 1-meter blocks */}
-      <gridHelper args={[size, size, secondaryColor, secondaryColor]} />
+      <gridHelper
+        args={[
+          size,
+          secondarySubdivisionCount * primarySubdivisionCount,
+          secondarySubdivisionColor,
+          secondarySubdivisionColor
+        ]}
+      />
+      <gridHelper
+        args={[
+          size,
+          primarySubdivisionCount,
+          primarySubdivisionColor,
+          primarySubdivisionColor
+        ]}
+      />
     </group>
   );
 };
