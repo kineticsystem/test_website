@@ -1,3 +1,10 @@
+/**
+ * Props for the Cylinder component.
+ * @property radius The cylinder radius.
+ * @property height The cylinder height.
+ * @property color The cylinder color.
+ * @property opacity The cylinder opacity.
+ */
 interface CylinderProps {
   radius: number;
   height: number;
@@ -7,6 +14,8 @@ interface CylinderProps {
 
 /**
  * This is a cylinder oriented along the z-axis.
+ * @param props {@link CylinderProps}
+ * @returns A cylinder.
  */
 export const Cylinder = ({ radius, height, color, opacity = 1 }: CylinderProps) => {
   return (

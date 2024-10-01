@@ -3,13 +3,20 @@ import { Texture, TextureLoader } from "three";
 
 import { useLoader } from "@react-three/fiber";
 
+/**
+ * Props for the Cube component.
+ * @property size The size of the cube.
+ * @property opacity The cube opacity.
+ */
 interface CubeProps {
   size: number;
   opacity?: number;
 }
 
 /**
- * This is a cube oriented along the z-axis.
+ * This is a cube with numbered faces.
+ * @param props {@link CubeProps}
+ * @returns A cube.
  */
 export const Cube = ({ size, opacity = 1 }: CubeProps) => {
   // Dynamically get the base URL from Vite's environment variables
@@ -26,10 +33,9 @@ export const Cube = ({ size, opacity = 1 }: CubeProps) => {
 
   return (
     <mesh rotation-x={Math.PI / 2} castShadow receiveShadow>
-      <boxGeometry attach="geometry" args={[size, size, size]} />
+      <boxGeometry args={[size, size, size]} />
       <meshStandardMaterial
         attach="material-0"
-        color="#FFFFFF"
         transparent={true}
         opacity={opacity}
         side={THREE.DoubleSide}
@@ -37,7 +43,6 @@ export const Cube = ({ size, opacity = 1 }: CubeProps) => {
       />
       <meshStandardMaterial
         attach="material-1"
-        color="#FFFFFF"
         transparent={true}
         opacity={opacity}
         side={THREE.DoubleSide}
@@ -45,7 +50,6 @@ export const Cube = ({ size, opacity = 1 }: CubeProps) => {
       />
       <meshStandardMaterial
         attach="material-2"
-        color="#FFFFFF"
         transparent={true}
         opacity={opacity}
         side={THREE.DoubleSide}
@@ -53,7 +57,6 @@ export const Cube = ({ size, opacity = 1 }: CubeProps) => {
       />
       <meshStandardMaterial
         attach="material-3"
-        color="#FFFFFF"
         transparent={true}
         opacity={opacity}
         side={THREE.DoubleSide}
@@ -61,7 +64,6 @@ export const Cube = ({ size, opacity = 1 }: CubeProps) => {
       />
       <meshStandardMaterial
         attach="material-4"
-        color="#FFFFFF"
         transparent={true}
         opacity={opacity}
         side={THREE.DoubleSide}
@@ -69,7 +71,6 @@ export const Cube = ({ size, opacity = 1 }: CubeProps) => {
       />
       <meshStandardMaterial
         attach="material-5"
-        color="#FFFFFF"
         transparent={true}
         opacity={opacity}
         side={THREE.DoubleSide}
