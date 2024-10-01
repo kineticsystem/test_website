@@ -2,8 +2,6 @@ import { Suspense, useCallback, useMemo, useState } from "react";
 
 import { ErrorBoundary } from "react-error-boundary";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
 import { Player } from "./../../components/player";
 import { ScatterPlot } from "./../../components/scatter-plot";
 import { Scene } from "./../../components/iiwa/iiwa_scene";
@@ -13,9 +11,6 @@ import { CylinderState, SceneEpisode, SceneState } from "./iiwa_scene_state";
 export const IiwaComponent = () => {
   // Dynamically get the base URL from Vite's environment variables
   const BASE_URL = `${window.location.origin}${import.meta.env.BASE_URL}`;
-
-  // Create a new QueryClient instance
-  const queryClient = new QueryClient();
 
   const urdf = `${BASE_URL}/models/iiwa/urdf/iiwa7.urdf`;
 
@@ -101,19 +96,17 @@ export const IiwaComponent = () => {
 
           {/* Scene. */}
           <div className="w-full md:w-1/2 px-1 mb-1">
-            <QueryClientProvider client={queryClient}>
-              <ErrorBoundary fallback={<div>Something went wrong</div>}>
-                <Suspense fallback={<div>Loading robot...</div>}>
-                  <RobotContextProvider url={urdf}>
-                    <Scene
-                      goal={goal}
-                      state={sceneState}
-                      cameraPosition={[2.5, 2.5, 2.5]}
-                    />
-                  </RobotContextProvider>
-                </Suspense>
-              </ErrorBoundary>
-            </QueryClientProvider>
+            <ErrorBoundary fallback={<div>Something went wrong</div>}>
+              <Suspense fallback={<div>Loading robot...</div>}>
+                <RobotContextProvider url={urdf}>
+                  <Scene
+                    goal={goal}
+                    state={sceneState}
+                    cameraPosition={[2.5, 2.5, 2.5]}
+                  />
+                </RobotContextProvider>
+              </Suspense>
+            </ErrorBoundary>
           </div>
         </div>
       </div>
