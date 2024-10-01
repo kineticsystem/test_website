@@ -1,17 +1,21 @@
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { IiwaComponent } from "./components/iiwa/iiwa_component";
+import { AllegroComponent } from "./components/allegro/allegro_component";
 
 import "academicons/css/academicons.min.css";
 
 import "./App.css";
 import "./index.css";
-import { AllegroComponent } from "./components/allegro/allegro_component";
 
 const App = () => {
+  // Create a new QueryClient instance
+  const queryClient = new QueryClient();
+
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <div className="hero">
         <div className="hero-body">
           <div className="container is-max-desktop">
@@ -96,7 +100,6 @@ const App = () => {
                 <div style={{ margin: 20, color: "red" }}>Click on the scatter plot.</div>
 
                 <IiwaComponent />
-
                 <AllegroComponent />
 
                 {/* column has-text-centered */}
@@ -109,7 +112,7 @@ const App = () => {
         </div>
         {/* hero */}
       </div>
-    </>
+    </QueryClientProvider>
   );
 };
 

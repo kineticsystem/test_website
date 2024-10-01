@@ -2,8 +2,6 @@ import { Suspense, useCallback, useMemo, useState } from "react";
 
 import { ErrorBoundary } from "react-error-boundary";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
 import { Player } from "../player";
 import { ScatterPlot } from "../scatter-plot";
 import { Scene } from "../allegro/allegro_scene";
@@ -13,9 +11,6 @@ import { CubeState, SceneEpisode, SceneState } from "./allegro_scene_state";
 export const AllegroComponent = () => {
   // Dynamically get the base URL from Vite's environment variables
   const BASE_URL = `${window.location.origin}${import.meta.env.BASE_URL}`;
-
-  // Create a new QueryClient instance
-  const queryClient = new QueryClient();
 
   const urdf = `${BASE_URL}models/allegro/urdf/allegro_right_hand.urdf`;
 
@@ -117,19 +112,17 @@ export const AllegroComponent = () => {
 
           {/* Scene. */}
           <div className="w-full md:w-1/2 px-1 mb-1">
-            <QueryClientProvider client={queryClient}>
-              <ErrorBoundary fallback={<div>Something went wrong</div>}>
-                <Suspense fallback={<div>Loading robot...</div>}>
-                  <RobotContextProvider url={urdf}>
-                    <Scene
-                      goal={goal}
-                      state={sceneState}
-                      cameraPosition={[0.4, 0.4, 0.4]}
-                    />
-                  </RobotContextProvider>
-                </Suspense>
-              </ErrorBoundary>
-            </QueryClientProvider>
+            <ErrorBoundary fallback={<div>Something went wrong</div>}>
+              <Suspense fallback={<div>Loading robot...</div>}>
+                <RobotContextProvider url={urdf}>
+                  <Scene
+                    goal={goal}
+                    state={sceneState}
+                    cameraPosition={[0.4, 0.4, 0.4]}
+                  />
+                </RobotContextProvider>
+              </Suspense>
+            </ErrorBoundary>
           </div>
         </div>
       </div>
