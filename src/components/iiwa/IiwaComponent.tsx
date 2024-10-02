@@ -3,8 +3,8 @@ import { Suspense, useCallback, useMemo, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
 import { Player } from "../Player";
-import { ScatterPlot } from "../ScatterPlot";
 import { Scene } from "./IiwaScene";
+import { ScatterPlot3D } from "../ScatterPlot3D";
 import { RobotContextProvider } from "../../context/RobotContext";
 import { CylinderState, SceneEpisode, SceneState } from "./IiwaSceneState";
 
@@ -91,7 +91,7 @@ export const IiwaComponent = () => {
         <div className="flex flex-col md:flex-row flex-wrap justify-center items-center">
           {/* Scatter Plot. */}
           <div className="w-full md:w-1/2 px-1 mb-1">
-            <ScatterPlot onPointSelected={handleSelectedPoint} />
+            <ScatterPlot3D onPointSelected={handleSelectedPoint} />
           </div>
 
           {/* Scene. */}

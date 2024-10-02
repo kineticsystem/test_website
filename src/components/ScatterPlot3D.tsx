@@ -1,0 +1,161 @@
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
+
+import Plot from "react-plotly.js";
+import { Data, Layout, PlotMouseEvent } from "plotly.js";
+
+/**
+ * Props for the ScatterPlot3DComponent component.
+ * @param onPointSelected A callback function invoked when the user clicks on
+ * a point on the scatter plot.
+ */
+export interface ScatterPlot3DProps {
+  onPointSelected: (id: number) => void;
+}
+
+/**
+ * This is a component to display a scatter plot and invoke a callback when
+ * a point is clicked.
+ *
+ * IMPORTANT:
+ * The Plot component does not work well with "memo". In this scenario,
+ * all mouse events are not correctly connected and fail to fire.
+ * Two workarounds have to be implemented to resolve the problem:
+ * 1. An initialization state must to be added and updated on the first mount
+ *    to trigger a re-rendering;
+ * 2. The onClick event must be given a function reference and not a handler
+ *    reference.
+ * @param props {@link ScatterPlot3DProps}
+ * @returns A scatter plot.
+ */
+export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) => {
+  // Initialization state.
+  const [, setInitialized] = useState(false);
+
+  useEffect(() => {
+    setInitialized(true);
+  }, []);
+
+  // Define a color array with unique colors for each point
+  const colorArray: string[] = [
+    "#FF5733", // Red
+    "#33FF57", // Green
+    "#3357FF", // Blue
+    "#FF33A8", // Pink
+    "#A833FF", // Purple
+    "#33FFF3", // Cyan
+    "#FF8C33", // Orange
+    "#8CFF33", // Lime
+    "#338CFF", // Light Blue
+    "#FF3333" // Dark Red
+  ];
+
+  const data: Data[] = useMemo(
+    () => [
+      {
+        x: [0, 10],
+        y: [0, 10],
+        z: [0, 10],
+        mode: "lines",
+        type: "scatter3d",
+        line: { color: "#CCCCCC", width: 1 },
+        name: "x = y"
+      },
+      {
+        x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        y: [1.1, 1.9, 3.3, 4.1, 4.8, 4.4, 6.3, 7, 8.2, 10],
+        z: [0.5, 1.8, 3.0, 4.0, 5.2, 4.6, 6.5, 7.1, 8.3, 9.9],
+        mode: "markers",
+        type: "scatter3d",
+        marker: { color: colorArray, size: 12 },
+        customdata: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+      }
+    ],
+    [colorArray]
+  );
+
+  const layout: Partial<Layout> = useMemo(
+    () => ({
+      xaxis: {
+        title: "X Axis",
+        range: [-0.5, 10.5],
+        fixedrange: true,
+        showgrid: true,
+        gridcolor: "#DDDDDD",
+        gridwidth: 1,
+        tick0: 0,
+        dtick: 2,
+        zeroline: true,
+        zerolinecolor: "#666666",
+        zerolinewidth: 1
+      },
+      yaxis: {
+        title: "Y Axis",
+        range: [-0.5, 10.5],
+        fixedrange: true,
+        showgrid: true,
+        gridcolor: "#DDDDDD",
+        gridwidth: 1,
+        tick0: 0,
+        dtick: 2,
+        zeroline: true,
+        zerolinecolor: "#666666",
+        zerolinewidth: 1
+      },
+      zaxis: {
+        title: "Theta",
+        range: [-0.5, 10.5],
+        fixedrange: true,
+        showgrid: true,
+        gridcolor: "#DDDDDD",
+        gridwidth: 1,
+        zeroline: true,
+        zerolinecolor: "#666666",
+        zerolinewidth: 1
+      },
+      camera: {
+        eye: { x: 1.5, y: 1.5, z: 1.5 }
+      },
+      margin: { l: 0, r: 0, t: 0, b: 0 }, // Removes all margins
+      showlegend: false,
+      plot_bgcolor: "#F0F0F0",
+      paper_bgcolor: "#F0F0F0"
+    }),
+    []
+  );
+
+  // Event handler for clicking on a point
+  const handleClick = useCallback(
+    (event: PlotMouseEvent) => {
+      if (event.points && event.points.length > 0) {
+        const point = event.points[0];
+        const index = point.customdata as number;
+        if (index !== undefined) {
+          onPointSelected(index);
+        }
+      }
+    },
+    [onPointSelected]
+  );
+
+  return (
+    <div className="w-full">
+      <div className="aspect-square bg-white rounded-md overflow-hidden">
+        <Plot
+          data={data}
+          layout={layout}
+          // This event does not work with a handler reference, and must be
+          // given a function reference instead.
+          onClick={(event: PlotMouseEvent) => handleClick(event)}
+          config={{
+            responsive: true,
+            displayModeBar: false
+          }}
+          style={{ width: "100%", height: "100%" }}
+        />
+      </div>
+    </div>
+  );
+};
+
+// Memoize the named component
+export const ScatterPlot3D = memo(ScatterPlot3DComponent);
