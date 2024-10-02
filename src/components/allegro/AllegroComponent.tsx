@@ -2,11 +2,11 @@ import { Suspense, useCallback, useMemo, useState } from "react";
 
 import { ErrorBoundary } from "react-error-boundary";
 
-import { Player } from "../player";
-import { ScatterPlot } from "../scatter-plot";
-import { Scene } from "../allegro/allegro_scene";
-import { RobotContextProvider } from "../../context/robot-context";
-import { CubeState, SceneEpisode, SceneState } from "./allegro_scene_state";
+import { Player } from "../Player";
+import { ScatterPlot } from "../ScatterPlot";
+import { Scene } from "./AllegroScene";
+import { RobotContextProvider } from "../../context/RobotContext";
+import { CubeState, SceneEpisode, SceneState } from "./AllegroSceneState";
 
 export const AllegroComponent = () => {
   // Dynamically get the base URL from Vite's environment variables

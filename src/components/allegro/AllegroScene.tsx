@@ -9,13 +9,13 @@ import {
   PerspectiveCamera
 } from "@react-three/drei";
 
-import { Robot } from "../robot";
-import { Grid } from "../geometry/grid";
-import { Cube } from "../geometry/cube";
-import { Frame } from "../geometry/frame";
-import { CubeState, SceneState } from "./allegro_scene_state";
-import { useRobotContext } from "../../hooks/use-robot-context";
-import { CubeOutline } from "../geometry/cube_outline";
+import { Robot } from "../Robot";
+import { Grid } from "../geometry/Grid";
+import { Cube } from "../geometry/Cube";
+import { Frame } from "../geometry/Frame";
+import { CubeState, SceneState } from "./AllegroSceneState";
+import { useRobotContext } from "../../hooks/useRobotContext";
+import { CubeOutline } from "../geometry/CubeOutline";
 
 interface SceneProps {
   goal: CubeState;

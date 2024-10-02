@@ -9,14 +9,14 @@ import {
   PerspectiveCamera
 } from "@react-three/drei";
 
-import { Robot } from "../robot";
-import { Grid } from "../geometry/grid";
-import { Frame } from "../geometry/frame";
-import { Sector } from "../geometry/sector";
-import { Cylinder } from "../geometry/cylinder";
-import { CylinderState, SceneState } from "./iiwa_scene_state";
-import { CircleOutline } from "../geometry/circle_outline";
-import { useRobotContext } from "../../hooks/use-robot-context";
+import { Robot } from "../Robot";
+import { Grid } from "../geometry/Grid";
+import { Frame } from "../geometry/Frame";
+import { Sector } from "../geometry/Sector";
+import { Cylinder } from "../geometry/Cylinder";
+import { CylinderState, SceneState } from "./IiwaSceneState";
+import { CircleOutline } from "../geometry/CircleOutline";
+import { useRobotContext } from "../../hooks/useRobotContext";
 
 interface SceneProps {
   goal: CylinderState;

@@ -2,11 +2,11 @@ import { Suspense, useCallback, useMemo, useState } from "react";
 
 import { ErrorBoundary } from "react-error-boundary";
 
-import { Player } from "./../../components/player";
-import { ScatterPlot } from "./../../components/scatter-plot";
-import { Scene } from "./../../components/iiwa/iiwa_scene";
-import { RobotContextProvider } from "./../../context/robot-context";
-import { CylinderState, SceneEpisode, SceneState } from "./iiwa_scene_state";
+import { Player } from "../Player";
+import { ScatterPlot } from "../ScatterPlot";
+import { Scene } from "./IiwaScene";
+import { RobotContextProvider } from "../../context/RobotContext";
+import { CylinderState, SceneEpisode, SceneState } from "./IiwaSceneState";
 
 export const IiwaComponent = () => {
   // Dynamically get the base URL from Vite's environment variables

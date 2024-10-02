@@ -1,5 +1,5 @@
 import { useContext, useMemo } from "react";
-import { RobotContext } from "../context/robot-context";
+import { RobotContext } from "../context/RobotContext";
 
 /**
  * This is the Context Consumer i.e. the method that returns the object stored

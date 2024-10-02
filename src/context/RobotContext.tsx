@@ -4,7 +4,7 @@ import { URDFRobot } from "urdf-loader";
 
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import URDFLoaderAdapter from "../components/urdf-loader-adapter";
+import URDFLoaderAdapter from "../components/URDFLoaderAdapter";
 /**
  * This is Context Creator.
  */

@@ -2,8 +2,8 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { IiwaComponent } from "./components/iiwa/iiwa_component";
-import { AllegroComponent } from "./components/allegro/allegro_component";
+import { IiwaComponent } from "./components/iiwa/IiwaComponent";
+import { AllegroComponent } from "./components/allegro/AllegroComponent";
 
 import "academicons/css/academicons.min.css";
 
