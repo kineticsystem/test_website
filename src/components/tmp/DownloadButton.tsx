@@ -10,14 +10,15 @@ export const DownloadJsonButton = () => {
     () =>
       Array.from(
         { length: 10 },
-        (_, index) => `${BASE_URL}data/iiwa/trajectory_${index}.json`
+        (_, index) => `${BASE_URL}data/iiwa/episode_${index}.json`
       ),
     [BASE_URL]
   );
 
   // Function to handle the download
   const handleDownload = useCallback(async () => {
-    // This method inspect all trajectory and extract the goal and the last position.
+    // This method inspect all episodes and extract the goal and the last trajectory
+    // position.
     // Because goal and last position currently match, it modify the goal with some
     // random data.
     // Goals, last pose and errors are group together in a single stats file.
@@ -35,7 +36,7 @@ export const DownloadJsonButton = () => {
     });
 
     const episodes: SceneEpisode[] = await Promise.all(fetchPromises);
-    const goals = episodes.map((episode, index) => {
+    const goals = episodes.map((episode) => {
       const MAX_X_ERROR = 0.05;
       const MAX_Y_ERROR = 0.05;
       const MAX_THETA_ERROR = 0.174533;
@@ -71,7 +72,7 @@ export const DownloadJsonButton = () => {
       const rotationError = goal.rotation.tetha - finalPose.rotation.tetha;
 
       return {
-        trajectoryId: index,
+        eposideId: episode.episodeId,
         goal: goal,
         finalPose: finalPose,
         error: {

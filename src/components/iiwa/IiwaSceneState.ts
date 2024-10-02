@@ -27,6 +27,7 @@ export interface SceneState {
 }
 
 export interface SceneEpisode {
+  episodeId: number;
   goal: CylinderState;
   points: SceneState[];
 }

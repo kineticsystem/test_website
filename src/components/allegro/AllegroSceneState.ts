@@ -43,6 +43,7 @@ export interface SceneState {
 }
 
 export interface SceneEpisode {
+  episodeId: number;
   goal: CubeState;
   points: SceneState[];
 }

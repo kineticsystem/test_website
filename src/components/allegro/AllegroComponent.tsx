@@ -67,11 +67,11 @@ export const AllegroComponent = () => {
   const [sceneSequence, setSceneSequence] = useState<SceneState[]>([sceneState]);
 
   // Load
-  const trajectoryFiles: string[] = useMemo(
+  const episodeFiles: string[] = useMemo(
     () =>
       Array.from(
         { length: 1 },
-        (_, index) => `${BASE_URL}data/allegro/trajectory_${index}.json`
+        (_, index) => `${BASE_URL}data/allegro/episode_${index}.json`
       ),
     [BASE_URL]
   );
@@ -83,7 +83,7 @@ export const AllegroComponent = () => {
   const handleSelectedPoint = useCallback(
     async (index: number) => {
       try {
-        const url = trajectoryFiles[index];
+        const url = episodeFiles[index];
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error(
@@ -97,7 +97,7 @@ export const AllegroComponent = () => {
         throw new Error(`Error loading trajectory: ${(error as Error).message}`);
       }
     },
-    [trajectoryFiles]
+    [episodeFiles]
   );
 
   return (

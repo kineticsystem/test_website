@@ -51,11 +51,11 @@ export const IiwaComponent = () => {
   const [sceneSequence, setSceneSequence] = useState<SceneState[]>([sceneState]);
 
   // Load
-  const trajectoryFiles: string[] = useMemo(
+  const episodeFiles: string[] = useMemo(
     () =>
       Array.from(
         { length: 10 },
-        (_, index) => `${BASE_URL}data/iiwa/trajectory_${index}.json`
+        (_, index) => `${BASE_URL}data/iiwa/episode_${index}.json`
       ),
     [BASE_URL]
   );
@@ -67,7 +67,7 @@ export const IiwaComponent = () => {
   const handleSelectedPoint = useCallback(
     async (index: number) => {
       try {
-        const url = trajectoryFiles[index];
+        const url = episodeFiles[index];
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error(
@@ -81,7 +81,7 @@ export const IiwaComponent = () => {
         throw new Error(`Error loading trajectory: ${(error as Error).message}`);
       }
     },
-    [trajectoryFiles]
+    [episodeFiles]
   );
 
   return (
