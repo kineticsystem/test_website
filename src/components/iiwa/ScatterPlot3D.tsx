@@ -115,7 +115,7 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
           }
         },
         customdata: ids,
-        hovertemplate: `<b>x:</b> %{x:.4f}<br><b>y:</b> %{y:.4f}<br><b>θ:</b> %{z:.4f}<br><extra></extra>`
+        hovertemplate: `<b>|Δx|:</b> %{x:.4f}<br><b>|Δy|:</b> %{y:.4f}<br><b>|Δθ|:</b> %{z:.4f}<br><extra></extra>`
       }
     ];
 
