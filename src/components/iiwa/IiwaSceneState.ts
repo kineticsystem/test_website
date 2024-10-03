@@ -47,6 +47,15 @@ export interface IiwaEpisodeInfo {
       theta: number;
     };
   };
+  initialPose: {
+    position: {
+      x: number;
+      y: number;
+    };
+    rotation: {
+      theta: number;
+    };
+  };
   finalPose: {
     position: {
       x: number;

@@ -60,16 +60,20 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
 
   if (stats) {
     // Extracting goals information.
-    const goalXPositions: number[] = stats.map((episode) => episode.goal.position.x);
+    const goalXPositions: number[] = stats.map((episode) =>
+      Math.abs(episode.initialPose.position.x - episode.goal.position.x)
+    );
     const goalMaxXPosition = Math.max(...goalXPositions);
     const goalMinXPosition = Math.min(...goalXPositions);
 
-    const goalYPositions: number[] = stats.map((episode) => episode.goal.position.y);
+    const goalYPositions: number[] = stats.map((episode) =>
+      Math.abs(episode.initialPose.position.y - episode.goal.position.y)
+    );
     const goalMaxYPosition = Math.max(...goalYPositions);
     const goalMinYPosition = Math.min(...goalYPositions);
 
-    const goalThetaPositions: number[] = stats.map(
-      (episode) => episode.goal.rotation.theta
+    const goalThetaPositions: number[] = stats.map((episode) =>
+      Math.abs(episode.initialPose.rotation.theta - episode.goal.rotation.theta)
     );
     const goalMaxThetaPosition = Math.max(...goalThetaPositions);
     const goalMinThetaPosition = Math.min(...goalThetaPositions);
@@ -94,8 +98,8 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
           cmin: positionMinError, // Minimum of the error range
           cmax: positionMaxError, // Maximum of the error range
           colorbar: {
-            thickness: 10, // Thickness of the colorbar
-            len: 0.9, // Length of the colorbar
+            thickness: 10,
+            len: 0.9,
             x: 1.05, // Position it to the right of the plot
             y: 0.5
           }
@@ -110,44 +114,44 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
     const layout: Partial<Layout> = {
       scene: {
         xaxis: {
-          title: "x",
+          title: "Δx",
           range: [goalMinXPosition, goalMaxXPosition],
           fixedrange: true,
           showgrid: true,
-          gridcolor: "#DDDDDD",
+          gridcolor: "#AAAAAA",
           gridwidth: 1,
           tick0: 0,
-          dtick: 2,
           zeroline: true,
-          zerolinecolor: "#666666",
+          zerolinecolor: "#000000",
           zerolinewidth: 1
         },
         yaxis: {
-          title: "y",
+          title: "Δy",
           range: [goalMinYPosition, goalMaxYPosition],
           fixedrange: true,
           showgrid: true,
-          gridcolor: "#DDDDDD",
+          gridcolor: "#AAAAAA",
           gridwidth: 1,
           tick0: 0,
-          dtick: 2,
           zeroline: true,
-          zerolinecolor: "#666666",
+          zerolinecolor: "#000000",
           zerolinewidth: 1
         },
         zaxis: {
-          title: "θ",
+          title: "Δθ",
           range: [goalMinThetaPosition, goalMaxThetaPosition],
           fixedrange: true,
           showgrid: true,
-          gridcolor: "#DDDDDD",
+          gridcolor: "#AAAAAA",
           gridwidth: 1,
+          tick0: 0,
           zeroline: true,
-          zerolinecolor: "#666666",
+          zerolinecolor: "#000000",
           zerolinewidth: 1
         },
         camera: {
-          eye: { x: 1.5, y: 1.5, z: 1.5 }
+          eye: { x: 1.5, y: 1.5, z: 1.5 },
+          center: { x: 0.1, y: -0.1, z: -0.1 }
         }
       },
       margin: { l: 0, r: 0, t: 0, b: 0 }, // Removes all margins
@@ -176,7 +180,7 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
     );
   }
 
-  return <div>OPS</div>;
+  return <div></div>;
 };
 
 // Memoize the named component
