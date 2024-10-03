@@ -61,30 +61,38 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
   if (stats) {
     const ids: number[] = stats.map((episode) => episode.episodeId);
 
-    // Extracting goals information.
+    // Extract goals x positions.
     const goalXPositions: number[] = stats.map((episode) =>
       Math.abs(episode.initialPose.position.x - episode.goal.position.x)
     );
     const goalMaxXPosition = Math.max(...goalXPositions);
     const goalMinXPosition = Math.min(...goalXPositions);
 
+    // Extract goals y positions.
     const goalYPositions: number[] = stats.map((episode) =>
       Math.abs(episode.initialPose.position.y - episode.goal.position.y)
     );
     const goalMaxYPosition = Math.max(...goalYPositions);
     const goalMinYPosition = Math.min(...goalYPositions);
 
+    // Extract goals theta rotations.
     const goalThetaPositions: number[] = stats.map((episode) =>
       Math.abs(episode.initialPose.rotation.theta - episode.goal.rotation.theta)
     );
     const goalMaxThetaPosition = Math.max(...goalThetaPositions);
     const goalMinThetaPosition = Math.min(...goalThetaPositions);
 
-    // Extracting an array of position errors.
-    const positionErrors: number[] = stats.map((episode) => episode.error.position);
+    // Calculate the distance between the goal and the final position.
+    const positionErrors: number[] = stats.map((episode) =>
+      Math.sqrt(
+        Math.pow(episode.goal.position.x - episode.finalPose.position.x, 2) +
+          Math.pow(episode.goal.position.y - episode.finalPose.position.y, 2)
+      )
+    );
     const positionMinError = Math.min(...positionErrors);
     const positionMaxError = Math.max(...positionErrors);
 
+    // Prepare the plot data.
     const data: Data[] = [
       {
         name: "Episodes",
@@ -95,14 +103,14 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
         type: "scatter3d",
         marker: {
           size: 12,
-          color: positionErrors, // Use the error values for coloring
+          color: positionErrors, // Use the error values for coloring.
           colorscale: "Viridis",
-          cmin: positionMinError, // Minimum of the error range
-          cmax: positionMaxError, // Maximum of the error range
+          cmin: positionMinError, // Minimum of the error range.
+          cmax: positionMaxError, // Maximum of the error range.
           colorbar: {
             thickness: 10,
             len: 0.9,
-            x: 1.05, // Position it to the right of the plot
+            x: 1.05, // Position it to the right of the plot.
             y: 0.5
           }
         },
@@ -111,6 +119,7 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
       }
     ];
 
+    // Prepare the plot layout.
     const layout: Partial<Layout> = {
       scene: {
         xaxis: {

@@ -65,10 +65,6 @@ export interface IiwaEpisodeInfo {
       theta: number;
     };
   };
-  error: {
-    position: number;
-    rotation: number;
-  };
 }
 
 export type IiwaStats = IiwaEpisodeInfo[];
