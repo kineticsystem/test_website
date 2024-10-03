@@ -134,6 +134,7 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
           cmin: minError, // Minimum of the error range.
           cmax: maxError, // Maximum of the error range.
           colorbar: {
+            tickformat: ".3f", // Format ticks to three decimal places.
             thickness: 10,
             len: 0.9,
             x: 1.05, // Position it to the right of the plot.
