@@ -1,12 +1,13 @@
-import { Suspense, useCallback, useMemo, useState } from "react";
+import { Suspense, useCallback, useState } from "react";
 
 import { ErrorBoundary } from "react-error-boundary";
 
 import { Player } from "../Player";
 import { Scene } from "./IiwaScene";
-import { ScatterPlot3D } from "../ScatterPlot3D";
+import { ScatterPlot3D } from "./ScatterPlot3D";
 import { RobotContextProvider } from "../../context/RobotContext";
-import { CylinderState, SceneEpisode, SceneState } from "./IiwaSceneState";
+import { CylinderState, IiwaEpisode, SceneState } from "./IiwaSceneState";
+import { fetchIiwaEpisode } from "./iiwaApi";
 
 export const IiwaComponent = () => {
   // Dynamically get the base URL from Vite's environment variables
@@ -15,9 +16,11 @@ export const IiwaComponent = () => {
   const urdf = `${BASE_URL}/models/iiwa/urdf/iiwa7.urdf`;
 
   const [goal, setGoal] = useState<CylinderState>({
-    x: 0.6718483143235885,
-    y: -0.23452121868326742,
-    rotation: 0.5336689388195219
+    position: {
+      x: 0.6718483143235885,
+      y: -0.23452121868326742
+    },
+    rotation: { theta: 0.5336689388195219 }
   });
 
   const [sceneState, setSceneState] = useState<SceneState>({
@@ -41,48 +44,31 @@ export const IiwaComponent = () => {
       joint6: 0
     },
     cylinder: {
-      x: 0.6184808436607272,
-      y: -0.09208531449445188,
-      rotation: 0
+      position: {
+        x: 0.6184808436607272,
+        y: -0.09208531449445188
+      },
+      rotation: { theta: 0 }
     }
   });
 
   // State to hold the sequence of SceneStates.
   const [sceneSequence, setSceneSequence] = useState<SceneState[]>([sceneState]);
 
-  // Load
-  const episodeFiles: string[] = useMemo(
-    () =>
-      Array.from(
-        { length: 10 },
-        (_, index) => `${BASE_URL}data/iiwa/episode_${index}.json`
-      ),
-    [BASE_URL]
-  );
-
   const onStateChanged = useCallback((state: SceneState) => {
     setSceneState(state);
   }, []);
 
-  const handleSelectedPoint = useCallback(
-    async (index: number) => {
-      try {
-        const url = episodeFiles[index];
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(
-            `Failed to fetch ${url}: ${response.status} ${response.statusText}`
-          );
-        }
-        const data: SceneEpisode = await response.json();
-        setGoal(data.goal);
-        setSceneSequence(data.points);
-      } catch (error) {
-        throw new Error(`Error loading trajectory: ${(error as Error).message}`);
-      }
-    },
-    [episodeFiles]
-  );
+  const handleSelectedPoint = useCallback(async (index: number) => {
+    try {
+      const episode: IiwaEpisode = await fetchIiwaEpisode(index);
+      setGoal(episode.goal);
+      console.log(episode.goal);
+      setSceneSequence(episode.points);
+    } catch (error) {
+      throw new Error(`Error loading episode: ${(error as Error).message}`);
+    }
+  }, []);
 
   return (
     <>

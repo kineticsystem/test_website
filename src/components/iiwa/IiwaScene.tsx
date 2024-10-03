@@ -63,11 +63,11 @@ const SceneComponent = ({
 
   let startAngle = 0;
   let endAngle = 0;
-  if (state.cylinder.rotation - goal.rotation > 0) {
+  if (state.cylinder.rotation.theta - goal.rotation.theta > 0) {
     startAngle = 0;
-    endAngle = state.cylinder.rotation - goal.rotation;
+    endAngle = state.cylinder.rotation.theta - goal.rotation.theta;
   } else {
-    startAngle = state.cylinder.rotation - goal.rotation;
+    startAngle = state.cylinder.rotation.theta - goal.rotation.theta;
     endAngle = 0;
   }
 
@@ -105,15 +105,18 @@ const SceneComponent = ({
 
             {/* The moving cylinder. */}
             <group
-              position={[state.cylinder.x, state.cylinder.y, 0.25]}
-              rotation-z={state.cylinder.rotation}
+              position={[state.cylinder.position.x, state.cylinder.position.y, 0.25]}
+              rotation-z={state.cylinder.rotation.theta}
             >
               <Cylinder radius={0.14} height={0.5} color={"#ff8888"} opacity={0.75} />
               <Frame size={0.4} />
             </group>
 
             {/* The goal. */}
-            <group position={[goal.x, goal.y, -0.00001]} rotation-z={goal.rotation}>
+            <group
+              position={[goal.position.x, goal.position.y, -0.00001]}
+              rotation-z={goal.rotation.theta}
+            >
               <CircleOutline radius={0.14} thickness={0.004} color={"#FFFFFF"} />
               <Sector
                 color={"#FFFFFF"}

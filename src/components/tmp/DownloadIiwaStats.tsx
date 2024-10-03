@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
-import { SceneEpisode } from "../iiwa/IiwaSceneState";
+import { IiwaEpisode } from "../iiwa/IiwaSceneState";
 
-export const DownloadJsonButton = () => {
+export const DownloadIiwaStats = () => {
   // Dynamically get the base URL from Vite's environment variables
   const BASE_URL = `${window.location.origin}${import.meta.env.BASE_URL}`;
 
@@ -24,18 +24,18 @@ export const DownloadJsonButton = () => {
     // Goals, last pose and errors are group together in a single stats file.
 
     // Load and process all episodes.
-    const fetchPromises: Promise<SceneEpisode>[] = episodeFiles.map(async (file) => {
+    const fetchPromises: Promise<IiwaEpisode>[] = episodeFiles.map(async (file) => {
       const response = await fetch(file);
       if (!response.ok) {
         throw new Error(
           `Failed to fetch ${file}: ${response.status} ${response.statusText}`
         );
       }
-      const data: SceneEpisode = await response.json();
+      const data: IiwaEpisode = await response.json();
       return data;
     });
 
-    const episodes: SceneEpisode[] = await Promise.all(fetchPromises);
+    const episodes: IiwaEpisode[] = await Promise.all(fetchPromises);
     const goals = episodes.map((episode) => {
       const MAX_X_ERROR = 0.05;
       const MAX_Y_ERROR = 0.05;
@@ -43,12 +43,12 @@ export const DownloadJsonButton = () => {
 
       const goal = {
         position: {
-          x: episode.goal.x + (Math.random() * 2 * MAX_X_ERROR - MAX_X_ERROR),
-          y: episode.goal.y + (Math.random() * 2 * MAX_Y_ERROR - MAX_Y_ERROR)
+          x: episode.goal.position.x + (Math.random() * 2 * MAX_X_ERROR - MAX_X_ERROR),
+          y: episode.goal.position.y + (Math.random() * 2 * MAX_Y_ERROR - MAX_Y_ERROR)
         },
         rotation: {
-          tetha:
-            episode.goal.rotation +
+          theta:
+            episode.goal.rotation.theta +
             (Math.random() * 2 * MAX_THETA_ERROR - MAX_THETA_ERROR)
         }
       };
@@ -56,11 +56,11 @@ export const DownloadJsonButton = () => {
       const lastPoint = episode.points.slice(-1)[0].cylinder;
       const finalPose = {
         position: {
-          x: lastPoint.x,
-          y: lastPoint.y
+          x: lastPoint.position.x,
+          y: lastPoint.position.y
         },
         rotation: {
-          tetha: lastPoint.rotation
+          theta: lastPoint.rotation.theta
         }
       };
 
@@ -69,7 +69,7 @@ export const DownloadJsonButton = () => {
           Math.pow(goal.position.y - finalPose.position.y, 2)
       );
 
-      const rotationError = goal.rotation.tetha - finalPose.rotation.tetha;
+      const rotationError = (goal.rotation.theta - finalPose.rotation.theta) as number;
 
       return {
         eposideId: episode.episodeId,

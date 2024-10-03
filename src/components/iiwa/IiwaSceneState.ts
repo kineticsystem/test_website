@@ -14,9 +14,13 @@ export interface ArmState {
 }
 
 export interface CylinderState {
-  x: number;
-  y: number;
-  rotation: number;
+  position: {
+    x: number;
+    y: number;
+  };
+  rotation: {
+    theta: number;
+  };
 }
 
 export interface SceneState {
@@ -26,8 +30,36 @@ export interface SceneState {
   cylinder: CylinderState;
 }
 
-export interface SceneEpisode {
+export interface IiwaEpisode {
   episodeId: number;
   goal: CylinderState;
   points: SceneState[];
 }
+
+export interface IiwaEpisodeInfo {
+  episodeId: number;
+  goal: {
+    position: {
+      x: number;
+      y: number;
+    };
+    rotation: {
+      theta: number;
+    };
+  };
+  finalPose: {
+    position: {
+      x: number;
+      y: number;
+    };
+    rotation: {
+      theta: number;
+    };
+  };
+  error: {
+    distance: number;
+    rotation: number;
+  };
+}
+
+export type Stats = IiwaEpisodeInfo[];
