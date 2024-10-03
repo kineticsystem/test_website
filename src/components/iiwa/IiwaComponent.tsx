@@ -6,7 +6,7 @@ import { Player } from "../Player";
 import { Scene } from "./IiwaScene";
 import { ScatterPlot3D } from "./ScatterPlot3D";
 import { RobotContextProvider } from "../../context/RobotContext";
-import { CylinderState, IiwaEpisode, SceneState } from "./IiwaSceneState";
+import { CylinderState, IiwaEpisode, IiwaSceneState } from "./IiwaSceneState";
 import { fetchIiwaEpisode } from "./iiwaApi";
 
 export const IiwaComponent = () => {
@@ -23,7 +23,7 @@ export const IiwaComponent = () => {
     rotation: { theta: 0.5336689388195219 }
   });
 
-  const [sceneState, setSceneState] = useState<SceneState>({
+  const [sceneState, setSceneState] = useState<IiwaSceneState>({
     timeFromStart: 0,
     leftArm: {
       joint0: 0.014487597656250184,
@@ -53,17 +53,16 @@ export const IiwaComponent = () => {
   });
 
   // State to hold the sequence of SceneStates.
-  const [sceneSequence, setSceneSequence] = useState<SceneState[]>([sceneState]);
+  const [sceneSequence, setSceneSequence] = useState<IiwaSceneState[]>([sceneState]);
 
-  const onStateChanged = useCallback((state: SceneState) => {
+  const onStateChanged = useCallback((state: IiwaSceneState) => {
     setSceneState(state);
   }, []);
 
-  const handleSelectedPoint = useCallback(async (index: number) => {
+  const handleSelectedPoint = useCallback(async (id: number) => {
     try {
-      const episode: IiwaEpisode = await fetchIiwaEpisode(index);
+      const episode: IiwaEpisode = await fetchIiwaEpisode(id);
       setGoal(episode.goal);
-      console.log(episode.goal);
       setSceneSequence(episode.points);
     } catch (error) {
       throw new Error(`Error loading episode: ${(error as Error).message}`);

@@ -3,7 +3,7 @@
  * in the scene.
  */
 
-export interface HandState {
+export interface AllegroHandState {
   joint0: number; // 2nd finger, base roll.
   joint1: number; // 2nd finger 1st joint pitch.
   joint2: number; // 2nd finger, 2nd joint pitch.
@@ -36,14 +36,14 @@ export interface CubeState {
   };
 }
 
-export interface SceneState {
+export interface AllegroSceneState {
   timeFromStart: number;
-  hand: HandState;
+  hand: AllegroHandState;
   cube: CubeState;
 }
 
-export interface SceneEpisode {
+export interface AllegroEpisode {
   episodeId: number;
   goal: CubeState;
-  points: SceneState[];
+  points: AllegroSceneState[];
 }

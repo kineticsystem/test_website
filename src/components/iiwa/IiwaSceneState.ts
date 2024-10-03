@@ -3,7 +3,7 @@
  * in the scene.
  */
 
-export interface ArmState {
+export interface IiwaArmState {
   joint0: number;
   joint1: number;
   joint2: number;
@@ -23,17 +23,17 @@ export interface CylinderState {
   };
 }
 
-export interface SceneState {
+export interface IiwaSceneState {
   timeFromStart: number;
-  leftArm: ArmState;
-  rightArm: ArmState;
+  leftArm: IiwaArmState;
+  rightArm: IiwaArmState;
   cylinder: CylinderState;
 }
 
 export interface IiwaEpisode {
   episodeId: number;
   goal: CylinderState;
-  points: SceneState[];
+  points: IiwaSceneState[];
 }
 
 export interface IiwaEpisodeInfo {

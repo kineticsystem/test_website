@@ -14,13 +14,13 @@ import { Grid } from "../geometry/Grid";
 import { Frame } from "../geometry/Frame";
 import { Sector } from "../geometry/Sector";
 import { Cylinder } from "../geometry/Cylinder";
-import { CylinderState, SceneState } from "./IiwaSceneState";
+import { CylinderState, IiwaSceneState } from "./IiwaSceneState";
 import { CircleOutline } from "../geometry/CircleOutline";
 import { useRobotContext } from "../../hooks/useRobotContext";
 
 interface SceneProps {
   goal: CylinderState;
-  state: SceneState;
+  state: IiwaSceneState;
   cameraPosition: [number, number, number];
   controlsEnabled?: boolean;
 }

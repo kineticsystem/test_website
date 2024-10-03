@@ -13,13 +13,13 @@ import { Robot } from "../Robot";
 import { Grid } from "../geometry/Grid";
 import { Cube } from "../geometry/Cube";
 import { Frame } from "../geometry/Frame";
-import { CubeState, SceneState } from "./AllegroSceneState";
+import { CubeState, AllegroSceneState } from "./AllegroSceneState";
 import { useRobotContext } from "../../hooks/useRobotContext";
 import { CubeOutline } from "../geometry/CubeOutline";
 
 interface SceneProps {
   goal: CubeState;
-  state: SceneState;
+  state: AllegroSceneState;
   cameraPosition: [number, number, number];
   controlsEnabled?: boolean;
 }

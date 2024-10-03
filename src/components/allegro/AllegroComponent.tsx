@@ -1,4 +1,4 @@
-import { Suspense, useCallback, useMemo, useState } from "react";
+import { Suspense, useCallback, useState } from "react";
 
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -6,7 +6,8 @@ import { Player } from "../Player";
 import { ScatterPlot } from "../ScatterPlot";
 import { Scene } from "./AllegroScene";
 import { RobotContextProvider } from "../../context/RobotContext";
-import { CubeState, SceneEpisode, SceneState } from "./AllegroSceneState";
+import { CubeState, AllegroSceneState } from "./AllegroSceneState";
+import { fetchAllegroEpisode } from "./allegroApi";
 
 export const AllegroComponent = () => {
   // Dynamically get the base URL from Vite's environment variables
@@ -28,7 +29,7 @@ export const AllegroComponent = () => {
     }
   });
 
-  const [sceneState, setSceneState] = useState<SceneState>({
+  const [sceneState, setSceneState] = useState<AllegroSceneState>({
     timeFromStart: 0,
     hand: {
       joint0: 0.01,
@@ -64,41 +65,21 @@ export const AllegroComponent = () => {
   });
 
   // State to hold the sequence of SceneStates.
-  const [sceneSequence, setSceneSequence] = useState<SceneState[]>([sceneState]);
+  const [sceneSequence, setSceneSequence] = useState<AllegroSceneState[]>([sceneState]);
 
-  // Load
-  const episodeFiles: string[] = useMemo(
-    () =>
-      Array.from(
-        { length: 1 },
-        (_, index) => `${BASE_URL}data/allegro/episode_${index}.json`
-      ),
-    [BASE_URL]
-  );
-
-  const onStateChanged = useCallback((state: SceneState) => {
+  const onStateChanged = useCallback((state: AllegroSceneState) => {
     setSceneState(state);
   }, []);
 
-  const handleSelectedPoint = useCallback(
-    async (index: number) => {
-      try {
-        const url = episodeFiles[index];
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(
-            `Failed to fetch ${url}: ${response.status} ${response.statusText}`
-          );
-        }
-        const data: SceneEpisode = await response.json();
-        setGoal(data.goal);
-        setSceneSequence(data.points);
-      } catch (error) {
-        throw new Error(`Error loading trajectory: ${(error as Error).message}`);
-      }
-    },
-    [episodeFiles]
-  );
+  const handleSelectedPoint = useCallback(async (id: number) => {
+    try {
+      const episode = await fetchAllegroEpisode(id);
+      setGoal(episode.goal);
+      setSceneSequence(episode.points);
+    } catch (error) {
+      throw new Error(`Error loading trajectory: ${(error as Error).message}`);
+    }
+  }, []);
 
   return (
     <>
