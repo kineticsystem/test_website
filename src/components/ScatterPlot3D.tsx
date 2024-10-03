@@ -35,19 +35,10 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
     setInitialized(true);
   }, []);
 
-  // Define a color array with unique colors for each point
-  const colorArray: string[] = [
-    "#FF5733", // Red
-    "#33FF57", // Green
-    "#3357FF", // Blue
-    "#FF33A8", // Pink
-    "#A833FF", // Purple
-    "#33FFF3", // Cyan
-    "#FF8C33", // Orange
-    "#8CFF33", // Lime
-    "#338CFF", // Light Blue
-    "#FF3333" // Dark Red
-  ];
+  const errorValues = useMemo(
+    () => [0.0, 0.2, 0.5, 0.8, 1.0, 0.3, 0.7, 0.6, 0.4, 0.9],
+    []
+  );
 
   const data: Data[] = useMemo(
     () => [
@@ -66,11 +57,27 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
         z: [0.5, 1.8, 3.0, 4.0, 5.2, 4.6, 6.5, 7.1, 8.3, 9.9],
         mode: "markers",
         type: "scatter3d",
-        marker: { color: colorArray, size: 12 },
+        marker: {
+          size: 12,
+          color: errorValues, // Use the error values for coloring
+          colorscale: "Viridis",
+          cmin: 0, // Minimum of the error range
+          cmax: 1, // Maximum of the error range
+          colorbar: {
+            title: "Error", // Title of the colorbar
+            titleside: "left",
+            thickness: 10, // Thickness of the colorbar
+            len: 0.9, // Length of the colorbar
+            x: 1.05, // Position it to the right of the plot
+            y: 0.5,
+            tickvals: [0, 0.2, 0.4, 0.6, 0.8, 1.0],
+            ticktext: ["0", "0.2", "0.4", "0.6", "0.8", "1.0"]
+          }
+        },
         customdata: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
       }
     ],
-    [colorArray]
+    [errorValues]
   );
 
   const layout: Partial<Layout> = useMemo(
