@@ -62,22 +62,22 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
     const ids: number[] = stats.map((episode) => episode.episodeId);
 
     // Extract the delta x between the initial position and the goal.
-    const goalXPositions: number[] = stats.map((episode) =>
-      Math.abs(episode.initialPose.position.x - episode.goal.position.x)
+    const goalXPositions: number[] = stats.map(
+      (episode) => episode.goal.position.x - episode.initialPose.position.x
     );
     const goalMaxXPosition = Math.max(...goalXPositions);
     const goalMinXPosition = Math.min(...goalXPositions);
 
     // Extract the delta y between the initial position and the goal.
-    const goalYPositions: number[] = stats.map((episode) =>
-      Math.abs(episode.initialPose.position.y - episode.goal.position.y)
+    const goalYPositions: number[] = stats.map(
+      (episode) => episode.goal.position.y - episode.initialPose.position.y
     );
     const goalMaxYPosition = Math.max(...goalYPositions);
     const goalMinYPosition = Math.min(...goalYPositions);
 
     // Extract the delta theta between the initial position and the goal.
-    const goalThetaPositions: number[] = stats.map((episode) =>
-      Math.abs(episode.initialPose.rotation.theta - episode.goal.rotation.theta)
+    const goalThetaPositions: number[] = stats.map(
+      (episode) => episode.goal.rotation.theta - episode.initialPose.rotation.theta
     );
     const goalMaxThetaPosition = Math.max(...goalThetaPositions);
     const goalMinThetaPosition = Math.min(...goalThetaPositions);
@@ -115,7 +115,7 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
           }
         },
         customdata: ids,
-        hovertemplate: `<b>|Δx|:</b> %{x:.4f}<br><b>|Δy|:</b> %{y:.4f}<br><b>|Δθ|:</b> %{z:.4f}<br><extra></extra>`
+        hovertemplate: `<b>Δx:</b> %{x:.4f}<br><b>Δy:</b> %{y:.4f}<br><b>Δθ:</b> %{z:.4f}<br><extra></extra>`
       }
     ];
 
@@ -123,7 +123,7 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
     const layout: Partial<Layout> = {
       scene: {
         xaxis: {
-          title: "|Δx|",
+          title: "Δx",
           range: [goalMinXPosition, goalMaxXPosition],
           fixedrange: true,
           showgrid: true,
@@ -135,7 +135,7 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
           zerolinewidth: 1
         },
         yaxis: {
-          title: "|Δy|",
+          title: "Δy",
           range: [goalMinYPosition, goalMaxYPosition],
           fixedrange: true,
           showgrid: true,
@@ -147,7 +147,7 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
           zerolinewidth: 1
         },
         zaxis: {
-          title: "|Δθ|",
+          title: "Δθ",
           range: [goalMinThetaPosition, goalMaxThetaPosition],
           fixedrange: true,
           showgrid: true,
