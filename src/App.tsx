@@ -97,8 +97,6 @@ const App = () => {
                   </span>
                 </div>
 
-                <div style={{ margin: 20, color: "red" }}>Click on the scatter plot.</div>
-
                 <IiwaComponent />
                 <AllegroComponent />
 
