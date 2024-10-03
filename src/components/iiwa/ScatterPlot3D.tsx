@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useState } from "react";
 
 import Plot from "react-plotly.js";
-import { Data, Datum, Layout, PlotMouseEvent } from "plotly.js";
+import { Data, Layout, PlotMouseEvent } from "plotly.js";
 import { useQuery } from "@tanstack/react-query";
 import { fetchIiwaStats } from "./iiwaApi";
 import { IiwaStats } from "./IiwaSceneState";
@@ -49,9 +49,9 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
     (event: PlotMouseEvent) => {
       if (event.points && event.points.length > 0) {
         const point = event.points[0];
-        const index = point.customdata as number;
-        if (index !== undefined) {
-          onPointSelected(index);
+        const id = point.customdata as number;
+        if (id !== undefined) {
+          onPointSelected(id);
         }
       }
     },
@@ -59,6 +59,8 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
   );
 
   if (stats) {
+    const ids: number[] = stats.map((episode) => episode.episodeId);
+
     // Extracting goals information.
     const goalXPositions: number[] = stats.map((episode) =>
       Math.abs(episode.initialPose.position.x - episode.goal.position.x)
@@ -104,10 +106,8 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
             y: 0.5
           }
         },
-        customdata: stats.map((episode) => ({
-          id: episode.episodeId
-        })) as unknown as Datum[],
-        hovertemplate: `<b>id:</b> %{customdata.id}<br><b>x:</b> %{x:.4f}<br><b>y:</b> %{y:.4f}<br><b>θ:</b> %{z:.4f}<br><extra></extra>`
+        customdata: ids,
+        hovertemplate: `<b>x:</b> %{x:.4f}<br><b>y:</b> %{y:.4f}<br><b>θ:</b> %{z:.4f}<br><extra></extra>`
       }
     ];
 

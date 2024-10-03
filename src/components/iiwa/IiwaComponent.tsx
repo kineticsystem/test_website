@@ -61,6 +61,7 @@ export const IiwaComponent = () => {
 
   const handleSelectedPoint = useCallback(async (id: number) => {
     try {
+      console.log("############" + id);
       const episode: IiwaEpisode = await fetchIiwaEpisode(id);
       setGoal(episode.goal);
       setSceneSequence(episode.points);
