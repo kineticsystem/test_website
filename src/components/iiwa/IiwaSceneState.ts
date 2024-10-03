@@ -57,9 +57,9 @@ export interface IiwaEpisodeInfo {
     };
   };
   error: {
-    distance: number;
+    position: number;
     rotation: number;
   };
 }
 
-export type Stats = IiwaEpisodeInfo[];
+export type IiwaStats = IiwaEpisodeInfo[];

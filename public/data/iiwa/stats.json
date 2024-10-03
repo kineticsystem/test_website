@@ -1,6 +1,6 @@
 [
   {
-    "eposideId": 0,
+    "episodeId": 0,
     "goal": {
       "position": {
         "x": 0.6347665952348857,
@@ -25,7 +25,7 @@
     }
   },
   {
-    "eposideId": 1,
+    "episodeId": 1,
     "goal": {
       "position": {
         "x": 0.6525146251425512,
@@ -50,7 +50,7 @@
     }
   },
   {
-    "eposideId": 2,
+    "episodeId": 2,
     "goal": {
       "position": {
         "x": 0.7338054307491593,
@@ -75,7 +75,7 @@
     }
   },
   {
-    "eposideId": 3,
+    "episodeId": 3,
     "goal": {
       "position": {
         "x": 0.5833174527390893,
@@ -100,7 +100,7 @@
     }
   },
   {
-    "eposideId": 4,
+    "episodeId": 4,
     "goal": {
       "position": {
         "x": 0.48584156131378936,
@@ -125,7 +125,7 @@
     }
   },
   {
-    "eposideId": 5,
+    "episodeId": 5,
     "goal": {
       "position": {
         "x": 0.5652217557058241,
@@ -150,7 +150,7 @@
     }
   },
   {
-    "eposideId": 6,
+    "episodeId": 6,
     "goal": {
       "position": {
         "x": 0.7259071065184804,
@@ -175,7 +175,7 @@
     }
   },
   {
-    "eposideId": 7,
+    "episodeId": 7,
     "goal": {
       "position": {
         "x": 0.6948742091043235,
@@ -200,7 +200,7 @@
     }
   },
   {
-    "eposideId": 8,
+    "episodeId": 8,
     "goal": {
       "position": {
         "x": 0.7664278749597186,
@@ -225,7 +225,7 @@
     }
   },
   {
-    "eposideId": 9,
+    "episodeId": 9,
     "goal": {
       "position": {
         "x": 0.5712019497996986,
