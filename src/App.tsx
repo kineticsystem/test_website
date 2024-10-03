@@ -3,14 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { IiwaComponent } from "./components/iiwa/IiwaComponent";
-import { DownloadIiwaStats } from "./components/tmp/DownloadIiwaStats";
 import { AllegroComponent } from "./components/allegro/AllegroComponent";
 
 import "academicons/css/academicons.min.css";
 
 import "./App.css";
 import "./index.css";
-import { DownloadIiwaEpisode } from "./components/tmp/DownloadIiwaEpisode";
 
 const App = () => {
   // Create a new QueryClient instance
@@ -98,13 +96,6 @@ const App = () => {
                     </a>
                   </span>
                 </div>
-
-                {/* <span className="button">
-                  <DownloadIiwaStats />
-                </span>
-                <span className="button">
-                  <DownloadIiwaEpisode />
-                </span> */}
 
                 <div style={{ margin: 20, color: "red" }}>Click on the scatter plot.</div>
 
