@@ -18,7 +18,7 @@ enum ErrorType {
  * a point on the scatter plot.
  */
 export interface ScatterPlot3DProps {
-  onPointSelected: (id: number) => void;
+  onPointSelected: (id: string) => void;
 }
 
 /**
@@ -62,7 +62,7 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
     (event: PlotMouseEvent) => {
       if (event.points && event.points.length > 0) {
         const point = event.points[0];
-        const id = point.customdata as number;
+        const id = point.customdata as string;
         if (id !== undefined) {
           onPointSelected(id);
         }
@@ -72,7 +72,7 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
   );
 
   if (stats) {
-    const ids: number[] = stats.map((episode) => episode.episodeId);
+    const ids: string[] = stats.map((episode) => episode.episodeId);
 
     // Extract the delta x between the initial position and the goal.
     const goalXPositions: number[] = stats.map(

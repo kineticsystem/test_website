@@ -1,19 +1,13 @@
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { IiwaEpisode } from "../iiwa/IiwaSceneState";
+import { IIWA_FILES } from "./iiwaFiles";
+import { getAbsoluteUrl } from "../../http";
 
 export const DownloadIiwaStats = () => {
-  // Dynamically get the base URL from Vite's environment variables
-  const BASE_URL = `${window.location.origin}${import.meta.env.BASE_URL}`;
-
   // Load
-  const episodeFiles: string[] = useMemo(
-    () =>
-      Array.from(
-        { length: 10 },
-        (_, index) => `${BASE_URL}data/iiwa/episode_${index}.json`
-      ),
-    [BASE_URL]
-  );
+  const episodeFiles: string[] = IIWA_FILES.map((file) => {
+    return getAbsoluteUrl(`data/iiwa/${file}`);
+  });
 
   // Function to handle the download
   const handleDownload = useCallback(async () => {
@@ -36,20 +30,25 @@ export const DownloadIiwaStats = () => {
     });
 
     const episodes: IiwaEpisode[] = await Promise.all(fetchPromises);
-    const goals = episodes.map((episode) => {
-      const MAX_X_ERROR = 0.05;
-      const MAX_Y_ERROR = 0.05;
-      const MAX_THETA_ERROR = 0.174533;
-
+    const stats = episodes.map((episode) => {
       const goal = {
         position: {
-          x: episode.goal.position.x + (Math.random() * 2 * MAX_X_ERROR - MAX_X_ERROR),
-          y: episode.goal.position.y + (Math.random() * 2 * MAX_Y_ERROR - MAX_Y_ERROR)
+          x: episode.goal.position.x,
+          y: episode.goal.position.y
         },
         rotation: {
-          theta:
-            episode.goal.rotation.theta +
-            (Math.random() * 2 * MAX_THETA_ERROR - MAX_THETA_ERROR)
+          theta: episode.goal.rotation.theta
+        }
+      };
+
+      const initialPoint = episode.points[0].cylinder;
+      const initialPose = {
+        position: {
+          x: initialPoint.position.x,
+          y: initialPoint.position.y
+        },
+        rotation: {
+          theta: initialPoint.rotation.theta
         }
       };
 
@@ -64,25 +63,15 @@ export const DownloadIiwaStats = () => {
         }
       };
 
-      const distanceError = Math.sqrt(
-        Math.pow(goal.position.x - finalPose.position.x, 2) +
-          Math.pow(goal.position.y - finalPose.position.y, 2)
-      );
-
-      const rotationError = (goal.rotation.theta - finalPose.rotation.theta) as number;
-
       return {
-        eposideId: episode.episodeId,
+        episodeId: episode.episodeId,
         goal: goal,
-        finalPose: finalPose,
-        error: {
-          position: distanceError,
-          rotation: rotationError
-        }
+        initialPose: initialPose,
+        finalPose: finalPose
       };
     });
 
-    const jsonString = JSON.stringify(goals, null, 2);
+    const jsonString = JSON.stringify(stats, null, 2);
     const blob = new Blob([jsonString], { type: "application/json" });
 
     // Create a URL for the Blob

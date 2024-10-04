@@ -31,13 +31,13 @@ export interface IiwaSceneState {
 }
 
 export interface IiwaEpisode {
-  episodeId: number;
+  episodeId: string;
   goal: CylinderState;
   points: IiwaSceneState[];
 }
 
 export interface IiwaEpisodeInfo {
-  episodeId: number;
+  episodeId: string;
   goal: {
     position: {
       x: number;

@@ -113,7 +113,7 @@ export const Player = <T,>({ sequence, onFrameChanged }: PlayerProps<T>) => {
           // Start the timer.
           intervalRef.current = setInterval(() => {
             setFrame((prev) => prev + 1);
-          }, 50);
+          }, 10);
         } else if (frame === sequence.length - 1) {
           setState(PlayerState.Completed);
         }

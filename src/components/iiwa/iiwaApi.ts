@@ -6,8 +6,8 @@ import { IiwaEpisode, IiwaStats } from "./IiwaSceneState";
  * @param id The file id.
  * @returns An IIWA episode.
  */
-export const fetchIiwaEpisode = async (id: number): Promise<IiwaEpisode> => {
-  const url = getAbsoluteUrl(`data/iiwa/episode_${id}.json`);
+export const fetchIiwaEpisode = async (id: string): Promise<IiwaEpisode> => {
+  const url = getAbsoluteUrl(`data/iiwa/${id}.json`);
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
