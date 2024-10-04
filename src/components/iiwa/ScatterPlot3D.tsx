@@ -199,7 +199,7 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
     return (
       <>
         {/* Radio Buttons */}
-        <div className="absolute top-4 left-4 z-10 bg-white bg-opacity-75 p-2 rounded shadow">
+        <div className="absolute top-3 left-4 z-10 bg-white bg-opacity-75 p-2 rounded shadow">
           <label className="mr-4 flex items-center">
             <input
               type="radio"
