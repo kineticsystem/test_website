@@ -10,7 +10,7 @@ export const DownloadIiwaEpisode = () => {
     // random data.
     // Goals, last pose and errors are group together in a single stats file.
 
-    const id = 9;
+    const id = "id";
 
     const episode = await fetchIiwaEpisode(id);
 
