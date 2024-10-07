@@ -1,11 +1,11 @@
 import { useCallback } from "react";
 import { IiwaEpisode } from "../iiwa/IiwaSceneState";
-import { IIWA_FILES } from "./iiwaFiles";
+import { IIWA_CLOSED_LOOP_SIM_FILES } from "./iiwaFiles";
 import { getAbsoluteUrl } from "../../http";
 
 export const DownloadIiwaStats = () => {
   // Load
-  const episodeFiles: string[] = IIWA_FILES.map((file) => {
+  const episodeFiles: string[] = IIWA_CLOSED_LOOP_SIM_FILES.map((file) => {
     return getAbsoluteUrl(`data/iiwa/${file}`);
   });
 
@@ -19,6 +19,7 @@ export const DownloadIiwaStats = () => {
 
     // Load and process all episodes.
     const fetchPromises: Promise<IiwaEpisode>[] = episodeFiles.map(async (file) => {
+      console.log(file);
       const response = await fetch(file);
       if (!response.ok) {
         throw new Error(

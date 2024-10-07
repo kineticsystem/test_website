@@ -7,7 +7,7 @@ import { IiwaEpisode, IiwaStats } from "./IiwaSceneState";
  * @returns An IIWA episode.
  */
 export const fetchIiwaEpisode = async (id: string): Promise<IiwaEpisode> => {
-  const url = getAbsoluteUrl(`data/iiwa/${id}.json`);
+  const url = getAbsoluteUrl(`data/iiwa/simulation/open_loop/${id}.json`);
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
@@ -21,7 +21,7 @@ export const fetchIiwaEpisode = async (id: string): Promise<IiwaEpisode> => {
  * @returns IIWA episodes stats.
  */
 export const fetchIiwaStats = async (): Promise<IiwaStats> => {
-  const url = getAbsoluteUrl(`data/iiwa/stats.json`);
+  const url = getAbsoluteUrl(`data/iiwa/simulation/open_loop/stats.json`);
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);

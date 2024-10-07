@@ -52,6 +52,10 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
 
   const [errorType, setErrorType] = useState<ErrorType>(ErrorType.Position);
 
+  /**
+   * Handles the change event for the error type selection.
+   * @param event - The change event triggered by the input element.
+   */
   const handleErrorTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedValue = event.target.value as ErrorType;
     setErrorType(selectedValue);
@@ -128,7 +132,7 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
         mode: "markers",
         type: "scatter3d",
         marker: {
-          size: 12,
+          size: 4,
           color: errors, // Use the error values for coloring.
           colorscale: "Viridis",
           cmin: minError, // Minimum of the error range.
