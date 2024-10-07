@@ -12,6 +12,19 @@ enum ErrorType {
   Rotation = "Rotation error"
 }
 
+// In the dataset, there are few datapoints with large errors. Coloring nodes
+// using the max error would push most points near the very dark side of the
+// spectrum. The plot would have a few bright points (outliers) and many dark
+// points.
+// Additionally, max errors for hardware and sim data are different. Coloring
+// nodes based on truncated error will make the color between different
+// datasets comparable.
+// Fo this reason we use a recommended rotation threshold of 0.4rad and a
+// translation threshold of 0.1m.
+
+const MAX_DISTANCE_ERROR = 0.1; // m
+const MAX_ROTATION_ERROR = 0.4; // rad
+
 /**
  * Props for the ScatterPlot3DComponent component.
  * @param onPointSelected A callback function invoked when the user clicks on
@@ -112,14 +125,14 @@ export const ScatterPlot3DComponent = ({ onPointSelected }: ScatterPlot3DProps) 
         )
       );
       minError = Math.min(...errors);
-      maxError = Math.max(...errors);
+      maxError = MAX_DISTANCE_ERROR;
     } else {
       // Calculate the rotation error between the goal and the final position.
       errors = stats.map((episode) =>
         Math.abs(episode.goal.rotation.theta - episode.finalPose.rotation.theta)
       );
       minError = Math.min(...errors);
-      maxError = Math.max(...errors);
+      maxError = MAX_ROTATION_ERROR;
     }
 
     // Prepare the plot data.
